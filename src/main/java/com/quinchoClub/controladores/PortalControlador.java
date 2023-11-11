@@ -18,5 +18,5 @@ public class PortalControlador {
      @GetMapping("/")
      public String vistaIndex(){
          return "index.html";
-     }
+     } 
 }
