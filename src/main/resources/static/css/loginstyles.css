@@ -1,33 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
 @font-face {
   font-family: 'Roboto';
-  src: url('fonts/Roboto-Black.ttf'),
-       url('fonts/Roboto-BlackItalic.ttf'),
-       url('fonts/Roboto-Bold.ttf'),
-       url('fonts/Roboto-BoldCondensed.ttf'),
-       url('fonts/Roboto-BoldCondensedItalic.ttf'),
-       url('fonts/Roboto-BoldItalic.ttf'),
-       url('fonts/Roboto-Condensed.ttf'),
-       url('fonts/Roboto-CondensedItalic.ttf'),
-       url('fonts/Roboto-Italic.ttf'),
-       url('fonts/Roboto-Light.ttf'),
-       url('fonts/Roboto-LightItalic.ttf'),
-       url('fonts/Roboto-Medium.ttf'),
-       url('fonts/Roboto-MediumItalic.ttf'),
-       url('fonts/Roboto-Regular.ttf'),
-       url('fonts/Roboto-Thin.ttf'),
-       url('fonts/Roboto-ThinItalic.ttf');
+  src: url('../fonts/Roboto-Black.ttf'),
+       url('../fonts/Roboto-BlackItalic.ttf'),
+       url('../fonts/Roboto-Bold.ttf'),
+       url('../fonts/Roboto-BoldCondensed.ttf'),
+       url('../fonts/Roboto-BoldCondensedItalic.ttf'),
+       url('../fonts/Roboto-BoldItalic.ttf'),
+       url('../fonts/Roboto-Condensed.ttf'),
+       url('../fonts/Roboto-CondensedItalic.ttf'),
+       url('../fonts/Roboto-Italic.ttf'),
+       url('../fonts/Roboto-Light.ttf'),
+       url('../fonts/Roboto-LightItalic.ttf'),
+       url('../fonts/Roboto-Medium.ttf'),
+       url('../fonts/Roboto-MediumItalic.ttf'),
+       url('../fonts/Roboto-Regular.ttf'),
+       url('../fonts/Roboto-Thin.ttf'),
+       url('../fonts/Roboto-ThinItalic.ttf');
 }
 
 @font-face {
   font-family: 'Batangas';
-  src: url('fonts/Batangas\ Bold\ 700.otf');
+  src: url('../fonts/Batangas\ Bold\ 700.otf');
 
 }
 
 @font-face {
   font-family: 'Florensa';
-  src: url('fonts/Florensa-Demo.ttf');
+  src: url('../fonts/Florensa-Demo.ttf');
 }
 
 

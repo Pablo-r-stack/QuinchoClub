@@ -1,40 +1,14 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Sitio Web</title>
-    <link rel="stylesheet" href="/QuinchoClub/src/main/resources/statik/styles.css">
+    
 </head>
 
 <body>
-    <nav>
-        <a href="/QuinchoClub/src/main/resources/templates/index.html">
-            <img src="/QuinchoClub/src/main/resources/img/QClogo.png" alt="Logo" class="logo">
-        </a>
-        <img src="/QuinchoClub/src/main/resources/img/QuinchoCLub.png.png" alt="QuinchoCLub" class="QuinchoCLub">
-        <div class="search-bar">
-            <input type="text" placeholder="   Buscar...">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-        </div>
-        <div>
-            <button class="boton1"> Quiero vender </button>
-        </div>
-        <div class="menu">
-            <div class="circle-container">
-                <span id="b" class="material-symbols-outlined"> menu </span>
-                <span id="a" class="material-symbols-outlined"> account_circle </span>
-            </div>
-            <div class="dropdown">
-                <a href="/QuinchoClub/src/main/resources/templates/index.html">Inicio</a>
-                <a href="/QuinchoClub/src/main/resources/templates/login.html">LogIn</a>
-                <a href="/QuinchoClub/src/main/resources/templates/contacts.html">Contacto</a>
-            </div>
-        </div>
-    </nav>
+    <nav th:replace="/fragments/navbar :: nav"></nav>
 
 </body>
 

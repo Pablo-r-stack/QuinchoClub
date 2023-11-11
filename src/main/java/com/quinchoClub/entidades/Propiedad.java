@@ -21,9 +21,5 @@ public class Propiedad {
     @Id
     private String id;
     private String tipo;
-    private String detalles;
-    
-    
-    
-     
+    private String detalles; 
 }

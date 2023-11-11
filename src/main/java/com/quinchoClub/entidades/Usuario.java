@@ -1,7 +1,8 @@
 
 package com.quinchoClub.entidades;
 
-import java.time.LocalDate;
+import com.quinchoClub.enumeraciones.Rol;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -31,18 +32,18 @@ public class Usuario {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    protected String id;
-    protected String nombre;
-    protected String apellido;
-    protected String email;
-    protected String password;
+    private String id;
+    private String nombre;
+    private String apellido;
+    private String email;
+    private String password;
+    private Integer dni;
 
-   // @Enumerated(EnumType.STRING)
-   // protected Rol rol;
-    protected Integer dni;
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
 
     @Temporal(TemporalType.DATE)
-    protected LocalDate fechadenacimiento;
-    protected Integer telefono;
+    private Date fechadenacimiento;
+    private Integer telefono;
 
 }

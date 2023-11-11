@@ -3,7 +3,6 @@ package com.quinchoClub.entidades;
 
 import java.time.LocalDate;
 
-import java.util.List;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +20,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Cliente extends Usuario {
-
-    private List<Propiedad> propiedades;
     private LocalDate calendario;
 
 }

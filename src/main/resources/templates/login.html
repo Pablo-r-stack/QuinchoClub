@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/QuinchoClub/src/main/resources/statik/loginstyles.css">
+    <link rel="stylesheet" type="text/css" href="/css/loginstyles.css">
 </head>
 
 <body>
     <header>
-      <a href="/QuinchoClub/src/main/resources/templates/index.html">
-        <img src="/QuinchoClub/src/main/resources/img/QClogo.png" alt="Logo" class="logo">
+      <a th:href="@{/}">
+        <img th:src="@{/img/QClogo.png}" alt="Logo" class="logo">
     </a>
     </header>
     <div class="center">
@@ -30,7 +30,7 @@
                 </div>
                <input type="submit" class="btn" value="SUBMIT">    </form>
     
-               <p> ¿Todavía no tienes una cuenta? <a href="register.html">Regístrate.</a></p>
+               <p> ¿Todavía no tienes una cuenta? <a th:href="@{/usuario/registrar}">Regístrate.</a></p>
             </div>
           </div>
     </div>
