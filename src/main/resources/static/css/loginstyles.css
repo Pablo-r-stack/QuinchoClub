@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Black.ttf'),
+       url('../fonts/Roboto-BlackItalic.ttf'),
+       url('../fonts/Roboto-Bold.ttf'),
+       url('../fonts/Roboto-BoldCondensed.ttf'),
+       url('../fonts/Roboto-BoldCondensedItalic.ttf'),
+       url('../fonts/Roboto-BoldItalic.ttf'),
+       url('../fonts/Roboto-Condensed.ttf'),
+       url('../fonts/Roboto-CondensedItalic.ttf'),
+       url('../fonts/Roboto-Italic.ttf'),
+       url('../fonts/Roboto-Light.ttf'),
+       url('../fonts/Roboto-LightItalic.ttf'),
+       url('../fonts/Roboto-Medium.ttf'),
+       url('../fonts/Roboto-MediumItalic.ttf'),
+       url('../fonts/Roboto-Regular.ttf'),
+       url('../fonts/Roboto-Thin.ttf'),
+       url('../fonts/Roboto-ThinItalic.ttf');
+}
+
+@font-face {
+  font-family: 'Batangas';
+  src: url('../fonts/Batangas\ Bold\ 700.otf');
+
+}
+
+@font-face {
+  font-family: 'Florensa';
+  src: url('../fonts/Florensa-Demo.ttf');
+}
+
+
+.logo {
+    width: 60px; /* Ajusta el ancho del logo según tus necesidades */
+    height: auto;
+    align-self: left;
+    right: 200px;
+    bottom: 430px;
+    cursor: pointer;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+#register {
+    width: 400px;
+    height: 550px;
+    border: 1px solid #ccc;
+    border-radius: 28px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 10px;
+    font-family: 'Roboto' , Roboto-Light;
+    
+  }
+
+  #login{
+    width: 400px;
+    height: 450px;
+    border: 1px solid #ccc;
+    border-radius: 28px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 10px;
+    font-family: 'Roboto' , Roboto-Light;
+  }
+  
+  .card-header {
+    width: 355px;
+    margin-bottom: 20px;
+    background-color: #88E6CE;
+    padding: 25px;
+    text-align: center;
+  }
+  
+  .card-header .text-header {
+    position: relative;
+    margin: 0;
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+    font-family: 'Batangas';
+    cursor: default;
+  }
+  
+  .card-body {
+    padding: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    margin-left: 5px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    color: #888888;
+    font-weight: bold;
+    margin-bottom: 1px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="password"] {
+    width: 90%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  
+  .btn {
+    padding: 12px 24px;
+    margin-left: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #888888;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer
+  }
+  
+  .btn:hover {
+    background-image: linear-gradient(to right, #88E6CE 0%, #8DE5F6 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+  }
+
+  p{
+    font-size: 15px;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 20px;
+    color: #888888;
+  }
+  a{
+    color: #5EE2A5;
+  }
+  

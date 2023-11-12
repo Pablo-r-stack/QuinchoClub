@@ -8,6 +8,7 @@ package com.quinchoClub.entidades;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Propietario extends Usuario {
-
+    @OneToMany
     private List<Propiedad> propiedades;
     private Calendar calendario;
 ;

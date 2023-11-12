@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+
+@font-face {
+  font-family: 'Roboto-Black';
+  src: url('../fonts/Roboto-Black.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-Light';
+  src: url('../fonts/Roboto-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Batangas';
+  src: url('../fonts/Batangas\ Bold\ 700.otf');
+
+}
+
+@font-face {
+  font-family: 'Florensa';
+  src: url('../fonts/Florensa-Demo.ttf');
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+  margin-right: 15px;
+  margin-left: 20px;
+}
+
+.QuinchoCLub {
+  width: 200px;
+  margin-right: 80px;
+}
+
+@media (min-width: 600px){
+  nav {
+    background-color: #D9D9D9;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.search-bar {
+  flex-grow: 3;
+  text-align: center;
+  margin-right: 300px;
+  position: relative;
+  display: flex;
+  align-items: right;
+}
+
+input[type="text"] {
+  width: calc(100% - 30px);
+  font-size: 15px;
+  padding: 8px;
+  color: #2A2B2A;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-family: 'Roboto-Light';
+  margin-left: 50px;
+}
+
+input[type="text"]:focus {
+  border-color: #5EE2A5;
+}
+
+.material-symbols-outlined {
+  position: relative;
+  right: 35px;
+  /* Ajusta la posición del ícono de lupa según sea necesario */
+  top: 5px;
+  color: #5EE2A5;
+  /* Ajusta el color del ícono según tus necesidades */
+  font-size: 25px;
+  /* Ajusta el tamaño del ícono según tus necesidades */
+  cursor: pointer;
+}
+
+.boton1 {
+  right: 180px;
+  width: 9em;
+  height: 3em;
+  border-radius: 30em;
+  font-size: 15px;
+  font-family: 'Roboto-Black';
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 6px 6px 12px #c5c5c5,
+    -6px -6px 12px #fff;
+  cursor: pointer;
+}
+
+.boton1::before {
+  content: '';
+  width: 0;
+  height: 3em;
+  border-radius: 30em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right, #88E6CE 0%, #8DE5F6 100%);
+  transition: .5s ease;
+  display: block;
+  z-index: -1;
+}
+
+.boton1:hover::before {
+  width: 9em;
+}
+
+#a {
+  margin-right: 30px;
+  font-size: 30px;
+  color: #888888;
+}
+#b{
+  color: #888888;
+}
+
+.menu {
+  margin-left: 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.circle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  /* Ajusta el tamaño del círculo según tus necesidades */
+  height: 40px;
+  /* Ajusta el tamaño del círculo según tus necesidades */
+  background-color: inherit;
+  /* Cambia el color del círculo según tus necesidades */
+  border-radius: 50%;
+  /* Hace que el contenedor sea circular */
+  right: 100px;
+}
+
+/* Estilo para el menú desplegable (puedes personalizar según tus necesidades) */
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-right: 30px;
+  right: 5px;
+  border-radius: 10px;
+  width: 200px;
+  height: 150px;
+
+}
+
+.dropdown a {
+  color: #2A2B2A;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  font-family: 'Roboto-Light';
+}
+
+.dropdown a:hover {
+  background-color: #88E6CE;
+  color: #fff;
+}
+
+.menu:hover .dropdown {
+  display: block;
+}

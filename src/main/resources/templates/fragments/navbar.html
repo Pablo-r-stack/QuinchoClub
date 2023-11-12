@@ -1,0 +1,27 @@
+<nav th:fragment="navbar">
+        <a th:href="@{/}">
+            <img th:src="@{/img/QClogo.png}" alt="Logo" class="logo">
+        </a>
+        <img th:src="@{/img/QuinchoCLub.png.png}" alt="QuinchoCLub" class="QuinchoCLub">
+        <div class="search-bar">
+            <input type="text" placeholder="   Buscar...">
+            <span class="material-symbols-outlined">
+                search
+            </span>
+        </div>
+        <div>
+            <button class="boton1"> Quiero vender </button>
+        </div>
+        <div class="menu">
+            <div class="circle-container">
+                <span id="b" class="material-symbols-outlined"> menu </span>
+                <span id="a" class="material-symbols-outlined"> account_circle </span>
+            </div>
+            <div class="dropdown">
+                <a th:href="@{/}">Inicio</a>
+                <a th:href="@{/usuario/login}">LogIn</a>
+                <a href="/QuinchoClub/src/main/resources/templates/contacts.html">Contacto</a>
+            </div>
+        </div>
+           <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    </nav>
