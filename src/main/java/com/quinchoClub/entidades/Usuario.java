@@ -1,10 +1,8 @@
 
 package com.quinchoClub.entidades;
 
-import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
@@ -36,13 +34,16 @@ public class Usuario {
     protected String apellido;
     protected String email;
     protected String password;
+    protected String password2;
 
    // @Enumerated(EnumType.STRING)
    // protected Rol rol;
     protected Integer dni;
 
     @Temporal(TemporalType.DATE)
-    protected LocalDate fechadenacimiento;
+    protected Date fechadenacimiento;
     protected Integer telefono;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    protected Date fechadealta;
 
 }
