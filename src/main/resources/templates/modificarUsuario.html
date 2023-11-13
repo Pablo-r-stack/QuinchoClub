@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
+        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
         <link rel="stylesheet" href="/css/loginstyles.css">
     </head>
     <body>
@@ -18,18 +22,19 @@
                     <div class="text-header">Register</div>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/usuario/registrar}" method="POST">
+                    <form th:action="@{/usuario/modificar/${usuario.id}}" method="POST">
+                        <input type="hidden" th:value="${usuario.id}" name="id">
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
-                            <input required="" class="form-control" name="nombre" id="nombre" type="text">
+                            <input required="" class="form-control" name="nombre" id="nombre" type="text" th:value="${usuario.nombre}">
                         </div>
                         <div class="form-group">
                             <label for="apellido">Apellido:</label>
-                            <input required="" class="form-control" name="apellido" id="apellido" type="text">
+                            <input required="" class="form-control" name="apellido" id="apellido" type="text"th:value="${usuario.apellido}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input required="" class="form-control" name="email" id="email" type="email">
+                            <input required="" class="form-control" name="email" id="email" type="email"th:value="${usuario.email}">
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
@@ -42,22 +47,20 @@
                         <!-- input dni (number) -->
                         <div class="form-group">
                             <label for="dni">Dni:</label>
-                            <input required="" class="form-control" name="dni" id="dni" type="number">
+                            <input required="" class="form-control" name="dni" id="dni" type="number" th:value="${usuario.dni}">
                         </div>
                         <!-- input fecha de nacimiento deberia ser input date -->
                         <div class="form-group">
                             <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
-                            <input required="" class="form-control" name="fechaDeNacimiento" id="fecha-nacimiento" type="date">
+                            <input required="" class="form-control" name="fechaDeNacimiento" id="fecha-nacimiento" type="date" th:value="${usuario.fechaDeNacimiento}">
                         </div>
                         <!-- input telefono (number) -->
                         <div class="form-group">
                             <label for="telefono">Telefono</label>
-                            <input required="" class="form-control" name="telefono" id="telefono" type="number">
+                            <input required="" class="form-control" name="telefono" id="telefono" type="number" th:value="${usuario.telefono}">
                         </div>
                         <input type="submit" class="btn" value="SUBMIT">    
                     </form>
-
-                    <p> ¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión.</a></p>
                 </div>
             </div>
         </div>

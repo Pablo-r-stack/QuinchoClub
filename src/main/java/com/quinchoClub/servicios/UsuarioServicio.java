@@ -6,7 +6,6 @@
 package com.quinchoClub.servicios;
 
 import com.quinchoClub.entidades.Usuario;
-import com.quinchoClub.enumeraciones.Rol;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.repositorios.UsuarioRepositorio;
 import java.util.Date;
@@ -27,39 +26,46 @@ public class UsuarioServicio {
     private UsuarioRepositorio ur;
 
     @Transactional
-    public void crearUsuario(String nombre, String apellido, String email, String password, String password2, Integer dni, Date fechadenacimiento, Integer telefono) throws MiException {
-        validar(nombre, apellido, email, password, password2, dni, fechadenacimiento, telefono);
-//        if(ur.buscarPorEmail(email) != null){
-//            throw new MiException("Ese email ya se encuentra registrado");
-//        }
-        Usuario usuario = new Usuario(nombre, apellido, email, email, password, dni, Rol.CLIENTE, fechadenacimiento, telefono);
+    public void crearUsuario(String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws MiException {
+        validar(nombre, apellido, email, password, password2, dni, FechaDeNacimiento, telefono);
+        if (ur.buscarporEmail(email) != null) {
+            throw new MiException("Ese email ya se encuentra registrado");
+        }
+        Usuario usuario = new Usuario();
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setEmail(email);
+        usuario.setPassword(password);
+        usuario.setDni(dni);
+        usuario.setFechaDeNacimiento(FechaDeNacimiento);
+        usuario.setTelefono(telefono);
         //        usuario.setPassword(new BCryptPasswordEncoder().encode(password));     
         ur.save(usuario);
     }
 
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date fechadenacimiento, Integer telefono, String rol) throws Exception {
+    @Transactional
+    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws Exception {
         Optional<Usuario> respuesta = ur.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);
+            usuario.setPassword(password);
 //            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             usuario.setDni(dni);
-            usuario.setFechadenacimiento(fechadenacimiento);
-            usuario.setTelefono(telefono);
+            usuario.setFechaDeNacimiento(FechaDeNacimiento);
             usuario.setRol(usuario.getRol());
+            usuario.setTelefono(telefono);
             ur.save(usuario);
         }
     }
 
     public List<Usuario> listarUsuarios() {
-
         return ur.findAll();
     }
 
-
-    private void validar(String nombre, String apellido, String email, String password, String password2, Integer dni, Date fechadenacimiento, Integer telefono) throws MiException {
+    private void validar(String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws MiException {
 
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El nombre no puede ser nulo");
@@ -79,7 +85,7 @@ public class UsuarioServicio {
         if (dni == null || dni.equals("")) {
             throw new MiException("El dni no puede ser nulo");
         }
-        if (fechadenacimiento == null || fechadenacimiento.equals("")) {
+        if (FechaDeNacimiento == null || FechaDeNacimiento.equals("")) {
             throw new MiException("La fecha de nacimiento no puede ser nulo");
         }
 
@@ -87,17 +93,21 @@ public class UsuarioServicio {
             throw new MiException("El telefono no puede ser nulo");
         }
     }
+
     public void borrarUsuario(String id) throws MiException {
-        if(id.isEmpty() || id.equals("")){
+        if (id.isEmpty() || id.equals("")) {
             throw new MiException("El id proporcionado es nulo");
-        }else {
+        } else {
             Optional<Usuario> respuesta = ur.findById(id);
-            if(respuesta.isPresent()){
-            Usuario usuario = respuesta.get();
-            ur.delete(usuario);
+            if (respuesta.isPresent()) {
+                Usuario usuario = respuesta.get();
+                ur.delete(usuario);
             }
         }
-      
+    }
+
+    public Usuario getOne(String id) {
+        return ur.getOne(id);
     }
 //   @Override
 //    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {  //autorizacin de seguridad para el usuario

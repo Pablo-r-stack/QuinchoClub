@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+        <h2>Lista de usuarios:</h2>
+        <table border="1" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>nombre</th>
+                    <th>apellido</th>
+                    <th>email</th>
+                    <th>dni</th>
+                    <th>rol</th>
+                    <th>fecha de Nacimiento</th>
+                    <th>telefono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${listaUsuarios}">
+                    <td th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${usuario.apellido}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.dni}"></td>
+                    <td th:text="${usuario.rol}"></td>
+                    <td th:text="${usuario.fechaDeNacimiento}"></td>
+                    <td th:text="${usuario.telefono}"></td>
+                    <td><form th:action="@{/usuario/eliminar/{id}(id=${usuario.id})}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit">Eliminar</button>
+                        </form>
+                       <a th:href="@{/usuario/modificar/{id}(id=${usuario.id})}">Modificar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>
