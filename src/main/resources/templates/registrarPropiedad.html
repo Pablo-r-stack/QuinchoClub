@@ -12,13 +12,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         <nav th:replace="/fragments/navbar :: nav"></nav>
         <h2>Registra una propiedad:</h2>
-        <form th:action="@{/propiedad/registrar}">
+        <form th:action="@{/propiedad/registrar}" method="POST">
             <div>
                 <label for="tipo">Tipo:</label>
-                <select id="tipo">
-                    <option name="tipo" value="casa">Casa</option>
-                    <option name="tipo" value="quinta">Quinta</option>
-                    <option name="tipo" value="salon de eventos">Salon de eventos</option>
+                <select id="tipo" name="tipo">
+                    <option value="casa">Casa</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="salon de eventos">Salon de eventos</option>
                 </select>
             </div>
             <div>
@@ -27,10 +27,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
             <div>
                 <label for="ubicacion">Ubicacion</label>
-                <select id="ubicacion">
-                    <option name="ubicacion" value="argentina">Argentina</option>
-                    <option name="ubicacion" value="chile">Chile</option>
-                    <option name="ubicacion" value="brasil">Brasil</option>
+                <select id="ubicacion" name="ubicacion">
+                    <option value="argentina">Argentina</option>
+                    <option value="chile">Chile</option>
+                    <option value="brasil">Brasil</option>
                 </select>
 
             </div>
@@ -40,23 +40,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
             <div>
                 <label for="disponibilidad">Disponibilidad</label>
-                <input id="disponibilidad"  type="date">
+                <input id="disponibilidad"  name="disponibilidad"  type="date">
             </div>
             <div>
                 <label>Servicios</label>
-                <label>wifi</label>
-                <input type="checkbox">
-                <label>Pileta</label>
-                <input type="checkbox">
-                <label>Parrilla</label>
-                <input type="checkbox">
-                <label>Accesorios</label>
-                <input type="checkbox">
-                <label>Cama</label>
-                <input type="checkbox">
-                <label>Aire acondicionado</label>
-                <input type="checkbox">
+                <label for="wifi">wifi</label>
+                <input id="wifi" name="wifi" type="checkbox">
+                <label for="pileta">Pileta</label>
+                <input id="pileta" name="pileta" type="checkbox">
+                <label for="parrilla">Parrilla</label>
+                <input id="parrilla" name="parrilla" type="checkbox">
+                <label for="accesorios">Accesorios</label>
+                <input id="accesorios" name="accesorios" type="checkbox">
+                <label for="cama">Cama</label>
+                <input id="cama" name="cama" type="checkbox">
+                <label for="aire">Aire acondicionado</label>
+                <input id="aire" name="aire" type="checkbox">
             </div>
+            <input type="submit" value="Registrar" name="Registrar" />
         </form>
     </body>
 </html>

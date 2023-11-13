@@ -31,20 +31,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr th:each="propiedad : ${propiedades}">
+                    <td th:text="${propiedad.id}"></td>
+                    <td th:text="${propiedad.tipo}"></td>
+                    <td th:text="${propiedad.detalles}"></td>
+                    <td th:text="${propiedad.ubicacion}"></td>
+                    <td th:text="${propiedad.tamanio}"></td>
+                    <td th:text="${propiedad.disponibilidad}"></td>
+                    <td th:text="${propiedad.wifi}"></td>
+                    <td th:text="${propiedad.pileta}"></td>
+                    <td th:text="${propiedad.parrilla}"></td>
+                    <td th:text="${propiedad.accesorios}"></td>
+                    <td th:text="${propiedad.cama}"></td>
+                    <td th:text="${propiedad.aire}"></td>
+                    <td><form th:action="@{/propiedad/eliminar/{id}(id=${propiedad.id})}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit">Eliminar</button>
+                        </form>
+                        <a href="url">Modificar</a></td>
                 </tr>
                 
             </tbody>
