@@ -4,11 +4,11 @@ const btnLeft = document.querySelector(".btn-left"),
       sliderSection = document.querySelectorAll(".slider-section");
 
 
-btnLeft.addEventListener("click", e => moveToLeft())
-btnRight.addEventListener("click", e => moveToRight())
+btnLeft.addEventListener("click", e => moveToLeft());
+btnRight.addEventListener("click", e => moveToRight());
 
  setInterval(() => {
-     moveToRight()
+     moveToRight();
  }, 3000);
 
 
@@ -27,19 +27,19 @@ function moveToRight() {
     cont++;
     ope = ope + widthImg;
     slider.style.transform = `translate(-${ope}%)`;
-    slider.style.transition = "all ease .7s" 
+    slider.style.transition = "all ease .7s" ;
 }  
 
 function moveToLeft() {
     cont--;
     if (cont < 0 ) {
         cont = sliderSection.length-1;
-        ope = widthImg * (sliderSection.length-1)
+        ope = widthImg * (sliderSection.length-1);
         slider.style.transform = `translate(-${ope}%)`;
         slider.style.transition = "none";
         return;
     } 
-    ope = operacion - widthImg;
+    ope = ope - widthImg;
     slider.style.transform = `translate(-${ope}%)`;
-    slider.style.transition = "all ease .7s"
+    slider.style.transition = "all ease .7s";
 } 
