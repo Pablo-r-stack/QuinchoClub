@@ -91,7 +91,7 @@ public class UsuarioControlador {
         try {
             usuarioServicio.borrarUsuario(id);
             System.out.println("Borrado con Exito");
-            return "redirect:/usuario/";
+            return "redirect:/usuario/lista";
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return "redirect:/usuario/lista";
