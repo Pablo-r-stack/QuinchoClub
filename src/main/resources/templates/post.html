@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!. -->
+        <!--        Estoy trabajando en esto :)
+                        porfavo NO TOCAR                        -->
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!. -->
+<body>
+    <header>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+    </header>
+    <div class="img">
+        <img th:src="">
+    </div>
+    <div class="calendar">
+        <h2>Próxima disponibilidad en . . .</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Domingo</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                    <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="semana : ${calendario}">
+                    <td th:each="dia : ${semana}" th:text="${dia}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div id="adress">
+
+    </div>
+    <div class="cualidades">
+        <!-- Acá van las cualidades como Pileta(si/no), cant dormitorios/baños, etc. -->
+    </div>
+    <div>
+        <h3>Descripción</h3>
+        <p>
+            Casa re linda bla bla.. matamos a alguien acá. :] te esperamos
+        </p>
+    </div>
+    <div class="vendedor">
+        <!-- Pablo Velasco, 6.4estrellas -->
+    </div>
+    <div>
+        <form action="/procesar-opinion" method="post">
+            <label for="opinion">Opinión:</label>
+            <textarea id="opinion" name="opinion" placeholder="Escribe tu opinión aquí..." required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <div class="Opiniones">
+        <!-- necesito la base de datos acá :) -->
+    </div>
+
+</body>
+
+</html>
