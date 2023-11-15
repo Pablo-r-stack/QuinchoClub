@@ -1,45 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/loginstyles.css">
-</head>
-<body>
-  <header>
-    <a th:href="@{/}">
-      <img th:src="@{/img/QClogo.png}" alt="Logo" class="logo">
-  </a>
-</header>
-    <div class="center">
-      <div class="card" id="register">
-        <div class="card-header">
-          <div class="text-header">Register</div>
-        </div>
-        <div class="card-body">
-          <form action="#">
-            <div class="form-group">
-              <label for="username">Username:</label>
-              <input required="" class="form-control" name="username" id="username" type="text">
-            </div>
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input required="" class="form-control" name="email" id="email" type="email">
-            </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
-              <input required="" class="form-control" name="password" id="password" type="password">
-            </div>
-            <div class="form-group">
-              <label for="confirm-password">Confirm Password:</label>
-              <input required="" class="form-control" name="confirm-password" id="confirm-password" type="password">
-            </div>
-           <input type="submit" class="btn" value="SUBMIT">    </form>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/loginstyles.css">
+    </head>
+    <body>
+        <header>
+            <a th:href="@{/}">
+                <img th:src="@{/img/QClogo.png}" alt="Logo" class="logo">
+            </a>
+        </header>
+        <div class="center">
+            <div class="card" id="register">
+                <div class="card-header">
+                    <div class="text-header">Register</div>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/usuario/registrar}" method="POST">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input required="" class="form-control" name="nombre" id="nombre" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input required="" class="form-control" name="apellido" id="apellido" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input required="" class="form-control" name="email" id="email" type="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input required="" class="form-control" name="password" id="password" type="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password:</label>
+                            <input required="" class="form-control" name="password2" id="confirm-password" type="password">
+                        </div>
+                        <!-- input dni (number) -->
+                        <div class="form-group">
+                            <label for="dni">Dni:</label>
+                            <input required="" class="form-control" name="dni" id="dni" type="number">
+                        </div>
+                        <!-- input fecha de nacimiento deberia ser input date -->
+                        <div class="form-group">
+                            <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+                            <input required="" class="form-control" name="fechaDeNacimiento" id="fecha-nacimiento" type="date">
+                        </div>
+                        <!-- input telefono (number) -->
+                        <div class="form-group">
+                            <label for="telefono">Telefono</label>
+                            <input required="" class="form-control" name="telefono" id="telefono" type="number">
+                        </div>
+                        <input type="submit" class="btn" value="SUBMIT">    
+                    </form>
 
-           <p> ¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión.</a></p>
+                    <p> ¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión.</a></p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-</body>
+    </body>
 </html>

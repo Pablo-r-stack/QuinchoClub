@@ -10,7 +10,9 @@
             </span>
         </div>
         <div>
+            <a th:href="@{/propiedad/registrar}">
             <button class="boton1"> Quiero vender </button>
+            </a>
         </div>
         <div class="menu">
             <div class="circle-container">
@@ -19,8 +21,12 @@
             </div>
             <div class="dropdown">
                 <a th:href="@{/}">Inicio</a>
+                <a th:href="@{/usuario/registrar}">Registro</a>
                 <a th:href="@{/usuario/login}">LogIn</a>
                 <a href="/QuinchoClub/src/main/resources/templates/contacts.html">Contacto</a>
+                <a th:href="@{/usuario/lista}">Ver Lista Usuarios</a>
+                <a th:href="@{/propiedad/lista}">Ver Lista Propiedades</a>
+                <a th:href="@{/propiedad/registrar}">Registrar Propiedad</a>
             </div>
         </div>
            <link rel="stylesheet" type="text/css" href="/css/styles.css">

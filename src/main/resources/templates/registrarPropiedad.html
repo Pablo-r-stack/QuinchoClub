@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Registra una Propiedad</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+        <h2>Registra una propiedad:</h2>
+        <form th:action="@{/propiedad/registrar}" method="POST">
+            <div>
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo">
+                    <option value="casa">Casa</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="salon de eventos">Salon de eventos</option>
+                </select>
+            </div>
+            <div>
+                <label for="detalles">detalles</label>
+                <textarea id="detalles" name="detalles" rows="5" cols="10"></textarea>
+            </div>
+            <div>
+                <label for="ubicacion">Ubicacion</label>
+                <select id="ubicacion" name="ubicacion">
+                    <option value="argentina">Argentina</option>
+                    <option value="chile">Chile</option>
+                    <option value="brasil">Brasil</option>
+                </select>
+
+            </div>
+            <div>
+                <label for="tamanio">Tamaño</label>
+                <input id="tamanio" name="tamanio" type="number">
+            </div>
+            <div>
+                <label for="disponibilidad">Disponibilidad</label>
+                <input id="disponibilidad"  name="disponibilidad"  type="date">
+            </div>
+            <div>
+                <label>Servicios</label>
+                <label for="wifi">wifi</label>
+                <input id="wifi" name="wifi" type="checkbox">
+                <label for="pileta">Pileta</label>
+                <input id="pileta" name="pileta" type="checkbox">
+                <label for="parrilla">Parrilla</label>
+                <input id="parrilla" name="parrilla" type="checkbox">
+                <label for="accesorios">Accesorios</label>
+                <input id="accesorios" name="accesorios" type="checkbox">
+                <label for="cama">Cama</label>
+                <input id="cama" name="cama" type="checkbox">
+                <label for="aire">Aire acondicionado</label>
+                <input id="aire" name="aire" type="checkbox">
+            </div>
+            <input type="submit" value="Registrar" name="Registrar" />
+        </form>
+    </body>
+</html>

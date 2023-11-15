@@ -43,7 +43,7 @@ public class Usuario {
     private Rol rol;
 
     @Temporal(TemporalType.DATE)
-    private Date fechadenacimiento;
+    private Date fechaDeNacimiento;
     private Integer telefono;
 
 }

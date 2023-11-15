@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Sitio Web</title>
-    
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/img/icon.png" type="image/png">
+        <title>QuinchoCLubApp</title>
+        <meta name="description" content="App de alquileres de verano">
+    </head>
 
-<body>
-    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <body>
+        <nav th:replace="/fragments/navbar :: nav"></nav>
 
-</body>
+        <section class="container">
+            <main class="container">
+                <article th:replace="/fragments/card :: card"></article>
+        </section>
+
+        <footer th:replace="/fragments/footer"></footer>
+    </body>
 
 </html>
