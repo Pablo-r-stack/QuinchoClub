@@ -12,6 +12,8 @@
         <div>
             <a th:href="@{/propiedad/registrar}">
             <button class="boton1"> Quiero vender </button>
+            <h2 th:if="${usuario!=null}" th:text="${usuario.nombre}"></h2>
+            <h2 th:if="${usuario!=null}" th:text="${session.usuariosession.nombre}"></h2>
             </a>
         </div>
         <div class="menu">
@@ -23,6 +25,7 @@
                 <a th:href="@{/}">Inicio</a>
                 <a th:href="@{/usuario/registrar}">Registro</a>
                 <a th:href="@{/usuario/login}">LogIn</a>
+                <a th:href="@{/usuario/login}">LogOut</a>
                 <a href="/QuinchoClub/src/main/resources/templates/contacts.html">Contacto</a>
                 <a th:href="@{/usuario/lista}">Ver Lista Usuarios</a>
                 <a th:href="@{/propiedad/lista}">Ver Lista Propiedades</a>
