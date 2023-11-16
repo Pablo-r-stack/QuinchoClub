@@ -63,6 +63,12 @@ public class PropiedadControlador {
             return "registrarPropiedad.html";
         }
     }
+    @GetMapping("/modificar/{id}")
+    public String modificarPropiedad(@PathVariable String id, ModelMap modelo){
+        Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
+        modelo.put("propiedad", propiedad);
+        return "modificarPropiedad.html";
+    }
     @PutMapping("/modificar")
     public String modificarPropiedad(@PathVariable String id){
         return null;

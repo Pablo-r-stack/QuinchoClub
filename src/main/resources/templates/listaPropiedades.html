@@ -48,7 +48,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <input type="hidden" name="_method" value="DELETE" />
                             <button type="submit">Eliminar</button>
                         </form>
-                        <a href="url">Modificar</a></td>
+                        <a th:href="@{/propiedad/modificar/{id}(id=${propiedad.id})}">Modificar</a></td>
                 </tr>
                 
             </tbody>
