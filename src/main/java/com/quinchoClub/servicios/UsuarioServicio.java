@@ -6,6 +6,7 @@
 package com.quinchoClub.servicios;
 
 import com.quinchoClub.entidades.Usuario;
+import com.quinchoClub.enumeraciones.Rol;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.repositorios.UsuarioRepositorio;
 import java.util.Date;
@@ -37,6 +38,7 @@ public class UsuarioServicio {
         usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setDni(dni);
+        usuario.setRol(Rol.CLIENTE);
         usuario.setFechaDeNacimiento(FechaDeNacimiento);
         usuario.setTelefono(telefono);
         //        usuario.setPassword(new BCryptPasswordEncoder().encode(password));     
@@ -44,9 +46,11 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws Exception {
+    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) {
+    try {
         Optional<Usuario> respuesta = ur.findById(id);
-        if (respuesta.isPresent()) {
+        System.out.println(respuesta);
+        if (respuesta.isPresent()) { 
             Usuario usuario = respuesta.get();
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
@@ -58,8 +62,15 @@ public class UsuarioServicio {
             usuario.setRol(usuario.getRol());
             usuario.setTelefono(telefono);
             ur.save(usuario);
+        } else {
+            throw new IllegalArgumentException("El usuario con el ID proporcionado no existe");
         }
+    } catch (IllegalArgumentException ex) {
+        System.out.println("Error al actualizar usuario: " + ex.getMessage());
+    } catch (Exception ex) {
+        System.out.println("Error general al actualizar usuario: " + ex.getMessage());
     }
+}
 
     public List<Usuario> listarUsuarios() {
         return ur.findAll();

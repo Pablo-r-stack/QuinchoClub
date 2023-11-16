@@ -9,6 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/loginstyles.css">
+
     </head>
     <body>
         <header>
@@ -22,9 +23,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="text-header">Register</div>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/usuario/modificar/${usuario.id}}" method="POST">
-                        <input type="hidden" th:value="${usuario.id}" name="id">
-                        <div class="form-group">
+                    <form th:action="@{/usuario/modificar/{id}(id=${usuario.id})}" method="POST">
+                    <div class="form-group">
                             <label for="nombre">Nombre:</label>
                             <input required="" class="form-control" name="nombre" id="nombre" type="text" th:value="${usuario.nombre}">
                         </div>
