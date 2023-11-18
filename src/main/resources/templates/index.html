@@ -10,8 +10,7 @@
 
     <body>
         <nav th:replace="/fragments/navbar :: nav"></nav>
-        <h2 th:if="${usuario!=null}" th:text="${usuario.nombre}"></h2>
-        <h2 th:if="${usuario!=null}" th:text="${session.usuariosession.nombre}"></h2>
+
         <section class="container">
             <main class="container">
                 <article th:replace="/fragments/card :: card"></article>

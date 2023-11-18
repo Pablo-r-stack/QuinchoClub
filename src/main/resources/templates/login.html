@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" type="text/css" href="/css/loginstyles.css">
+    </head>
+
+    <body>
+        <header>
+            <a th:href="@{/}">
+                <img th:src="@{/img/QClogo.png}" alt="Logo" class="logo">
+            </a>
+        </header>
+        <div class="center">
+            <div class="card" id="login">
+                <div class="card-header">
+                    <div class="text-header">LogIn</div>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/logincheck}" method="POST">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input  class="form-control" name="email" id="username" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input  class="form-control" name="password" id="password" type="password">
+                        </div>
+                        <input type="submit" class="btn" value="SUBMIT">
+                    </form>
+                    <p> ¿Todavía no tienes una cuenta? <a th:href="@{/usuario/registrar}">Regístrate.</a></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
