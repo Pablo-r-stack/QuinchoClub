@@ -56,8 +56,12 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
+<<<<<<< HEAD
     public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) {
     try {
+=======
+    public Usuario actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws Exception {
+>>>>>>> desarrolloLautaro
         Optional<Usuario> respuesta = ur.findById(id);
         System.out.println(respuesta);
         if (respuesta.isPresent()) { 
@@ -65,15 +69,20 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);
-            usuario.setPassword(password);
-//            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             usuario.setDni(dni);
             usuario.setFechaDeNacimiento(FechaDeNacimiento);
             usuario.setRol(usuario.getRol());
             usuario.setTelefono(telefono);
+<<<<<<< HEAD
             ur.save(usuario);
         } else {
             throw new IllegalArgumentException("El usuario con el ID proporcionado no existe");
+=======
+            return ur.save(usuario);
+        }else {
+            throw new Exception("Fallo al actualizar");
+>>>>>>> desarrolloLautaro
         }
     } catch (IllegalArgumentException ex) {
         System.out.println("Error al actualizar usuario: " + ex.getMessage());
@@ -130,6 +139,7 @@ public class UsuarioServicio implements UserDetailsService {
     public Usuario getOne(String id) {
         return ur.getOne(id);
     }
+<<<<<<< HEAD
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -147,4 +157,31 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+=======
+   @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {  //autorizacin de seguridad para el usuario
+        
+        Usuario usuario = ur.buscarporEmail(email);
+        if (usuario != null){
+           List<GrantedAuthority> permisos = new ArrayList<>();
+           
+           GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+           
+           permisos.add(p);
+           
+           ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+                   
+           HttpSession session = attr.getRequest().getSession(true);
+                   
+           session.setAttribute("usuariosession", usuario);
+           
+           return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+                              
+        }else{
+                throw new UsernameNotFoundException("Usuario invalido");
+        }
+    }
+
+   
+>>>>>>> d96dd1d5f7a8e2fdf9ea7e7fb7c400b7b3ecc5d8
 }
