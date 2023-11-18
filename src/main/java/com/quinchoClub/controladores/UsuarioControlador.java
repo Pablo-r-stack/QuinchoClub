@@ -54,7 +54,10 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/login")
-    public String loginUsuario() {
+    public String loginUsuario(@RequestParam(required = false) String error, ModelMap modelo) {
+        if(error != null){
+            modelo.put("error", "usuario o contraseña invalidos");
+        }
         return "login.html";
     }
 

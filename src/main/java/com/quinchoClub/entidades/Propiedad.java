@@ -3,9 +3,8 @@ package com.quinchoClub.entidades;
 
 import com.sun.istack.NotNull;
 import java.util.Date;
-import javax.persistence.GeneratedValue;
-import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Positive;
@@ -13,6 +12,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+
+
 
 /**
  *

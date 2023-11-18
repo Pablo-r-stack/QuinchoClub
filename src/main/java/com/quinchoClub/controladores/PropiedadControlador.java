@@ -27,22 +27,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/propiedad")
 public class PropiedadControlador {
+
     @Autowired
     private PropiedadServicio propiedadServicio;
+
     @GetMapping("/lista")
-    public String listarPropiedades(ModelMap modelo){
+    public String listarPropiedades(ModelMap modelo) {
         List<Propiedad> propiedades = propiedadServicio.obtenerTodasLasPropiedades();
         modelo.addAttribute("propiedades", propiedades);
         return "listaPropiedades.html";
     }
+
     @GetMapping("/registrar")
-    public String registrarPropiedad(){
+    public String registrarPropiedad() {
         return "registrarPropiedad.html";
     }
+
     @PostMapping("/registrar")
     public String cargarPropiedad(@RequestParam String tipo, @RequestParam String detalles,
             @RequestParam String ubicacion, @RequestParam Double tamanio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date disponibilidad,
-            @RequestParam boolean wifi, @RequestParam boolean pileta, @RequestParam boolean accesorios, @RequestParam boolean cama, @RequestParam boolean aire){
+            @RequestParam boolean wifi, @RequestParam boolean pileta, @RequestParam boolean accesorios, @RequestParam boolean cama, @RequestParam boolean aire) {
         Propiedad propiedad = new Propiedad();
         propiedad.setTipo(tipo);
         propiedad.setDetalles(detalles);
@@ -55,7 +59,7 @@ public class PropiedadControlador {
         propiedad.setCama(cama);
         propiedad.setAire(aire);
         try {
-        propiedadServicio.crearPropiedad(propiedad);
+            propiedadServicio.crearPropiedad(propiedad);
             System.out.println("Carga exitosa");
             return "redirect:/propiedad/lista";
         } catch (Exception ex) {
@@ -63,18 +67,21 @@ public class PropiedadControlador {
             return "registrarPropiedad.html";
         }
     }
+
     @GetMapping("/modificar/{id}")
-    public String modificarPropiedad(@PathVariable String id, ModelMap modelo){
+    public String modificarPropiedad(@PathVariable String id, ModelMap modelo) {
         Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
         modelo.put("propiedad", propiedad);
         return "modificarPropiedad.html";
     }
+
     @PutMapping("/modificar")
-    public String modificarPropiedad(@PathVariable String id){
+    public String modificarPropiedad(@PathVariable String id) {
         return null;
     }
+
     @PostMapping("/eliminar/{id}")
-    public String eliminarPropiedad(@PathVariable String id){
+    public String eliminarPropiedad(@PathVariable String id) {
         try {
             propiedadServicio.eliminarPropiedad(id);
             return "redirect:/propiedad/lista";

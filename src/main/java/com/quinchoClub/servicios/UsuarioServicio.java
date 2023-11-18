@@ -9,19 +9,30 @@ import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.enumeraciones.Rol;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.repositorios.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  *
  * @author lauta
  */
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio ur;
@@ -36,12 +47,11 @@ public class UsuarioServicio {
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setEmail(email);
-        usuario.setPassword(password);
         usuario.setDni(dni);
         usuario.setRol(Rol.CLIENTE);
         usuario.setFechaDeNacimiento(FechaDeNacimiento);
         usuario.setTelefono(telefono);
-        //        usuario.setPassword(new BCryptPasswordEncoder().encode(password));     
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));     
         ur.save(usuario);
     }
 
@@ -120,27 +130,21 @@ public class UsuarioServicio {
     public Usuario getOne(String id) {
         return ur.getOne(id);
     }
-//   @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {  //autorizacin de seguridad para el usuario
-//        
-//        Usuario usuario = ur.buscarPorEmail(email);
-//        if (usuario != null){
-//           List<GrantedAuthority> permisos = new ArrayList<>();
-//           
-//           GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRole().toString());
-//           
-//           permisos.add(p);
-//           
-//           ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-//                   
-//           HttpSession session = attr.getRequest().getSession(true);
-//                   
-//           session.setAttribute("usuariosession", usuario);
-//           
-//           return new User(usuario.getEmail(), usuario.getPassword(), permisos);
-//                              
-//        }else{
-//                throw new UsernameNotFoundException("Usuario invalido");
-//        }
-//    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Usuario usuario = ur.buscarporEmail(email);
+        if(usuario != null){
+            List<GrantedAuthority> permisos = new ArrayList();
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ usuario.getRol().toString());
+            permisos.add(p);
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usuariosession", usuario);
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+        }else{
+            throw new UsernameNotFoundException("Usuario Invalido");
+        }
+    }
+
 }
