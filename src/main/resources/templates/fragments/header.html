@@ -1,0 +1,40 @@
+<header th:fragment="header">
+    <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="logotipo de la app" class="logo"></a>
+    <div class="search-container">
+        <!-- COLOCAR RUTA DEL BUSCADOR -->
+        <form th:action="@{}" method="get" class="search-bar">
+            <input type="text" placeholder=" Encontrá tu lugar ideal..." name="buscador">
+                <button type="submit"> <img th:src="@{/img/lupa.png}" alt="buscador"></button>
+        </form>
+    </div>
+
+    <nav class="nav-bar menu-container">
+        <button class="btn-icon1" id="menuButton1"><svg xmlns="http://www.w3.org/2000/svg" height="1.25em"
+                                                        viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+            </svg></button>
+        <div class="line"></div>
+        <button class="btn-icon2" id="menuButton2"><svg xmlns="http://www.w3.org/2000/svg" height="1.25em"
+                                                        viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                    d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+            </svg></button>
+        <ul class="dropdown" id="menu1">
+            <li><a th:if="${session.usuariosession == null}" th:href="@{/usuario/registrar}">Registro</a></li>
+            <li><a th:if="${session.usuariosession == null}" th:href="@{/usuario/login}">LogIn</a></li>
+            <li><a th:if="${session.usuariosession != null}" th:text="${usuario.nombre}"></a></li>
+            <li><a th:if="${session.usuariosession != null}" th:href="@{/logout}">Cerrar Sesion</a></li>
+        </ul>
+        <ul class="dropdown" id="menu2">
+            <li><a th:href="@{/}">Inicio</a></li>
+            <li><a th:href="@{/}">Contacto</a></li> <!--FALTA LA RUTA A CONTACTO SI ES QUE SE USA, SINO ELIMINAR ENLACE-->
+            <li><a th:href="@{/usuario/lista}">Ver Lista Usuarios</a></li>
+            <li><a th:href="@{/propiedad/lista}">Ver Lista Propiedades</a></li>
+            <li><a th:href="@{/propiedad/registrar}">Registrar Propiedad</a></li>
+        </ul>
+    </nav>
+    <!--Links-->
+    <link rel="stylesheet" type="text/css" href="/src/main/resources/static/css/styles.css">
+</header>
+

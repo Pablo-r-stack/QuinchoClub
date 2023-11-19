@@ -1,58 +1,75 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
     <head>
-        <title>Lista de Propiedades</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <nav th:replace="/fragments/navbar :: nav"></nav>
-        <h2>Lista de Propiedades:</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Tipo</th>
-                    <th>Detalles</th>
-                    <th>Ubicación</th>
-                    <th>tamaño</th>
-                    <th>disponibilidad</th>
-                    <th>wifi</th>
-                    <th>pileta</th>
-                    <th>parrilla</th>
-                    <th>accesorios</th>
-                    <th>cama</th>
-                    <th>aire</th>
-                    <th>Acciones:</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="propiedad : ${propiedades}">
-                    <td th:text="${propiedad.id}"></td>
-                    <td th:text="${propiedad.tipo}"></td>
-                    <td th:text="${propiedad.detalles}"></td>
-                    <td th:text="${propiedad.ubicacion}"></td>
-                    <td th:text="${propiedad.tamanio}"></td>
-                    <td th:text="${propiedad.disponibilidad}"></td>
-                    <td th:text="${propiedad.wifi}"></td>
-                    <td th:text="${propiedad.pileta}"></td>
-                    <td th:text="${propiedad.parrilla}"></td>
-                    <td th:text="${propiedad.accesorios}"></td>
-                    <td th:text="${propiedad.cama}"></td>
-                    <td th:text="${propiedad.aire}"></td>
-                    <td><form th:action="@{/propiedad/eliminar/{id}(id=${propiedad.id})}" method="POST">
-                            <input type="hidden" name="_method" value="DELETE" />
-                            <button type="submit">Eliminar</button>
-                        </form>
-                        <a th:href="@{/propiedad/modificar/{id}(id=${propiedad.id})}">Modificar</a></td>
-                </tr>
-                
-            </tbody>
-        </table>
+        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+        <title>QuinchoCLubApp</title>
+        <meta name="description" content="App de alquileres de verano">
 
+        <!-- CSS -->
+        <link rel="stylesheet" href="/src/main/resources/static/css/styles.css">
+    </head>
+
+    <body>
+
+        <header th:replace="/fragments/header :: header"></header>
+
+        <main class="principal">
+            <div class="property-list-container">
+                <div class="property-list-container">
+                    <h2>Lista de propiedades:</h2>
+                    <table class="property-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tipo</th>
+                                <th>Detalles</th>
+                                <th>Ubicación</th>
+                                <th>tamaño</th>
+                                <th>disponibilidad</th>
+                                <th>wifi</th>
+                                <th>pileta</th>
+                                <th>parrilla</th>
+                                <th>accesorios</th>
+                                <th>cama</th>
+                                <th>aire</th>
+                                <th>Acciones:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="propiedad : ${propiedades}">
+                                <td th:text="${propiedad.id}"></td>
+                                <td th:text="${propiedad.tipo}"></td>
+                                <td th:text="${propiedad.detalles}"></td>
+                                <td th:text="${propiedad.ubicacion}"></td>
+                                <td th:text="${propiedad.tamanio}"></td>
+                                <td th:text="${propiedad.disponibilidad}"></td>
+                                <td th:text="${propiedad.wifi}"></td>
+                                <td th:text="${propiedad.pileta}"></td>
+                                <td th:text="${propiedad.parrilla}"></td>
+                                <td th:text="${propiedad.accesorios}"></td>
+                                <td th:text="${propiedad.cama}"></td>
+                                <td th:text="${propiedad.aire}"></td>
+                                <td class="td-special">
+                                    <form th:action="@{/propiedad/eliminar/{id}(id=${propiedad.id})}" method="POST">
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" class="btn-more">Eliminar</button>
+                                    </form>
+                                    <button type="submit" class="btn-more">
+                                        <a th:href="@{/usuario/modificar/{id}(id=${usuario.id})}">Modificar</a>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </main>
+
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+        <script src="/js/script.js"></script>
+        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
     </body>
 </html>
