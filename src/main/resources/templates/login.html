@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,7 @@
         <meta name="description" content="App de alquileres de verano">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="/src/main/resources/static/css/styles.css">
+        <link rel="stylesheet" href="/css/styles.css">
     </head>
 
     <body>
@@ -21,8 +20,8 @@
                 <p class="title-login">Login</p>
                 <form th:action="@{/logincheck}" method="POST" class="form">
                     <div class="input-group">
-                        <label for="username">Usuario</label>
-                        <input type="text" name="username" id="username" placeholder="Usuario">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" placeholder="Usuario">
                     </div>
                     <div class="input-group">
                         <label for="password">Contraseña</label>

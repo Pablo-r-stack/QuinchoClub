@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
     <head>
         <meta charset="UTF-8">
@@ -45,12 +45,12 @@
                         <input type="text" name="dni" id="dni" placeholder="DNI">
                     </div>
                     <div class="input-group">
-                        <label for="fecha-nacimiento">Fecha de Nacimiento</label>
-                        <input required="" type="date" name="fecha-nacimiento" id="fecha-nacimiento">
+                        <label for="fechaDeNacimiento">Fecha de Nacimiento</label>
+                        <input type="date" name="fechaDeNacimiento" id="fechaDeNacimiento">
                     </div>
                     <div class="input-group">
                         <label for="telefono">Número de Teléfono</label>
-                        <input required="" type="tel" name="telefono" id="telefono" placeholder="Número de telefono">
+                        <input type="num" name="telefono" id="telefono" placeholder="Número de telefono">
                     </div>
                     <button type="submit" class="sign register">Registrarse</button>
                 </form>
