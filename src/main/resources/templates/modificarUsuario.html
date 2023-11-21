@@ -8,7 +8,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
         <link rel="stylesheet" href="/css/loginstyles.css">
+=======
+        <link rel="stylesheet" href="/loginstyles.css">
+>>>>>>> gabi
 
     </head>
     <body>
@@ -45,6 +49,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <option  value="ADMIN" th:selected="${usuario.rol == 'ADMIN'}">ADMIN</option>
                     </select>
                 </div>
+<<<<<<< HEAD
                     <div class="input-group">
                         <label for="dni">DNI</label>
                         <input type="text" name="dni" id="dni" placeholder="DNI" th:value="${usuario.dni}">
@@ -63,6 +68,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="line-login"></div>
                     <p class="message">Regístrate con tus redes sociales</p>
                     <div class="line-login"></div>
+=======
+                <div class="card-body">
+                    <form th:action="@{/usuario/modificar/{id}(id=${usuario.id})}" method="POST">
+                    <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input required="" class="form-control" name="nombre" id="nombre" type="text" th:value="${usuario.nombre}">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input required="" class="form-control" name="apellido" id="apellido" type="text"th:value="${usuario.apellido}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input required="" class="form-control" name="email" id="email" type="email"th:value="${usuario.email}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input required="" class="form-control" name="password" id="password" type="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password:</label>
+                            <input required="" class="form-control" name="password2" id="confirm-password" type="password">
+                        </div>
+                        <!-- input dni (number) -->
+                        <div class="form-group">
+                            <label for="dni">Dni:</label>
+                            <input required="" class="form-control" name="dni" id="dni" type="number" th:value="${usuario.dni}">
+                        </div>
+                        <!-- input fecha de nacimiento deberia ser input date -->
+                        <div class="form-group">
+                            <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+                            <input required="" class="form-control" name="fechaDeNacimiento" id="fecha-nacimiento" type="date" th:value="${usuario.fechaDeNacimiento}">
+                        </div>
+                        <!-- input telefono (number) -->
+                        <div class="form-group">
+                            <label for="telefono">Telefono</label>
+                            <input required="" class="form-control" name="telefono" id="telefono" type="number" th:value="${usuario.telefono}">
+                        </div>
+                        <input type="submit" class="btn" value="SUBMIT">    
+                    </form>
+>>>>>>> gabi
                 </div>
                 <div class="social-icons">
                     <a th:href="@{#}" target="_blank" rel="noopener noreferrer">

@@ -62,7 +62,11 @@ public class UsuarioServicio implements UserDetailsService {
     }
     //esta funcion de actualizar solo debe ser accesible por el Administrador, puede cambiar todos los datos de un usuario EXCEPTO su contraseña.
     @Transactional
+<<<<<<< HEAD
     public void actualizar(String id, String nombre, String apellido, String email, String rol, Integer dni, Date FechaDeNacimiento, Integer telefono) {
+=======
+    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) {
+>>>>>>> gabi
     try {
         Optional<Usuario> respuesta = ur.findById(id);
         System.out.println(respuesta);
@@ -92,6 +96,29 @@ public class UsuarioServicio implements UserDetailsService {
         System.out.println("Error general al actualizar usuario: " + ex.getMessage());
     }
 }
+<<<<<<< HEAD
+=======
+//    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws Exception {
+//        Optional<Usuario> respuesta = ur.findById(id);
+//        System.out.println(respuesta);
+//        if (respuesta !=null) {
+//            
+//            System.out.println("entre");
+//            Usuario usuario = respuesta.get();
+//            usuario.setNombre(nombre);
+//            usuario.setApellido(apellido);
+//            usuario.setEmail(email);
+//            usuario.setPassword(password);
+////            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+//            usuario.setDni(dni);
+//            usuario.setFechaDeNacimiento(FechaDeNacimiento);
+//            usuario.setRol(usuario.getRol());
+//            usuario.setTelefono(telefono);
+//            ur.save(usuario);
+//            System.out.println("sali");
+//        }
+//    }
+>>>>>>> gabi
 
     public List<Usuario> listarUsuarios() {
         return ur.findAll();

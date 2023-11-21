@@ -10,7 +10,10 @@ import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
+=======
+>>>>>>> gabi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -85,7 +89,11 @@ public class UsuarioControlador {
     @PostMapping("/modificar/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modificarUsuario(@PathVariable String id, String nombre, String apellido, String email,
+<<<<<<< HEAD
             @RequestParam String rol, Integer dni,
+=======
+            @RequestParam String password,@RequestParam String password2, Integer dni,
+>>>>>>> gabi
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono,ModelMap modelo) {
         try {
             usuarioServicio.actualizar(id, nombre, apellido, email, rol, dni, fechaDeNacimiento, telefono);
