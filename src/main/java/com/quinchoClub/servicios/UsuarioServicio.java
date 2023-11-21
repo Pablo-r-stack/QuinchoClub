@@ -38,7 +38,7 @@ public class UsuarioServicio implements UserDetailsService {
     private UsuarioRepositorio ur;
 
     @Transactional
-    public void crearUsuario(String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws MiException {
+    public void crearUsuario(String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono, boolean propietario) throws MiException {
         validar(nombre, apellido, email, password, password2, dni, FechaDeNacimiento, telefono);
         if (ur.buscarporEmail(email) != null) {
             throw new MiException("Ese email ya se encuentra registrado");
@@ -48,15 +48,21 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setApellido(apellido);
         usuario.setEmail(email);
         usuario.setDni(dni);
-        usuario.setRol(Rol.CLIENTE);
         usuario.setFechaDeNacimiento(FechaDeNacimiento);
         usuario.setTelefono(telefono);
-        usuario.setPassword(new BCryptPasswordEncoder().encode(password));     
+        usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+        //se agrega validacion de rol para inicializar lista de propiedades.
+        if(propietario == true){
+            usuario.setRol(Rol.PROPIETARIO);
+            usuario.setPropiedades(new ArrayList());
+        }else{
+            usuario.setRol(Rol.CLIENTE);
+        }
         ur.save(usuario);
     }
-
+    //esta funcion de actualizar solo debe ser accesible por el Administrador, puede cambiar todos los datos de un usuario EXCEPTO su contraseña.
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) {
+    public void actualizar(String id, String nombre, String apellido, String email, String rol, Integer dni, Date FechaDeNacimiento, Integer telefono) {
     try {
         Optional<Usuario> respuesta = ur.findById(id);
         System.out.println(respuesta);
@@ -65,8 +71,13 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);
-            usuario.setPassword(password);
-//            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            if(rol.equals("ADMIN")){
+                usuario.setRol(Rol.ADMIN);
+            }else if(rol.equals("PROPIETARIO")){
+                usuario.setRol(Rol.PROPIETARIO);
+            }else{
+                usuario.setRol(Rol.CLIENTE);
+            }
             usuario.setDni(dni);
             usuario.setFechaDeNacimiento(FechaDeNacimiento);
             usuario.setRol(usuario.getRol());

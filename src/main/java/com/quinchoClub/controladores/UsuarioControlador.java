@@ -5,6 +5,7 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Usuario;
+import com.quinchoClub.enumeraciones.Rol;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.util.Date;
@@ -40,9 +41,9 @@ public class UsuarioControlador {
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, @RequestParam Integer dni, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento,
-            @RequestParam Integer telefono, ModelMap modelo) {
+            @RequestParam Integer telefono, @RequestParam(required = false) boolean propietario, ModelMap modelo) {
         try {
-            usuarioServicio.crearUsuario(nombre, apellido, email, password, password2, dni, fechaDeNacimiento, telefono);
+            usuarioServicio.crearUsuario(nombre, apellido, email, password, password2, dni, fechaDeNacimiento, telefono, propietario);
             return "redirect:/";
         } catch (MiException ex) {
             System.out.println(ex.getMessage());
@@ -74,17 +75,20 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/modificar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modificarUsuarioVista(@PathVariable String id, ModelMap modelo) {
+        //aca insertar lista de roles para modelar el select desde la vista.
         modelo.put("usuario", usuarioServicio.getOne(id));
         return "modificarUsuario.html";
     }
 
     @PostMapping("/modificar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modificarUsuario(@PathVariable String id, String nombre, String apellido, String email,
-            @RequestParam String password, @RequestParam String password2, Integer dni,
+            @RequestParam String rol, Integer dni,
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono,ModelMap modelo) {
         try {
-            usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, dni, fechaDeNacimiento, telefono);
+            usuarioServicio.actualizar(id, nombre, apellido, email, rol, dni, fechaDeNacimiento, telefono);
             System.out.println("Actualizado con exito");
             return "redirect:../lista";
         } catch (Exception ex) {
