@@ -9,10 +9,10 @@ import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,7 +62,12 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/lista")
-    public String listarUsuarios(ModelMap modelo) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String listarUsuarios(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if(usuario != null){
+             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
         List<Usuario> listaUsuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("listaUsuarios", listaUsuarios);
         return "listaUsuarios.html";

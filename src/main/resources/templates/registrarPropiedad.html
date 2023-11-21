@@ -22,10 +22,10 @@
             <form th:action="@{/propiedad/registrar}" method="POST" class="form">
                 <div class="input-group">
                     <label for="tipo">Tipo:</label>
-                    <select id="tipo">
-                        <option name="tipo" value="casa">Casa</option>
-                        <option name="tipo" value="quinta">Quinta</option>
-                        <option name="tipo" value="salon-de-eventos">Salon de eventos</option>
+                    <select id="tipo" name="tipo">
+                        <option value="casa">Casa</option>
+                        <option value="quinta">Quinta</option>
+                        <option value="salon-de-eventos">Salon de eventos</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -34,10 +34,10 @@
                 </div>
                 <div class="input-group">
                     <label for="ubicacion">Ubicación:</label>
-                    <select id="ubicacion">
-                        <option name="ubicacion" value="argentina">Argentina</option>
-                        <option name="ubicacion" value="chile">Chile</option>
-                        <option name="ubicacion" value="brasil">Brasil</option>
+                    <select id="ubicacion" name="ubicacion" >
+                        <option value="argentina">Argentina</option>
+                        <option value="chile">Chile</option>
+                        <option value="brasil">Brasil</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -46,33 +46,33 @@
                 </div>
                 <div class="input-group">
                     <label for="disponibilidad">Disponibilidad:</label>
-                    <input id="disponibilidad" type="date">
+                    <input id="disponibilidad" name="disponibilidad" type="date">
                 </div>
                 <div class="input-group">
                     <label>Servicios:</label>
                     <div class="checkbox-group">
                         <label for="wifi">Wifi</label>
-                        <input id="wifi" type="checkbox">
+                        <input id="wifi" name="wifi" type="checkbox">
                     </div>
                     <div class="checkbox-group">
                         <label for="pileta">Pileta</label>
-                        <input id="pileta" type="checkbox">
+                        <input id="pileta" name="pileta" type="checkbox">
                     </div>
                     <div class="checkbox-group">
                         <label for="parrilla">Parrilla</label>
-                        <input id="parrilla" type="checkbox">
+                        <input id="parrilla" name="parrilla" type="checkbox">
                     </div>
                     <div class="checkbox-group">
                         <label for="accesorios">Accesorios</label>
-                        <input id="accesorios" type="checkbox">
+                        <input id="accesorios" name="accesorios" type="checkbox">
                     </div>
                     <div class="checkbox-group">
                         <label for="cama">Cama</label>
-                        <input id="cama" type="checkbox">
+                        <input id="cama" name="cama" type="checkbox">
                     </div>
                     <div class="checkbox-group">
                         <label for="aire-acondicionado">Aire acondicionado</label>
-                        <input id="aire-acondicionado" type="checkbox">
+                        <input id="aire-acondicionado" name="aire" type="checkbox">
                     </div>
                 </div>
                 <button class="sign save">Guardar</button>

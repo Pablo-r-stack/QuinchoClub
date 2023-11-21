@@ -10,54 +10,75 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <nav th:replace="/fragments/navbar :: nav"></nav>
-        <h2>Registra una propiedad:</h2>
-        <form th:action="@{/usuario/modificar/{id}(id=${propiedad.id})}" method="POST">
-            <div>
-                <label for="tipo">Tipo:</label>
-                <select id="tipo" name="tipo">
-                    <option value="casa">Casa</option>
-                    <option value="quinta">Quinta</option>
-                    <option value="salon de eventos">Salon de eventos</option>
-                </select>
+        <header th:replace="/fragments/header :: header"></header>
+        <main class="principal">
+            <div class="form-container">
+                <p class="title-login">Datos de tu propiedad</p>
+                <form th:action="@{/propiedad/modificar/{id}(id=${propiedad.id})}" method="POST">
+                    <div class="input-group">
+                        <label for="tipo">Tipo:</label>
+                        <select id="tipo" name="tipo">
+                            <option value="casa" th:selected="${propiedad.tipo == 'casa'}">Casa</option>
+                            <option value="quinta" th:selected="${propiedad.tipo == 'quinta'}">Quinta</option>
+                            <option value="salon-de-eventos" th:selected="${propiedad.tipo == 'salon-de-eventos'}">Salon de eventos</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="detalles">Detalles:</label>
+                        <textarea class="textarea" id="detalles" name="detalles" rows="5" cols="10" th:text="${propiedad.detalles}"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="ubicacion">Ubicación:</label>
+                        <select id="ubicacion" name="ubicacion" th:value="${propiedad.ubicacion}">
+                            <option value="argentina"  th:selected="${propiedad.ubicacion == 'argentina'}">Argentina</option>
+                            <option value="chile" th:selected="${propiedad.ubicacion == 'chile'}">Chile</option>
+                            <option value="brasil" th:selected="${propiedad.ubicacion == 'brasil'}">Brasil</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="tamanio">Tamaño:</label>
+                        <input id="tamanio" name="tamanio" type="number" th:value="${propiedad.tamanio}">
+                    </div>
+                    <div class="input-group">
+                        <label for="disponibilidad">Disponibilidad:</label>
+                        <input id="disponibilidad" name="disponibilidad" type="date" th:value="${propiedad.disponibilidad}">
+                    </div>
+                    <div class="input-group">
+                        <label>Servicios:</label>
+                        <div class="checkbox-group">
+                            <label for="wifi">Wifi</label>
+                            <input id="wifi" name="wifi" type="checkbox" th:checked="${propiedad.wifi}">
+                        </div>
+                        <div class="checkbox-group">
+                            <label for="pileta">Pileta</label>
+                            <input id="pileta" name="pileta" type="checkbox" th:checked="${propiedad.pileta}">
+                        </div>
+                        <div class="checkbox-group">
+                            <label for="parrilla">Parrilla</label>
+                            <input id="parrilla" name="parrilla" type="checkbox" th:checked="${propiedad.parrilla}">
+                        </div>
+                        <div class="checkbox-group">
+                            <label for="accesorios">Accesorios</label>
+                            <input id="accesorios" name="accesorios" type="checkbox" th:checked="${propiedad.accesorios}">
+                        </div>
+                        <div class="checkbox-group">
+                            <label for="cama">Cama</label>
+                            <input id="cama" name="cama" type="checkbox" th:checked="${propiedad.cama}">
+                        </div>
+                        <div class="checkbox-group">
+                            <label for="aire-acondicionado">Aire acondicionado</label>
+                            <input id="aire-acondicionado" name="aire" type="checkbox" th:checked="${propiedad.aire}">
+                        </div>
+                    </div>
+                    <button class="sign save">Guardar</button>
+                </form>
+                <!-- <p class="signup">¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión</a></p> -->
             </div>
-            <div>
-                <label for="detalles">detalles</label>
-                <textarea id="detalles" name="detalles" rows="5" cols="10" th:value="${propiedad.detalles}"></textarea>
-            </div>
-            <div>
-                <label for="ubicacion">Ubicacion</label>
-                <select id="ubicacion" name="ubicacion">
-                    <option value="argentina">Argentina</option>
-                    <option value="chile">Chile</option>
-                    <option value="brasil">Brasil</option>
-                </select>
+        </main>
 
-            </div>
-            <div>
-                <label for="tamanio">Tamaño</label>
-                <input id="tamanio" name="tamanio" type="number">
-            </div>
-            <div>
-                <label for="disponibilidad">Disponibilidad</label>
-                <input id="disponibilidad"  name="disponibilidad"  type="date">
-            </div>
-            <div>
-                <label>Servicios</label>
-                <label for="wifi">wifi</label>
-                <input id="wifi" name="wifi" type="checkbox">
-                <label for="pileta">Pileta</label>
-                <input id="pileta" name="pileta" type="checkbox">
-                <label for="parrilla">Parrilla</label>
-                <input id="parrilla" name="parrilla" type="checkbox">
-                <label for="accesorios">Accesorios</label>
-                <input id="accesorios" name="accesorios" type="checkbox">
-                <label for="cama">Cama</label>
-                <input id="cama" name="cama" type="checkbox">
-                <label for="aire">Aire acondicionado</label>
-                <input id="aire" name="aire" type="checkbox">
-            </div>
-            <input type="submit" value="Registrar" name="Registrar" />
-        </form>
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+        <script src="/js/script.js"></script>
+        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
     </body>
 </html>

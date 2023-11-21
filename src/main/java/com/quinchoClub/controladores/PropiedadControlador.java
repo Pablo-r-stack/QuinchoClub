@@ -5,14 +5,16 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Propiedad;
+import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.servicios.PropiedadServicio;
+import com.quinchoClub.servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,17 +31,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PropiedadControlador {
 
     @Autowired
+    private UsuarioServicio usuarioServicio;
+    @Autowired
     private PropiedadServicio propiedadServicio;
 
     @GetMapping("/lista")
-    public String listarPropiedades(ModelMap modelo) {
+    public String listarPropiedades(ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
         List<Propiedad> propiedades = propiedadServicio.obtenerTodasLasPropiedades();
         modelo.addAttribute("propiedades", propiedades);
         return "listaPropiedades.html";
     }
 
     @GetMapping("/registrar")
-    public String registrarPropiedad() {
+    public String registrarPropiedad(ModelMap modelo, HttpSession session) {
+         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
         return "registrarPropiedad.html";
     }
 
@@ -69,13 +81,17 @@ public class PropiedadControlador {
     }
 
     @GetMapping("/modificar/{id}")
-    public String modificarPropiedad(@PathVariable String id, ModelMap modelo) {
+    public String modificarPropiedad(@PathVariable String id, ModelMap modelo, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
         Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
         modelo.put("propiedad", propiedad);
         return "modificarPropiedad.html";
     }
 
-    @PutMapping("/modificar")
+    @PostMapping("/modificar/{id}")
     public String modificarPropiedad(@PathVariable String id) {
         return null;
     }
