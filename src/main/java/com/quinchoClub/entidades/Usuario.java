@@ -17,11 +17,6 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 
-
-/**
- *
- * @author Tincho
- */
 @Entity
 @Data
 @AllArgsConstructor
