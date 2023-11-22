@@ -55,7 +55,11 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/login")
-    public String loginUsuario(@RequestParam(required = false) String error, ModelMap modelo) {
+    public String loginUsuario(@RequestParam(required = false) String error,HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if(usuario != null){
+             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
         if(error != null){
             modelo.put("error", "usuario o contraseña invalidos");
         }
