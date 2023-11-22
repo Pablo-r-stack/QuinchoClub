@@ -10,10 +10,7 @@ import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.util.Date;
 import java.util.List;
-<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
-=======
->>>>>>> gabi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -60,7 +57,7 @@ public class UsuarioControlador {
 
     @GetMapping("/login")
     public String loginUsuario(@RequestParam(required = false) String error, ModelMap modelo) {
-        if(error != null){
+        if (error != null) {
             modelo.put("error", "usuario o contraseña invalidos");
         }
         return "login.html";
@@ -70,8 +67,8 @@ public class UsuarioControlador {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String listarUsuarios(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if(usuario != null){
-             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
         List<Usuario> listaUsuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("listaUsuarios", listaUsuarios);
@@ -89,12 +86,8 @@ public class UsuarioControlador {
     @PostMapping("/modificar/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modificarUsuario(@PathVariable String id, String nombre, String apellido, String email,
-<<<<<<< HEAD
             @RequestParam String rol, Integer dni,
-=======
-            @RequestParam String password,@RequestParam String password2, Integer dni,
->>>>>>> gabi
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono,ModelMap modelo) {
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono, ModelMap modelo) {
         try {
             usuarioServicio.actualizar(id, nombre, apellido, email, rol, dni, fechaDeNacimiento, telefono);
             System.out.println("Actualizado con exito");

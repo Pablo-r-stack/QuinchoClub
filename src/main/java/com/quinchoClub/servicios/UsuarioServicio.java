@@ -52,52 +52,48 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setTelefono(telefono);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         //se agrega validacion de rol para inicializar lista de propiedades.
-        if(propietario == true){
+        if (propietario == true) {
             usuario.setRol(Rol.PROPIETARIO);
             usuario.setPropiedades(new ArrayList());
-        }else{
+        } else {
             usuario.setRol(Rol.CLIENTE);
         }
         ur.save(usuario);
     }
+
     //esta funcion de actualizar solo debe ser accesible por el Administrador, puede cambiar todos los datos de un usuario EXCEPTO su contraseña.
     @Transactional
-<<<<<<< HEAD
     public void actualizar(String id, String nombre, String apellido, String email, String rol, Integer dni, Date FechaDeNacimiento, Integer telefono) {
-=======
-    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) {
->>>>>>> gabi
-    try {
-        Optional<Usuario> respuesta = ur.findById(id);
-        System.out.println(respuesta);
-        if (respuesta.isPresent()) { 
-            Usuario usuario = respuesta.get();
-            usuario.setNombre(nombre);
-            usuario.setApellido(apellido);
-            usuario.setEmail(email);
-            if(rol.equals("ADMIN")){
-                usuario.setRol(Rol.ADMIN);
-            }else if(rol.equals("PROPIETARIO")){
-                usuario.setRol(Rol.PROPIETARIO);
-            }else{
-                usuario.setRol(Rol.CLIENTE);
+        try {
+            Optional<Usuario> respuesta = ur.findById(id);
+            System.out.println(respuesta);
+            if (respuesta.isPresent()) {
+                Usuario usuario = respuesta.get();
+                usuario.setNombre(nombre);
+                usuario.setApellido(apellido);
+                usuario.setEmail(email);
+                if (rol.equals("ADMIN")) {
+                    usuario.setRol(Rol.ADMIN);
+                } else if (rol.equals("PROPIETARIO")) {
+                    usuario.setRol(Rol.PROPIETARIO);
+                } else {
+                    usuario.setRol(Rol.CLIENTE);
+                }
+                usuario.setDni(dni);
+                usuario.setFechaDeNacimiento(FechaDeNacimiento);
+                usuario.setRol(usuario.getRol());
+                usuario.setTelefono(telefono);
+                ur.save(usuario);
+            } else {
+                throw new IllegalArgumentException("El usuario con el ID proporcionado no existe");
             }
-            usuario.setDni(dni);
-            usuario.setFechaDeNacimiento(FechaDeNacimiento);
-            usuario.setRol(usuario.getRol());
-            usuario.setTelefono(telefono);
-            ur.save(usuario);
-        } else {
-            throw new IllegalArgumentException("El usuario con el ID proporcionado no existe");
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Error al actualizar usuario: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("Error general al actualizar usuario: " + ex.getMessage());
         }
-    } catch (IllegalArgumentException ex) {
-        System.out.println("Error al actualizar usuario: " + ex.getMessage());
-    } catch (Exception ex) {
-        System.out.println("Error general al actualizar usuario: " + ex.getMessage());
     }
-}
-<<<<<<< HEAD
-=======
+    
 //    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws Exception {
 //        Optional<Usuario> respuesta = ur.findById(id);
 //        System.out.println(respuesta);
@@ -118,7 +114,6 @@ public class UsuarioServicio implements UserDetailsService {
 //            System.out.println("sali");
 //        }
 //    }
->>>>>>> gabi
 
     public List<Usuario> listarUsuarios() {
         return ur.findAll();
@@ -172,15 +167,15 @@ public class UsuarioServicio implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = ur.buscarporEmail(email);
-        if(usuario != null){
+        if (usuario != null) {
             List<GrantedAuthority> permisos = new ArrayList();
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_"+ usuario.getRol().toString());
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
             permisos.add(p);
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attr.getRequest().getSession(true);
             session.setAttribute("usuariosession", usuario);
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
-        }else{
+        } else {
             throw new UsernameNotFoundException("Usuario Invalido");
         }
     }

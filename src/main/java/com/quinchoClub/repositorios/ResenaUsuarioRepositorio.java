@@ -1,7 +1,6 @@
 package com.quinchoClub.repositorios;
 
 import com.quinchoClub.entidades.ResenaUsuario;
-import com.quinchoClub.entidades.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
