@@ -5,7 +5,6 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Usuario;
-import com.quinchoClub.enumeraciones.Rol;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.util.Date;
@@ -19,7 +18,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -56,17 +54,12 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/login")
-<<<<<<< HEAD
     public String loginUsuario(@RequestParam(required = false) String error,HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if(usuario != null){
              modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
         if(error != null){
-=======
-    public String loginUsuario(@RequestParam(required = false) String error, ModelMap modelo) {
-        if (error != null) {
->>>>>>> 1e8d1e7228544c72d3909c52652fd0b75dd70419
             modelo.put("error", "usuario o contraseña invalidos");
         }
         return "login.html";

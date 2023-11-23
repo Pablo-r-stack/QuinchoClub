@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 
-public abstract class ResenaUsuario extends Resena {
+public class ResenaUsuario extends Resena {
 
     @ManyToMany
     private List<Resena> usuario;
