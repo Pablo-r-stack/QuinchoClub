@@ -48,7 +48,7 @@ public class PropiedadControlador {
 
     @GetMapping("/registrar")
     public String registrarPropiedad(ModelMap modelo, HttpSession session) {
-         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
@@ -105,5 +105,17 @@ public class PropiedadControlador {
             System.out.println(ex.getMessage());
             return "redirect:/propiedad/lista";
         }
+    }
+
+    @GetMapping("/publicacion/{id}")
+    public String saberMasVista(@PathVariable String id, ModelMap modelo, HttpSession session) {
+
+        //aca insertar lista de roles para modelar el select desde la vista.
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        modelo.put("propiedad", propiedadServicio.obtenerPropiedadPorId(id));
+        return "post.html";
     }
 }
