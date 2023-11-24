@@ -5,7 +5,6 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Usuario;
-import com.quinchoClub.enumeraciones.Rol;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.util.Date;
@@ -55,7 +54,11 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/login")
-    public String loginUsuario(@RequestParam(required = false) String error, ModelMap modelo) {
+    public String loginUsuario(@RequestParam(required = false) String error,HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if(usuario != null){
+             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
         if(error != null){
             modelo.put("error", "usuario o contraseña invalidos");
         }
@@ -66,8 +69,8 @@ public class UsuarioControlador {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String listarUsuarios(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if(usuario != null){
-             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
         List<Usuario> listaUsuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("listaUsuarios", listaUsuarios);
@@ -86,7 +89,7 @@ public class UsuarioControlador {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modificarUsuario(@PathVariable String id, String nombre, String apellido, String email,
             @RequestParam String rol, Integer dni,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono,ModelMap modelo) {
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono, ModelMap modelo) {
         try {
             usuarioServicio.actualizar(id, nombre, apellido, email, rol, dni, fechaDeNacimiento, telefono);
             System.out.println("Actualizado con exito");
