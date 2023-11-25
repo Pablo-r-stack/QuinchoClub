@@ -13,8 +13,31 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-
 public class ResenaPropiedad extends Resena{
     @ManyToMany
     private List<Resena> propiedad;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
