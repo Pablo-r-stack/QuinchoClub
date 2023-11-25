@@ -9,14 +9,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/loginstyles.css">
-
     </head>
     <body>
         <header th:replace="/fragments/header :: header"></header>
         <main class="principal">
             <div class="form-container">
                 <h2 class="title-login">Modificar Usuario:</h2>
-                <form th:action="@{/usuario/modificar/{id}(id=${usuario.id})}" method="POST">
+                <form th:action="@{/usuario/modificar/{id}(id=${usuario.id})}" method="POST"> 
                     <div class="input-group">
                         <label for="nombre">Nombre</label>
                         <input type="text" name="nombre" id="nombre" placeholder="Nombre" th:value="${usuario.nombre}">
