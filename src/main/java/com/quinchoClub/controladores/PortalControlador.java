@@ -33,8 +33,8 @@ public class PortalControlador {
          if(usuario != null){
              modelo.put("usuario", us.getOne(usuario.getId()));
          }
-         List<Propiedad> propiedades= ps.obtenerTodasLasPropiedades();
-         modelo.addAttribute("propiedades", propiedades);
+         List<Propiedad> propiedades = ps.obtenerTodasLasPropiedades();
+         modelo.addAttribute("propiedades",propiedades);
          return "index.html";
      } 
 }

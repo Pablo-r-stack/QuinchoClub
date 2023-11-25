@@ -32,7 +32,7 @@
             <li><a th:href="@{/}">Contacto</a></li> <!--FALTA LA RUTA A CONTACTO SI ES QUE SE USA, SINO ELIMINAR ENLACE-->
             <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/usuario/lista}">Ver Lista Usuarios</a></li>
             <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/propiedad/lista}">Ver Lista Propiedades</a></li>
-            <li><a sec:authorize="hasRole('PROPIETARIO')" th:href="@{/propiedad/registrar}">Registrar Propiedad</a></li>
+            <li><a sec:authorize="hasRole('PROPIETARIO')" th:href="@{/usuario/propiedades}">ver propiedades:</a></li>
         </ul>
     </nav>
 

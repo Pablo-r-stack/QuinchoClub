@@ -3,9 +3,14 @@ package com.quinchoClub.entidades;
 
 import com.sun.istack.NotNull;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -48,6 +53,11 @@ public class Propiedad {
     private boolean accesorios;
     private boolean cama;
     private boolean aire;
+    
+    @ElementCollection
+    @CollectionTable(name = "propiedad_imagenes", joinColumns = @JoinColumn(name = "propiedad_id"))
+    @Column(name = "imagen")
+    private List<String> imagenes;
     
     
 }
