@@ -248,6 +248,7 @@ main {
 .card {
   flex: 0 0 calc(25% - 20px); /* Calcula el ancho para 4 cartas por fila con un espacio entre ellas */
   margin: 10px;
+  min-height: 100%;
   box-sizing: border-box;
   background: var(--colorDos);
   border: 1px solid var(--colorCinco);
