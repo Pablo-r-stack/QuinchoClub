@@ -19,43 +19,75 @@
             <div class="container-carousel">
                 <div class="carruseles" id="slider">
                     <div class="slider-section">
-                        <img src="/img/1.jpg">
+                        <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="${propiedad.imagenes[0]}">
+                        <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="@{/img/1.jpg}">
                     </div>
                     <div class="slider-section">
-                        <img src="/img/2.jpg">
+                        <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="${propiedad.imagenes[1]}">
+                        <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="@{/img/2.jpg}">
                     </div>
                     <div class="slider-section">
-                        <img src="/img/3.jpg">
+                        <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="${propiedad.imagenes[2]}">
+                        <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="@{/img/3.jpg}">
                     </div>
                     <div class="btn-left"><i class='bx bx-chevron-left'></i></div>
                     <div class="btn-right"><i class='bx bx-chevron-right'></i></div>
                 </div>
             </div>
+
             <div class="property-list-container-left">
                 <!-- Acá van las cualidades como Pileta(si/no), cant dormitorios/baños, etc. -->
                 <table class="property-table">
                     <thead>
                         <tr>
-                            <th>Detalles</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        </td>
+                        <tr>
+                            <td>Cama</td>
+                            <td th:if="${propiedad.cama}">Sí</td>
+                            <td th:unless="${propiedad.cama}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Wifi</td>
+                            <td th:if="${propiedad.wifi}">Sí</td>
+                            <td th:unless="${propiedad.wifi}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Parilla</td>
+                            <td th:if="${propiedad.parrilla}">Sí</td>
+                            <td th:unless="${propiedad.parrilla}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Accesorios</td>
+                            <td th:if="${propiedad.accesorios}">Sí</td>
+                            <td th:unless="${propiedad.accesorios}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Aire acondicionado</td>
+                            <td th:if="${propiedad.aire}">Sí</td>
+                            <td th:unless="${propiedad.aire}">No</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
         </div>
 
-    <!-- prox disp, calendario, direccion, descripcion -->
-    <div class="column">
-        <div class="calendar">
-            <h2>Próxima disponibilidad en . . .</h2>
-            <input type="date">
-            <!-- <table>
+
+        <!-- prox disp, calendario, direccion, descripcion -->
+        <div class="column">
+            <div class="calendar">
+                <h2>Próxima disponibilidad en . . .</h2>
+                <input type="date">
+                <!-- <table>
             <thead>
                 <tr>
                     <th>Domingo</th>
@@ -74,16 +106,16 @@
             </tbody>
         </table> -->
 
-        </div>
-        <div id="adress">
-            <h3 th:value="${propiedad.ubicacion}"></h3>
-        </div>
-        <div>
-            <h2>Descripción</h2>
-            <p class="desc-right" th:text="${propiedad.detalles}">
+            </div>
+            <div id="adress">
+                <h3 th:value="${propiedad.ubicacion}"></h3>
+            </div>
+            <div>
+                <h2>Descripción</h2>
+                <p class="desc-right" th:text="${propiedad.detalles}">
+            </div>
         </div>
     </div>
-</div>
     <div>
         <form action="/procesar-opinion" method="post">
             <label for="opinion">Opinión:</label>
@@ -91,6 +123,7 @@
 
             <button class="btn-more" type="submit">Enviar</button>
         </form>
+    </div>
     </div>
     <div class="Opiniones">
         <!-- necesito la base de datos acá :) -->
