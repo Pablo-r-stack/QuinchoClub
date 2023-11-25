@@ -6,21 +6,11 @@ package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.entidades.Usuario;
+import com.quinchoClub.servicios.ImagenServicio;
 import com.quinchoClub.servicios.PropiedadServicio;
 import com.quinchoClub.servicios.UsuarioServicio;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,6 +35,8 @@ public class PropiedadControlador {
     private UsuarioServicio usuarioServicio;
     @Autowired
     private PropiedadServicio propiedadServicio;
+    @Autowired
+    private ImagenServicio ImagenServicio;
 
     @GetMapping("/lista")
     public String listarPropiedades(ModelMap modelo, HttpSession session) {
@@ -79,6 +71,7 @@ public class PropiedadControlador {
         propiedad.setDetalles(detalles);
         propiedad.setUbicacion(ubicacion);
         propiedad.setTamanio(tamanio);
+        propiedad.setImagenes(ImagenServicio.guardarImagenLista(imagenes));
         //graba la fecha de hoy, debe **pendiente** cambiar atributo a LocalDate
         propiedad.setDisponibilidad(new Date());
         propiedad.setWifi(wifi);
@@ -86,8 +79,7 @@ public class PropiedadControlador {
         propiedad.setAccesorios(accesorios);
         propiedad.setCama(cama);
         propiedad.setAire(aire);
-        //inicializo el array hasta que la funcion de carga imagen funcione.
-        propiedad.setImagenes(obtenerRutas(imagenes));
+//        propiedad.setImagenes(obtenerRutas(imagenes));
         Usuario usuario = usuarioServicio.getOne(id);
         List<Propiedad> propiedades = usuario.getPropiedades();
         try {
@@ -130,6 +122,7 @@ public class PropiedadControlador {
         }
     }
 
+<<<<<<< HEAD
     @GetMapping("/publicacion/{id}")
     public String saberMasVista(@PathVariable String id, ModelMap modelo, HttpSession session) {
 
@@ -163,4 +156,28 @@ public class PropiedadControlador {
         }
         return rutasObtenidas;
     }
+=======
+//    public List<String> obtenerRutas(List<MultipartFile> imagenes){
+//        List<String> rutasObtenidas = new ArrayList();
+//        if (!imagenes.isEmpty()) {
+//            for (MultipartFile imagen : imagenes) {
+//                String rutaImagen = "";
+//                String nombreArchivo = UUID.randomUUID().toString()+ "_" + imagen.getOriginalFilename() + ".jpg";
+//                rutaImagen = "/img/prop/" + nombreArchivo;
+//                File directorioDestino = new File("src/main/resources/static/img/prop");
+//                if(!directorioDestino.exists()){
+//                    directorioDestino.mkdirs();
+//                }
+//                Path rutaDestino = Paths.get("src/main/resources/static/img/prop", nombreArchivo);
+//                try {
+//                    Files.write(rutaDestino, imagen.getBytes(), StandardOpenOption.CREATE);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(PropiedadControlador.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                rutasObtenidas.add(rutaImagen);
+//            }
+//        }
+//        return rutasObtenidas;
+//    }
+>>>>>>> desarrolloPablo
 }
