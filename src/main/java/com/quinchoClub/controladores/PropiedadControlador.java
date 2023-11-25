@@ -130,7 +130,6 @@ public class PropiedadControlador {
         }
     }
 
-<<<<<<< HEAD
     @GetMapping("/publicacion/{id}")
     public String saberMasVista(@PathVariable String id, ModelMap modelo, HttpSession session) {
 
@@ -141,7 +140,7 @@ public class PropiedadControlador {
         }
         modelo.put("propiedad", propiedadServicio.obtenerPropiedadPorId(id));
         return "post.html";
-=======
+    }
     public List<String> obtenerRutas(List<MultipartFile> imagenes){
         List<String> rutasObtenidas = new ArrayList();
         if (!imagenes.isEmpty()) {
@@ -163,6 +162,5 @@ public class PropiedadControlador {
             }
         }
         return rutasObtenidas;
->>>>>>> desarrolloPablo
     }
 }
