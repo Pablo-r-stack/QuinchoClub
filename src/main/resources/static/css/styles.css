@@ -579,22 +579,24 @@ main {
 
 /*PAGINA DE POST MODIFICACIONES*/
 
-/*.column-container{
+.column-container{
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-}*/
+}
 
-.column-container{
+/*.column-container{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px; /* Espacio entre las columnas */
+  gap: 20px;
   align-items: center;
 }
+*/
 
 .column {
   padding: 20px;
   border: 1px solid #ddd;
+  width: 60%;
 }

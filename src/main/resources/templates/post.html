@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!. -->
-<!--        Estoy trabajando en esto :)
-                        porfavo NO TOCAR                        -->
-<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!. -->
 
 <body>
     <header th:replace="/fragments/header :: header"></header>
@@ -53,7 +49,7 @@
             </div>
 
         </div>
-    </div>
+
     <!-- prox disp, calendario, direccion, descripcion -->
     <div class="column">
         <div class="calendar">
@@ -87,6 +83,7 @@
             <p class="desc-right" th:text="${propiedad.detalles}">
         </div>
     </div>
+</div>
     <div>
         <form action="/procesar-opinion" method="post">
             <label for="opinion">Opinión:</label>
