@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/reserva")
 public class ReservaControlador {
-
     @Autowired
     private ReservaServicio rs;
 

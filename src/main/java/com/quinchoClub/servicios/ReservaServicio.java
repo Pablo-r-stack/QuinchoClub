@@ -19,9 +19,9 @@ public class ReservaServicio {
     @Transactional
     public void crearReserva( Usuario cliente,Propiedad propiedad,LocalDate fechaInicio,LocalDate fechaFin,String precioTotal)throws MiException{
         validar(cliente,propiedad,fechaInicio,fechaFin,precioTotal);
-        if (rr.buscarporReserva(cliente)!= null) {
-            throw new MiException("Cliente no encontrado");
-        }
+//        if (rr.buscarporReserva(cliente)!= null) {
+//            throw new MiException("Cliente no encontrado");
+//        }
         Reserva reserva = new Reserva();
         reserva.setCliente(cliente);
         reserva.setPropiedad(propiedad);

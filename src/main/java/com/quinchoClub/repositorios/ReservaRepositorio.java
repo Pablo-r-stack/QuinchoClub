@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 public interface ReservaRepositorio extends JpaRepository<Reserva, Long> { 
     @Query("SELECT u FROM Reserva u WHERE u.id = :id")
     public Reserva buscarporReserva(@Param("id") String id );
-
-    public Object buscarporReserva(Usuario cliente);
-
-    public Object buscarporReserva(Long id);
+    
+//    public Object buscarporReserva(Usuario cliente);
+//
+//    public Object buscarporReserva(Long id);
 }

@@ -23,9 +23,4 @@ public abstract class Resena {
     private String comentario;
     private Integer calificacion;
     private LocalDate fechaComentario;
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> 4c2ad9820b012d0a6c7a4cd41dd55ac5b94bbb12
 }

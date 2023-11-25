@@ -49,13 +49,10 @@ public class Usuario {
 
     @OneToMany
     private List<Propiedad> propiedades;
-<<<<<<< HEAD
+
     @OneToMany
     private List<ResenaUsuario>ResenaDeUsario;
     
-=======
-    
     @OneToOne
     Imagen imagen;
->>>>>>> 4c2ad9820b012d0a6c7a4cd41dd55ac5b94bbb12
 }
