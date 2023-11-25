@@ -7,8 +7,8 @@ package com.quinchoClub.controladores;
 import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.excepciones.MiException;
+import com.quinchoClub.servicios.ImagenServicio;
 import com.quinchoClub.servicios.UsuarioServicio;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -33,6 +34,8 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @GetMapping("/registrar")
     public String registroUsuario() {
@@ -127,5 +130,24 @@ public class UsuarioControlador {
             modelo.addAttribute("propiedades", propiedades);
         }
         return "propiedadesUsuario.html";
+    }
+
+    @GetMapping("/perfil/{id}")
+    public String perfilUsuario(@PathVariable String id, HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        return "perfilUsuario.html";
+    }
+    @PostMapping("/foto/{id}")
+    public String cargarFoto(@PathVariable String id, MultipartFile archivo){
+        if(id != null){
+            Usuario usuario = usuarioServicio.getOne(id);
+            if(!archivo.isEmpty()){
+                usuario.setImagen(imagenServicio.guardarImagen(archivo));
+                usuarioServicio.guardarUsuarioCompleto(usuario);
+            }
+        }
     }
 }
