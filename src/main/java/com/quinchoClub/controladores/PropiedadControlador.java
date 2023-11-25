@@ -71,7 +71,9 @@ public class PropiedadControlador {
         propiedad.setDetalles(detalles);
         propiedad.setUbicacion(ubicacion);
         propiedad.setTamanio(tamanio);
-        propiedad.setImagenes(ImagenServicio.guardarImagenLista(imagenes));
+        if (!imagenes.isEmpty()) {
+            propiedad.setImagenes(ImagenServicio.guardarImagenLista(imagenes));
+        }
         //graba la fecha de hoy, debe **pendiente** cambiar atributo a LocalDate
         propiedad.setDisponibilidad(new Date());
         propiedad.setWifi(wifi);
