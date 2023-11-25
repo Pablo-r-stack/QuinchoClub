@@ -20,16 +20,16 @@
                 <div class="container-carousel">
                     <div class="carruseles" id="slider">
                         <div class="slider-section">
-                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="${propiedad.imagenes[0]}">
-                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="@{/img/1.jpg}">
+                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 1}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[0].id})}" alt="Imagen 1">
+                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 1}" src="/img/1.jpg" alt="Foto predefinida1">
                         </div>
                         <div class="slider-section">
-                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="${propiedad.imagenes[1]}">
-                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="@{/img/2.jpg}">
+                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 2}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[1].id})}" alt="Imagen 2">
+                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 2}" src="/img/2.jpg" alt="Foto predefinida2">
                         </div>
                         <div class="slider-section">
-                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="${propiedad.imagenes[2]}">
-                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="@{/img/3.jpg}">
+                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[2].id})}" alt="Imagen 3">
+                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" src="/img/3.jpg" alt="Foto predefinida3">
                         </div>
                         <div class="btn-left"><i class='bx bx-chevron-left'></i></div>
                         <div class="btn-right"><i class='bx bx-chevron-right'></i></div>
