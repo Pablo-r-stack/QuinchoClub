@@ -27,7 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Alquiler{
+public class Reserva{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,5 +39,7 @@ public class Alquiler{
     private Propiedad propiedad;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private String precioTotal;
+    
     
 }

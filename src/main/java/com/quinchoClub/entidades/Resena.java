@@ -23,6 +23,6 @@ public abstract class Resena {
     private String comentario;
     private Integer calificacion;
     private LocalDate fechaComentario;
-     
+    
     
 }

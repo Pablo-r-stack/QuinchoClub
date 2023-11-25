@@ -48,6 +48,7 @@ public class Propiedad {
     private boolean accesorios;
     private boolean cama;
     private boolean aire;
+    private String precio;
     
     
 }

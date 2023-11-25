@@ -48,4 +48,7 @@ public class Usuario {
 
     @OneToMany
     private List<Propiedad> propiedades;
+    @OneToMany
+    private List<ResenaUsuario>ResenaDeUsario;
+    
 }
