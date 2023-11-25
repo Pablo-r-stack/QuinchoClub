@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -48,7 +49,13 @@ public class Usuario {
 
     @OneToMany
     private List<Propiedad> propiedades;
+<<<<<<< HEAD
     @OneToMany
     private List<ResenaUsuario>ResenaDeUsario;
     
+=======
+    
+    @OneToOne
+    Imagen imagen;
+>>>>>>> 4c2ad9820b012d0a6c7a4cd41dd55ac5b94bbb12
 }

@@ -6,21 +6,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!. -->
-        <!--        Estoy trabajando en esto :)
-                        porfavo NO TOCAR                        -->
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!. -->
-<body>
-    <header>
-        <nav th:replace="/fragments/navbar :: nav"></nav>
-    </header>
-    <div class="img">
-        <img th:src="">
-    </div>
-    <div class="calendar">
-        <h2>Próxima disponibilidad en . . .</h2>
 
-        <table>
+<body>
+    <header th:replace="/fragments/header :: header"></header>
+    <!-- titulo, vendedor, Imagen, tabla -->
+    <div>
+        <h1>Publicación de </h1>
+        <h2 th:text="${vendedor.nombre}"></h2>
+    </div>
+    <div class="column-container">
+        <div class="column">
+            <div class="container-carousel">
+                <div class="carruseles" id="slider">
+                    <div class="slider-section">
+                        <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="${propiedad.imagenes[0]}">
+                        <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="@{/img/1.jpg}">
+                    </div>
+                    <div class="slider-section">
+                        <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="${propiedad.imagenes[1]}">
+                        <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="@{/img/2.jpg}">
+                    </div>
+                    <div class="slider-section">
+                        <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="${propiedad.imagenes[2]}">
+                        <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
+                            th:src="@{/img/3.jpg}">
+                    </div>
+                    <div class="btn-left"><i class='bx bx-chevron-left'></i></div>
+                    <div class="btn-right"><i class='bx bx-chevron-right'></i></div>
+                </div>
+            </div>
+
+            <div class="property-list-container-left">
+                <!-- Acá van las cualidades como Pileta(si/no), cant dormitorios/baños, etc. -->
+                <table class="property-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cama</td>
+                            <td th:if="${propiedad.cama}">Sí</td>
+                            <td th:unless="${propiedad.cama}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Wifi</td>
+                            <td th:if="${propiedad.wifi}">Sí</td>
+                            <td th:unless="${propiedad.wifi}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Parilla</td>
+                            <td th:if="${propiedad.parrilla}">Sí</td>
+                            <td th:unless="${propiedad.parrilla}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Accesorios</td>
+                            <td th:if="${propiedad.accesorios}">Sí</td>
+                            <td th:unless="${propiedad.accesorios}">No</td>
+                        </tr>
+                        <tr>
+                            <td>Aire acondicionado</td>
+                            <td th:if="${propiedad.aire}">Sí</td>
+                            <td th:unless="${propiedad.aire}">No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- prox disp, calendario, direccion, descripcion -->
+        <div class="column">
+            <div class="calendar">
+                <h2>Próxima disponibilidad en . . .</h2>
+                <input type="date">
+                <!-- <table>
             <thead>
                 <tr>
                     <th>Domingo</th>
@@ -37,36 +104,35 @@
                     <td th:each="dia : ${semana}" th:text="${dia}"></td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
 
-    </div>
-    <div id="adress">
-
-    </div>
-    <div class="cualidades">
-        <!-- Acá van las cualidades como Pileta(si/no), cant dormitorios/baños, etc. -->
-    </div>
-    <div>
-        <h3>Descripción</h3>
-        <p>
-            Casa re linda bla bla.. matamos a alguien acá. :] te esperamos
-        </p>
-    </div>
-    <div class="vendedor">
-        <!-- Pablo Velasco, 6.4estrellas -->
+            </div>
+            <div id="adress">
+                <h3 th:value="${propiedad.ubicacion}"></h3>
+            </div>
+            <div>
+                <h2>Descripción</h2>
+                <p class="desc-right" th:text="${propiedad.detalles}">
+            </div>
+        </div>
     </div>
     <div>
         <form action="/procesar-opinion" method="post">
             <label for="opinion">Opinión:</label>
             <textarea id="opinion" name="opinion" placeholder="Escribe tu opinión aquí..." required></textarea>
 
-            <button type="submit">Enviar</button>
+            <button class="btn-more" type="submit">Enviar</button>
         </form>
+    </div>
     </div>
     <div class="Opiniones">
         <!-- necesito la base de datos acá :) -->
     </div>
 
+
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <script src="/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

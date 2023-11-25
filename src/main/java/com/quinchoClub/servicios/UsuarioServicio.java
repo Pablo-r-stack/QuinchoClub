@@ -179,5 +179,12 @@ public class UsuarioServicio implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario Invalido");
         }
     }
-
+ // reveer utilidad de funcion
+    public void guardarUsuarioCompleto(Usuario usuario){
+        ur.save(usuario);
+    }
+    
+    public Usuario buscarPorPropiedad(String id){
+        return ur.buscarPorPropiedad(id);
+    }
 }
