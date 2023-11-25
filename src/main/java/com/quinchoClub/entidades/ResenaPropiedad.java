@@ -1,26 +1,43 @@
-
 package com.quinchoClub.entidades;
 
-import java.time.LocalDate;
-
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-/**
- *
- * @author Tincho
- */
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Cliente extends Usuario {
-    private LocalDate calendario;
-
+public class ResenaPropiedad extends Resena{
+    @ManyToMany
+    private List<Resena> propiedad;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

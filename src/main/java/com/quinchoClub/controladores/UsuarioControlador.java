@@ -4,9 +4,11 @@
  */
 package com.quinchoClub.controladores;
 
+import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.UsuarioServicio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -40,10 +42,10 @@ public class UsuarioControlador {
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, @RequestParam Integer dni, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento,
-            @RequestParam Integer telefono, ModelMap modelo) {
+            @RequestParam Integer telefono, @RequestParam(required = false) boolean propietario, ModelMap modelo) {
         try {
-            usuarioServicio.crearUsuario(nombre, apellido, email, password, password2, dni, fechaDeNacimiento, telefono);
-            return "redirect:/";
+            usuarioServicio.crearUsuario(nombre, apellido, email, password, password2, dni, fechaDeNacimiento, telefono, propietario);
+            return "index.html";
         } catch (MiException ex) {
             System.out.println(ex.getMessage());
             modelo.put("error", ex.getMessage());
@@ -54,8 +56,12 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/login")
-    public String loginUsuario(@RequestParam(required = false) String error, ModelMap modelo) {
-        if(error != null){
+    public String loginUsuario(@RequestParam(required = false) String error, HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        if (error != null) {
             modelo.put("error", "usuario o contraseña invalidos");
         }
         return "login.html";
@@ -65,8 +71,8 @@ public class UsuarioControlador {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String listarUsuarios(ModelMap modelo, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        if(usuario != null){
-             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
         List<Usuario> listaUsuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("listaUsuarios", listaUsuarios);
@@ -74,17 +80,20 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/modificar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modificarUsuarioVista(@PathVariable String id, ModelMap modelo) {
+        //aca insertar lista de roles para modelar el select desde la vista.
         modelo.put("usuario", usuarioServicio.getOne(id));
         return "modificarUsuario.html";
     }
 
     @PostMapping("/modificar/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String modificarUsuario(@PathVariable String id, String nombre, String apellido, String email,
-            @RequestParam String password, @RequestParam String password2, Integer dni,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono,ModelMap modelo) {
+            @RequestParam String rol, Integer dni,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, Integer telefono, ModelMap modelo) {
         try {
-            usuarioServicio.actualizar(id, nombre, apellido, email, password, password2, dni, fechaDeNacimiento, telefono);
+            usuarioServicio.actualizar(id, nombre, apellido, email, rol, dni, fechaDeNacimiento, telefono);
             System.out.println("Actualizado con exito");
             return "redirect:../lista";
         } catch (Exception ex) {
@@ -104,5 +113,19 @@ public class UsuarioControlador {
             System.out.println(ex.getMessage());
             return "redirect:/usuario/lista";
         }
+    }
+
+    @GetMapping("/propiedades")
+    @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
+    public String propiedadesUsuario(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            Usuario propietario = usuarioServicio.getOne(usuario.getId());
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+            List<Propiedad> propiedades = propietario.getPropiedades();
+            System.out.println(propiedades);
+            modelo.addAttribute("propiedades", propiedades);
+        }
+        return "propiedadesUsuario.html";
     }
 }

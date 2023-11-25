@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+
+<head>
+    <title>Mis propiedades</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header th:replace="/fragments/header :: header"></header>
+    <h1>Propiedades:</h1>
+    <!--<div th:if="${propiedades.size == 0}">
+            <p>Aun no hay propiedades cargadas</p>
+            <button><a th:href="@{/propiedad/registrar}">Cargar</a></button>
+        </div>-->
+    <div>
+        <button class="btn-more"><a th:href="@{/propiedad/registrar}">Registrar otra Propiedad</a></button>
+    </div>
+    <div th:each="propiedad : ${propiedades}">
+        <p th:text="${propiedad.detalles}"></p>
+        <div>
+            <button class="btn-more"><a th:href="@{/propiedad/publicacion/{id}(id=${propiedad.id})}">Ver
+                    Publicación</a></button>
+            <button class="btn-more"><a
+                    th:href="@{/propiedad/modificar/{id}(id=${propiedad.id})}">Modificar</a></button>
+            <form th:action="@{'/propiedad/eliminar/' + ${propiedad.id} + '/' + ${usuario.id}}" method="POST">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="btn-more">Eliminar</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
+    </header>
+    <footer th:replace="/fragments/footer :: footer"></footer>
+</body>
+
+</html>

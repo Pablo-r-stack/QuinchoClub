@@ -8,13 +8,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>Registra una Propiedad</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/loginstyles.css">
     </head>
     <body>
         <header th:replace="/fragments/header :: header"></header>
         <main class="principal">
             <div class="form-container">
                 <p class="title-login">Datos de tu propiedad</p>
-                <form th:action="@{/propiedad/modificar/{id}(id=${propiedad.id})}" method="POST">
+                <form th:action="@{/propiedad/modificar/{id} (id=${propiedad.id})}" method="POST" class="form" enctype="multipart/form-data">
                     <div class="input-group">
                         <label for="tipo">Tipo:</label>
                         <select id="tipo" name="tipo">
@@ -40,8 +41,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <input id="tamanio" name="tamanio" type="number" th:value="${propiedad.tamanio}">
                     </div>
                     <div class="input-group">
-                        <label for="disponibilidad">Disponibilidad:</label>
-                        <input id="disponibilidad" name="disponibilidad" type="date" th:value="${propiedad.disponibilidad}">
+                        <label for="imagenes">Agregar fotos (máximo 3 archivos, solo JPG):</label>
+                        <input type="text" id="nombresArchivos" disabled>
+                        <input id="imagenes" name="imagenes" type="file" multiple onchange="manejarSeleccionArchivos(this)">
                     </div>
                     <div class="input-group">
                         <label>Servicios:</label>
@@ -77,7 +79,40 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </main>
 
         <footer th:replace="/fragments/footer :: footer"></footer>
+        
+        <!--Manejo de eventos de subida de fotos desde JS -->
+        <script>
+            function manejarSeleccionArchivos(inputFile) {
+                const nombresArchivosInput = document.getElementById("nombresArchivos");
+                const archivosSeleccionados = inputFile.files;
+                let nombres = "";
 
+                if (archivosSeleccionados.length > 3) {
+                    alert("Selecciona un máximo de 3 archivos.");
+                    inputFile.value = "";  // Limpiar la selección
+                    nombresArchivosInput.value = "";
+                    return;
+                }
+
+                // Verificar si los archivos son JPG
+                for (let i = 0; i < archivosSeleccionados.length; i++) {
+                    const extension = archivosSeleccionados[i].name.split('.').pop().toLowerCase();
+                    if (extension !== "jpg" && extension !== "jpeg") {
+                        alert("Selecciona solo archivos JPG.");
+                        inputFile.value = "";  // Limpiar la selección
+                        nombresArchivosInput.value = "";
+                        return;
+                    }
+
+                    nombres += archivosSeleccionados[i].name;
+                    if (i < archivosSeleccionados.length - 1) {
+                        nombres += ", ";
+                    }
+                }
+
+                nombresArchivosInput.value = nombres;
+            }
+        </script>
         <script src="/js/script.js"></script>
         <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
     </body>

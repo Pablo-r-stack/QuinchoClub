@@ -3,9 +3,11 @@ package com.quinchoClub.entidades;
 
 import com.sun.istack.NotNull;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -38,7 +40,6 @@ public class Propiedad {
     private String ubicacion;
     @Positive //siempre valores positivos
     private Double tamanio;
-    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date disponibilidad;
     
@@ -48,6 +49,10 @@ public class Propiedad {
     private boolean accesorios;
     private boolean cama;
     private boolean aire;
+    private String precio;
+    
+    @OneToMany
+    private List<Imagen> imagenes;
     
     
 }
