@@ -40,7 +40,6 @@ public class Propiedad {
     private String ubicacion;
     @Positive //siempre valores positivos
     private Double tamanio;
-    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date disponibilidad;
     

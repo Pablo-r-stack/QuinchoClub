@@ -183,4 +183,8 @@ public class UsuarioServicio implements UserDetailsService {
     public void guardarUsuarioCompleto(Usuario usuario){
         ur.save(usuario);
     }
+    
+    public Usuario buscarPorPropiedad(String id){
+        return ur.buscarPorPropiedad(id);
+    }
 }

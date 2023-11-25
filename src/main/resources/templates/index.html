@@ -20,8 +20,8 @@
                 <div class="container-carousel">
                     <div class="carruseles" id="slider">
                         <div class="slider-section">
-                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 1}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[0].id})}" alt="Imagen 1">
-                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 1}" src="/img/1.jpg" alt="Foto predefinida1">
+                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >0}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[0].id})}" alt="Imagen 1">
+                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() > 0}" src="/img/1.jpg" alt="Foto predefinida1">
                         </div>
                         <div class="slider-section">
                             <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 2}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[1].id})}" alt="Imagen 2">

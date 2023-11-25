@@ -11,8 +11,8 @@
     <header th:replace="/fragments/header :: header"></header>
     <!-- titulo, vendedor, Imagen, tabla -->
     <div>
-        <h1>Titulo de la publicacion</h1>
-        <h2>Vendedor: plimplim david</h2>
+        <h1>Publicación de </h1>
+        <h2 th:text="${vendedor.nombre}"></h2>
     </div>
     <div class="column-container">
         <div class="column">
