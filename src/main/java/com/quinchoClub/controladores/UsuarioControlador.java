@@ -149,5 +149,6 @@ public class UsuarioControlador {
                 usuarioServicio.guardarUsuarioCompleto(usuario);
             }
         }
+       return "redirect:/";
     }
 }
