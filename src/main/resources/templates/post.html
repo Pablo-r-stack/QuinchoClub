@@ -13,7 +13,7 @@
     <!-- titulo, vendedor, Imagen, tabla -->
     <div>
         <h1>Publicación de </h1>
-        <h2 th:text="${vendedor.nombre}"></h2>
+        <h2 th:text="${vendedor.nombre} + ' ' + ${vendedor.apellido}"></h2>
     </div>
     <div class="column-container">
         <div class="column">
@@ -110,6 +110,9 @@
             </div>
             <div id="adress">
                 <h3 th:value="${propiedad.ubicacion}"></h3>
+            </div>
+            <div>
+            <button class="btn-alq" > <a th:href="@{/reserva/registrar/{id} (id=${propiedad.id})}" >RESERVAR</a></button>
             </div>
             <div>
                 <h2>Descripción</h2>

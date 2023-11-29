@@ -50,7 +50,7 @@
                     <p class="desc"> años.</p>
                     <div>
                         <a th:href="@{/usuario/cambiarContrasenaForm}"><button class="btn-more">Cambiar contraseña</button></a>
-                        <button class="btn-more">Modificar perfil</button>
+                        <a th:href="@{/usuario/editar/{id}(id=${usuario.id})}"><button class="btn-more">Modificar perfil</button></a>
                     </div>
                 </div>
 
@@ -81,12 +81,6 @@
                         <a rel="noopener noreferrer" href="#">Olvidaste tu contraseña ?</a>
                     </div>
                 </div>
-                <!-- ESTE DIV ES OPCIONAL sis e quieren agregar redes -->
-                <!-- <div class="redes-sociales">
-                        <a href="" class="boton-redes facebook fab fa-facebook-f"><i class="icon-facebook"></i></a>
-                        <a href="" class="boton-redes twitter fab fa-twitter"><i class="icon-twitter"></i></a>
-                        <a href="" class="boton-redes instagram fab fa-instagram"><i class="icon-instagram"></i></a>
-                    </div> -->
             </div>
         </section>
         <!-- </main> -->

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -192,5 +193,24 @@ public class UsuarioControlador {
     public String mostrarExitoCambioContrasena() {
         return "exito";
     }
+    
+    
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable String id, HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        
+        return "editarPerfil.html";
+    }
 
+    @PostMapping("/editar/{id}")
+    public String actualizarPerfil(@PathVariable String id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam Integer dni,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, @RequestParam Integer telefono) {
+        // Update profile info and change password
+        usuarioServicio.actualizarPerfil(id, nombre, apellido, email, dni, fechaDeNacimiento, telefono);
+    
+        return "redirect:/"; // Redirect with a success message
+}
 }

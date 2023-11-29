@@ -213,5 +213,34 @@ public class UsuarioServicio implements UserDetailsService {
             return false; // El usuario no se encontró
         }
     }
+    
+    @Transactional
+    //servicio para actualizar el perfil de usuario, opcion disponible para el usuario, no para el administrador
+    public void actualizarPerfil(
+            String id,
+            String nombre,
+            String apellido,
+            String email,
+            Integer dni,
+            Date fechaDeNacimiento,
+            Integer telefono)  {
+    
+    
+        Usuario usuario = ur.findById(id).orElse(null);
+        
+        // Actualizando info del perfil
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setEmail(email);
+        usuario.setDni(dni);
+        usuario.setFechaDeNacimiento(fechaDeNacimiento);
+        usuario.setTelefono(telefono);
+        
+        // guardando la info en la base de datos
+        ur.save(usuario);
+        
+    }
+    
+    
 
 }

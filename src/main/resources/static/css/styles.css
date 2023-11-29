@@ -318,6 +318,42 @@ main {
 .btn-right {
   right: 10px;
 }
+
+.btn-alq {
+  right: 180px;
+  width: 9em;
+  height: 3em;
+  border-radius: 30em;
+  font-size: 15px;
+  font-family: "Nunito";
+  color: #000;
+  border: none;
+  
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 6px 6px 12px #c5c5c5,
+    -6px -6px 12px #fff;
+  cursor: pointer;
+}
+
+.btn-alq::before {
+  content: '';
+  width: 0;
+  height: 3em;
+  border-radius: 30em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right, #88E6CE 0%, #8DE5F6 100%);
+  transition: .5s ease;
+  display: block;
+  z-index: -1;
+}
+
+.btn-alq:hover::before {
+  width: 9em;
+}
+
 .cards h3{
   display: flex;
 }
