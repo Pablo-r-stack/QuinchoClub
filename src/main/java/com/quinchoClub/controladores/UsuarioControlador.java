@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -114,7 +115,7 @@ public class UsuarioControlador {
             return "redirect:/usuario/lista";
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            return "redirect:/usuario/lista";
+            return "redirect: /usuario/lista";
         }
     }
 
@@ -140,15 +141,56 @@ public class UsuarioControlador {
         }
         return "perfilUsuario.html";
     }
+
     @PostMapping("/foto/{id}")
-    public String cargarFoto(@PathVariable String id, MultipartFile archivo){
-        if(id != null){
-            Usuario usuario = usuarioServicio.getOne(id);
-            if(!archivo.isEmpty()){
+    public String cargarFoto(@PathVariable String id, @RequestParam("imagen") MultipartFile archivo) {
+        try {
+            if (id != null && archivo != null && !archivo.isEmpty()) {
+                Usuario usuario = usuarioServicio.getOne(id);
                 usuario.setImagen(imagenServicio.guardarImagen(archivo));
                 usuarioServicio.guardarUsuarioCompleto(usuario);
+
+                // Redirige a la página del perfil u otra página relevante
+                return "redirect:/";
             }
+        } catch (Exception e) {
+            // Maneja la excepción (puede loguear el error, mostrar un mensaje de error, etc.)
+            e.printStackTrace();
+
         }
-       return "redirect:/";
+        return "redirect:/";
     }
+
+    @GetMapping("/cambiarContrasenaForm")
+    public String mostrarFormularioCambioContrasena(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        return "modificarContrasena.html"; // Nombre de la vista del formulario
+    }
+
+    @PostMapping("/cambiarContrasena/{id}")
+    public String procesarCambioContrasena(@PathVariable String id,
+            @RequestParam String contrasenaActual,
+            @RequestParam String nuevaContrasena,
+            @RequestParam String confirmarNuevaContrasena,
+            Model model) {
+        boolean cambioExitoso = usuarioServicio.cambiarContrasena(
+                id, contrasenaActual, nuevaContrasena, confirmarNuevaContrasena);
+
+        if (cambioExitoso) {
+            model.addAttribute("exito", "BUEEEENA WACHIN, ÉXITO!! MUCHAAAAACHOOOOO");
+            return "redirect:/"; // Redirigir a la página de éxito
+        } else {
+            model.addAttribute("error", "NOOOO HERMANO, NO FUNCIONÓ");
+            return "error"; // Redirigir al formulario con un mensaje de error
+        }
+    }
+
+    @GetMapping("/exito")
+    public String mostrarExitoCambioContrasena() {
+        return "exito";
+    }
+
 }

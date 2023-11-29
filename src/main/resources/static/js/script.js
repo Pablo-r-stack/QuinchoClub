@@ -89,5 +89,27 @@ function moveToLeft() {
     slider.style.transition = "all ease .7s"
 } 
 
+//funcion para carteles de error y exitoooooo
+    document.addEventListener('DOMContentLoaded', function () {
+        // Función para mostrar mensajes
+        function mostrarMensaje(tipo, mensaje) {
+            if (tipo === "exito") {
+                alert("¡Éxito! " + mensaje);
+            } else if (tipo === "error") {
+                alert("Error: " + mensaje);
+            }
+        }
+
+        // Verificar si hay mensajes en el DOM y mostrar alertas
+        var mensajes = document.querySelectorAll(".mensaje"); // Ajusta el selector según tu estructura HTML
+        if (mensajes.length > 0) {
+            mensajes.forEach(function (elemento) {
+                var tipo = elemento.getAttribute("data-tipo");
+                var mensaje = elemento.textContent;
+                mostrarMensaje(tipo, mensaje);
+            });
+        }
+    });
+    
 // FALTA FUNCION PARA MANIPULAR LAS STARS DE LAS CARDS
 

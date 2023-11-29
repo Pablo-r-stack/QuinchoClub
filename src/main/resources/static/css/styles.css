@@ -44,6 +44,7 @@ h3 {
 p {
   font-weight: 400;
   font-size: 1rem;
+
 }
 a {
   text-decoration: none;
@@ -337,6 +338,7 @@ main {
 .desc-right {
   color: var(--colorUno);
   padding: 7px;
+  font-size: 1rem;
 }
 
 .desc-right{
@@ -701,7 +703,8 @@ main {
 }
 
 .seccion-perfil-usuario .perfil-usuario-body .desc {
-    font-size: 0.95em;
+    font-size: 1.5rem;
+
 }
 
 .seccion-perfil-usuario .perfil-usuario-footer,
@@ -727,6 +730,14 @@ main {
 
 .seccion-perfil-usuario .lista-datos li {
     padding: 5px 0;
+}
+
+.seccion-perfil-usuario .lista-datos li p {
+  display: inline;
+  color: black;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+  font-family: "Nunito";
 }
 
 .seccion-perfil-usuario .lista-datos li>.icono {

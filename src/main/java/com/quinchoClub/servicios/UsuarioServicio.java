@@ -93,7 +93,7 @@ public class UsuarioServicio implements UserDetailsService {
             System.out.println("Error general al actualizar usuario: " + ex.getMessage());
         }
     }
-    
+
 //    public void actualizar(String id, String nombre, String apellido, String email, String password, String password2, Integer dni, Date FechaDeNacimiento, Integer telefono) throws Exception {
 //        Optional<Usuario> respuesta = ur.findById(id);
 //        System.out.println(respuesta);
@@ -114,7 +114,6 @@ public class UsuarioServicio implements UserDetailsService {
 //            System.out.println("sali");
 //        }
 //    }
-
     public List<Usuario> listarUsuarios() {
         return ur.findAll();
     }
@@ -179,12 +178,40 @@ public class UsuarioServicio implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario Invalido");
         }
     }
- // reveer utilidad de funcion
-    public void guardarUsuarioCompleto(Usuario usuario){
+    // reveer utilidad de funcion
+
+    public void guardarUsuarioCompleto(Usuario usuario) {
         ur.save(usuario);
     }
-    
-    public Usuario buscarPorPropiedad(String id){
+
+    public Usuario buscarPorPropiedad(String id) {
         return ur.buscarPorPropiedad(id);
     }
+
+    @Transactional
+    public boolean cambiarContrasena(String id, String contrasenaActual, String nuevaContrasena, String confirmarNuevaContrasena) {
+        // Verificar que la nueva contraseña y la confirmación coincidan
+        if (!nuevaContrasena.equals(confirmarNuevaContrasena)) {
+            return false; // La nueva contraseña y la confirmación no coinciden
+        }
+
+        // Obtener el usuario desde la base de datos
+        Optional<Usuario> optionalUsuario = ur.findById(id);
+
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            // Verificar si la contraseña actual proporcionada coincide con la almacenada
+            if (new BCryptPasswordEncoder().matches(contrasenaActual, usuario.getPassword())) {
+                // Actualizar la contraseña en la base de datos
+                usuario.setPassword(new BCryptPasswordEncoder().encode(nuevaContrasena));
+                ur.save(usuario);
+                return true; // Cambio exitoso
+            } else {
+                return false; // La contraseña actual no es correcta
+            }
+        } else {
+            return false; // El usuario no se encontró
+        }
+    }
+
 }
