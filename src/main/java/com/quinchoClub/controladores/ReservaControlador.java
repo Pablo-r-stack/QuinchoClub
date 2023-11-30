@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class ReservaControlador {
     private PropiedadServicio propiedadServicio;
 
     @GetMapping("/registrar/{id}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
     public String registroReserva(@PathVariable String id, HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
@@ -44,22 +46,30 @@ public class ReservaControlador {
         return "registrarReserva.html";
     }
 
-    @PostMapping("/registrar")
-    public String registrarReserva(@RequestParam Long id, @RequestParam Usuario cliente, @RequestParam Propiedad propiedad,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaInicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaFin,
-            @RequestParam String precioTotal, ModelMap modelo) {
+    @PostMapping("/registrar/{id}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    public String registrarReserva(@PathVariable String id,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
+            @RequestParam Double precioDia, ModelMap modelo,HttpSession session) {
         try {
-            rs.crearReserva(cliente, propiedad, LocalDate.MIN, LocalDate.MIN, precioTotal);
+            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+            //Usuario cliente = usuarioServicio.getOne(usuario.getId());
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        Propiedad propiedad= propiedadServicio.obtenerPropiedadPorId(id);
+            rs.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
             return "redirect:/";
         } catch (MiException ex) {
             System.out.println(ex.getMessage());
             modelo.put("Error", "Hubo al registrar la reserva");
-            return "reserva";
+            return "redirect:/";
         }
 
     }
 
     @PostMapping("/eliminar/")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_PROPIETARIO')")
     public String eliminarReserva(@PathVariable Long id) {
         try {
             rs.borrarReserva(id);

@@ -30,7 +30,7 @@ import lombok.ToString;
 public class Reserva{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
@@ -39,7 +39,7 @@ public class Reserva{
     private Propiedad propiedad;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
-    private String precioTotal;
+    private Double precioTotal;
     
     
 }

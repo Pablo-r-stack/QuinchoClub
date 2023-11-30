@@ -1,4 +1,3 @@
-
 package com.quinchoClub.entidades;
 
 import com.sun.istack.NotNull;
@@ -16,8 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
-
-
 /**
  *
  * @author Tincho
@@ -28,6 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
 @NoArgsConstructor
 @ToString
 public class Propiedad {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -42,17 +40,18 @@ public class Propiedad {
     private Double tamanio;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date disponibilidad;
-    
+    @NotNull
+    private Double precioDia;
+
     private boolean wifi;
     private boolean pileta;
     private boolean parrilla;
     private boolean accesorios;
     private boolean cama;
     private boolean aire;
-    private String precio;
     
+
     @OneToMany
     private List<Imagen> imagenes;
-    
-    
+
 }

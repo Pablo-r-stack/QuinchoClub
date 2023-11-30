@@ -65,7 +65,8 @@ public class PropiedadControlador {
             @RequestParam String ubicacion, @RequestParam Double tamanio,
             @RequestParam(required = false) boolean wifi, @RequestParam(required = false) boolean pileta,
             @RequestParam(required = false) boolean accesorios, @RequestParam(required = false) boolean cama,
-            @RequestParam(required = false) boolean aire, List<MultipartFile> imagenes, @RequestParam(required = false) boolean parrilla) {
+            @RequestParam(required = false) boolean aire, List<MultipartFile> imagenes, @RequestParam(required = false) boolean parrilla,
+            @RequestParam Double precioDia) {
         Propiedad propiedad = new Propiedad();
         propiedad.setTipo(tipo);
         propiedad.setDetalles(detalles);
@@ -76,13 +77,15 @@ public class PropiedadControlador {
         }
         //graba la fecha de hoy, debe **pendiente** cambiar atributo a LocalDate
         propiedad.setDisponibilidad(new Date());
+        propiedad.setPrecioDia(tamanio);
         propiedad.setWifi(wifi);
         propiedad.setPileta(pileta);
         propiedad.setParrilla(parrilla);
         propiedad.setAccesorios(accesorios);
         propiedad.setCama(cama);
         propiedad.setAire(aire);
-//        propiedad.setImagenes(obtenerRutas(imagenes));
+        //propiedad.setImagenes(obtenerRutas(imagenes));
+        propiedad.setPrecioDia(precioDia);
         Usuario usuario = usuarioServicio.getOne(id);
         List<Propiedad> propiedades = usuario.getPropiedades();
         try {
@@ -116,7 +119,8 @@ public class PropiedadControlador {
             @RequestParam String ubicacion, @RequestParam Double tamanio,
             @RequestParam(required = false) boolean wifi, @RequestParam(required = false) boolean pileta,
             @RequestParam(required = false) boolean accesorios, @RequestParam(required = false) boolean cama,
-            @RequestParam(required = false) boolean aire, List<MultipartFile> imagenes, @RequestParam(required = false) boolean parrilla) {
+            @RequestParam(required = false) boolean aire, List<MultipartFile> imagenes, @RequestParam(required = false) boolean parrilla,
+            @RequestParam Double precioDia) {
         try {
             Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(idPropiedad);
             propiedad.setTipo(tipo);
@@ -130,6 +134,7 @@ public class PropiedadControlador {
             propiedad.setAccesorios(accesorios);
             propiedad.setCama(cama);
             propiedad.setAire(aire);
+            propiedad.setPrecioDia(precioDia);
             propiedadServicio.actualizarPropiedad(propiedad);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

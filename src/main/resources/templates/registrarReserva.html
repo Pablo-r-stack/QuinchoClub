@@ -30,7 +30,7 @@
             <div class="form-container">
                 <p class="title-login">Reservar propiedad</p>
                 
-                <form th:action="@{/}" method="POST" class="form" enctype="multipart/form-data">
+                <form th:action="@{/reserva/registrar/{id}(id=${propiedad.id})}" method="POST" class="form">
                     
                     <div class="input-group">
                         <label for="fechaInicio">Desde: </label>
@@ -40,11 +40,16 @@
                         <label for="fechaFin">Hasta: </label>
                         <input name="fechaFin" id="fechaFin" type="date">
                     </div>
+                    <div class="input-group">
+                        <label>Precio por día </label>
+                        <input name="precioDia" id="precioDia" type="number" th:value="${propiedad.precioDia}" readonly>
+                    </div>
                     
                     
                     
                     
-                    <button class="sign save">Guardar</button>
+                    
+                    <button class="sign save" type="submit">Guardar</button>
                 </form>
                 <!-- <p class="signup">¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión</a></p> -->
             </div>
