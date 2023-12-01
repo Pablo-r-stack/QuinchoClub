@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReservaRepositorio extends JpaRepository<Reserva, Long> { 
+public interface ReservaRepositorio extends JpaRepository<Reserva, String> { 
     @Query("SELECT u FROM Reserva u WHERE u.id = :id")
     public Reserva buscarporReserva(@Param("id") String id );
     

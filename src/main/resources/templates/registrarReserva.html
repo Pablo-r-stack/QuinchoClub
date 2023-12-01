@@ -1,96 +1,88 @@
 <!DOCTYPE html>
 <html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
-        <title>QuinchoCLubApp</title>
-        <meta name="description" content="App de alquileres de verano">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+    <title>QuinchoCLubApp</title>
+    <meta name="description" content="App de alquileres de verano">
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="/css/styles.css">
-    </head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-    <body>
+<body>
 
-        <header th:replace="/fragments/header :: header"></header>
+    <header th:replace="/fragments/header :: header"></header>
 
-        <main class="principal">
-            <div class="form-container">
+    <main class="principal">
+        <div class="form-container">
+            <div class="input-group">
+                <ul>
+                    <li th:text="'Vendedor: '+ ${vendedor.nombre} + ${vendedor.apellido}"></li>
+                    <li th:text="'Tipo de propiedad: '+ ${propiedad.tipo}"></li>
+                    <li th:text="'Precio por día: ' + ${propiedad.precioDia}"></li>
+                    <button class="btn-more"><a th:href="@{/}">Ver perfil del vendedor</a></button>
+                </ul>
+            </div>
+        </div>
+        <div class="form-container">
+            <p class="title-login">Reservar propiedad</p>
+
+            <form th:action="@{/reserva/registrar/{id}(id=${propiedad.id})}" method="POST" class="form">
+
                 <div class="input-group">
-                    <ul>
-                        <li th:text="'Vendedor: '+ ${vendedor.nombre} + ${vendedor.apellido}"></li>
-                        <li th:text="'Tipo de propiedad: '+ ${propiedad.tipo}"></li>
-                        <li th:text="'Precio por día: ' "></li>
-                        <button class="btn-more"><a th:href="@{/}">Ver perfil del vendedor</a></button>
-                    </ul>
+                    <label for="fechaInicio">Desde: </label>
+                    <input name="fechaInicio" id="fechaInicio" type="date">
                 </div>
-            </div>
-            <div class="form-container">
-                <p class="title-login">Reservar propiedad</p>
-                
-                <form th:action="@{/reserva/registrar/{id}(id=${propiedad.id})}" method="POST" class="form">
-                    
-                    <div class="input-group">
-                        <label for="fechaInicio">Desde: </label>
-                        <input name="fechaInicio" id="fechaInicio" type="date">
-                    </div>
-                    <div class="input-group">
-                        <label for="fechaFin">Hasta: </label>
-                        <input name="fechaFin" id="fechaFin" type="date">
-                    </div>
-                    <div class="input-group">
-                        <label>Precio por día </label>
-                        <input name="precioDia" id="precioDia" type="number" th:value="${propiedad.precioDia}" readonly>
-                    </div>
-                    
-                    
-                    
-                    
-                    
-                    <button class="sign save" type="submit">Guardar</button>
-                </form>
-                <!-- <p class="signup">¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión</a></p> -->
-            </div>
-        </main>
+                <div class="input-group">
+                    <label for="fechaFin">Hasta: </label>
+                    <input name="fechaFin" id="fechaFin" type="date" onchange="calcularTotal()">
+                </div>
+                <div class="input-group">
+                    <label>Total: </label>
+                    <input name="precioDia" id="precioDia" type="number" th:value="${propiedad.precioDia}" readonly>
+                    <input type="number" id="total" style="color: blue;" disabled>
+                </div>
 
-        <footer th:replace="/fragments/footer :: footer"></footer>
-        
-        <!--Manejo de eventos de subida de fotos desde JS -->
-        <script>
-            function manejarSeleccionArchivos(inputFile) {
-                const nombresArchivosInput = document.getElementById("nombresArchivos");
-                const archivosSeleccionados = inputFile.files;
-                let nombres = "";
 
-                if (archivosSeleccionados.length > 3) {
-                    alert("Selecciona un máximo de 3 archivos.");
-                    inputFile.value = "";  // Limpiar la selección
-                    nombresArchivosInput.value = "";
-                    return;
-                }
 
-                // Verificar si los archivos son JPG
-                for (let i = 0; i < archivosSeleccionados.length; i++) {
-                    const extension = archivosSeleccionados[i].name.split('.').pop().toLowerCase();
-                    if (extension !== "jpg" && extension !== "jpeg") {
-                        alert("Selecciona solo archivos JPG.");
-                        inputFile.value = "";  // Limpiar la selección
-                        nombresArchivosInput.value = "";
-                        return;
-                    }
 
-                    nombres += archivosSeleccionados[i].name;
-                    if (i < archivosSeleccionados.length - 1) {
-                        nombres += ", ";
-                    }
-                }
 
-                nombresArchivosInput.value = nombres;
-            }
-        </script>
-        <script src="/js/script.js"></script>
-        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
-    </body>
+                <button class="sign save" type="submit">Guardar</button>
+            </form>
+            <!-- <p class="signup">¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión</a></p> -->
+        </div>
+    </main>
+
+    <footer th:replace="/fragments/footer :: footer"></footer>
+
+    <script>
+        const fechaInicio = document.getElementById("fechaInicio");
+        const fechaFin = document.getElementById("fechaFin");
+        const total = document.getElementById("total");
+        const precioDia = document.getElementById("precioDia");
+        fechaInicio.min = new Date().toISOString().split('T')[0];
+        fechaFin.min = new Date().toISOString().split('T')[0];
+
+        calcularTotal(){
+            // Calcular la diferencia en días
+            const diffTiempo = fechaFinValue - fechaInicioValue;
+            const diffDias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24));
+
+            // Calcular el total
+            const calculo = diffDias * precioDia.value;
+            total.disabled= false;
+            // Actualizar el campo total
+            total.value = calculo;
+
+            // Deshabilitar el campo total
+            total.disabled = true;
+        }
+    </script>
+    <script src="/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
+</body>
+
 </html>

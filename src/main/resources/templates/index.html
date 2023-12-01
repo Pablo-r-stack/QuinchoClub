@@ -47,8 +47,8 @@
                 <p class="desc" th:text="${propiedad.detalles}">
                 </p>
                 <div class="line-cards"></div>
-                <p class="title price">
-                    $250
+                <p class="title price" th:text="' $' + ${propiedad.precioDia}">
+                    
                 </p>
                 <button>
                     <a class="btn-more" th:href="@{/propiedad/publicacion/{id}(id=${propiedad.id})}"> <!-- FALTA RUTA A CADA INFO PERSONALIZADA DE C/PROPIEDAD-->

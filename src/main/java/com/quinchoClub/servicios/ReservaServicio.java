@@ -3,6 +3,7 @@ package com.quinchoClub.servicios;
 import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.entidades.Reserva;
 import com.quinchoClub.entidades.Usuario;
+import com.quinchoClub.enumeraciones.Estado;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.repositorios.ReservaRepositorio;
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class ReservaServicio {
         reserva.setFechaInicio(fechaInicio);
         reserva.setFechaFin(fechaFin);
         reserva.setPrecioTotal(precioFinal);
+        reserva.setEstado(Estado.PENDIENTE);
         //reserva.toString();
         rr.save(reserva);
     }
@@ -53,7 +55,7 @@ public class ReservaServicio {
         }
     }
 
-    public void borrarReserva(Long id) throws MiException {
+    public void borrarReserva(String id) throws MiException {
         if (id == null || id.equals("")) {
             throw new MiException("El id proporcionado es nulo");
         } else {
@@ -71,5 +73,23 @@ public class ReservaServicio {
         double diasDeDiferencia = period.getDays();
         precioFinal=precioDia*diasDeDiferencia;
         return precioFinal;
+    }
+    
+    public void cambiarEstado( String id, String estado) throws MiException{
+        if (id == null || id.equals("")) {
+            throw new MiException("El id proporcionado es nulo");
+        } else {
+            Optional<Reserva> respuesta = rr.findById(id);
+            if (respuesta.isPresent()) {
+                Reserva reserva = respuesta.get();
+                if (estado.equals("CONFIRMADA")){
+                    reserva.setEstado(Estado.CONFIRMADA);
+                }else if (estado.equals("COMPLETADA")){
+                    reserva.setEstado(Estado.COMPLETADA);
+                }
+                rr.save(reserva);
+            }
+        }
+        
     }
 }

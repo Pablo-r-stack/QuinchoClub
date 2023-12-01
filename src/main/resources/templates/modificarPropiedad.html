@@ -41,6 +41,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <input id="tamanio" name="tamanio" type="number" th:value="${propiedad.tamanio}">
                     </div>
                     <div class="input-group">
+                        <label for="precioDia">Precio por día: </label>
+                        <input id="precioDia" name="precioDia" type="number" th:value="${propiedad.precioDia}">
+                    </div>
+                    <div class="input-group">
                         <label for="imagenes">Agregar fotos (máximo 3 archivos, solo JPG):</label>
                         <input type="text" id="nombresArchivos" disabled>
                         <input id="imagenes" name="imagenes" type="file" multiple onchange="manejarSeleccionArchivos(this)">
@@ -71,10 +75,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <label for="aire-acondicionado">Aire acondicionado</label>
                             <input id="aire-acondicionado" name="aire" type="checkbox" th:checked="${propiedad.aire}">
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="precioDia">Precio por día:</label>
-                        <input id="precioDia" name="precioDia" type="number">
                     </div>
                     <button class="sign save">Guardar</button>
                 </form>
