@@ -6,6 +6,7 @@ package com.quinchoClub.servicios;
 
 import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.repositorios.PropiedadRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +63,29 @@ public class PropiedadServicio implements IPropiedadServicio {
     @Override
     public List<Propiedad> buscarPropiedadesPorTamanio(Double tamanio) {
          return pr.findByTamanio(tamanio);
+    }
+    
+       public List<Propiedad> buscarPropiedades(String tipo, String ubicacion, Double precioDia, boolean wifi, boolean pileta, boolean parrilla) {
+        // Supongamos que tienes una lista de todas las propiedades disponibles
+        List<Propiedad> todasLasPropiedades = pr.findAll();
+
+        // Creamos una lista para almacenar las propiedades que cumplen con los criterios de búsqueda
+        List<Propiedad> propiedadesFiltradas = new ArrayList<>();
+
+        // Iteramos sobre todas las propiedades para aplicar los filtros
+        for (Propiedad propiedad : todasLasPropiedades) {
+            // Verificamos los criterios de búsqueda
+            if ((tipo == null || tipo.equals(propiedad.getTipo()))
+                    && (ubicacion == null || ubicacion.equals(propiedad.getUbicacion()))
+                    && (precioDia == null || precioDia >= propiedad.getPrecioDia())
+                    && (!wifi || propiedad.isWifi())
+                    && (!pileta || propiedad.isPileta())
+                    && (!parrilla || propiedad.isParrilla())) {
+                // Si la propiedad cumple con todos los criterios, la agregamos a la lista filtrada
+                propiedadesFiltradas.add(propiedad);
+            }
+        }
+        return propiedadesFiltradas;
     }
 
     @Override

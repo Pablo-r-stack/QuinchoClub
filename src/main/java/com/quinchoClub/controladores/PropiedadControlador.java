@@ -197,4 +197,20 @@ public class PropiedadControlador {
 //        }
 //        return rutasObtenidas;
 //    }
+    
+    
+         @PostMapping("/buscarPropiedades")
+    public List<Propiedad> buscarPropiedades(
+            @RequestParam(required = false) String tipo,
+            @RequestParam(required = false) String ubicacion,
+            @RequestParam(required = false) double precioDia,
+            @RequestParam(required = false, defaultValue = "false") boolean wifi,
+            @RequestParam(required = false, defaultValue = "false") boolean pileta,
+            @RequestParam(required = false, defaultValue = "false") boolean parrilla
+    ) {
+        // Llamar al servicio para obtener las propiedades filtradas
+        return propiedadServicio.buscarPropiedades(tipo, ubicacion, precioDia, wifi, pileta, parrilla);
+    }
 }
+
+

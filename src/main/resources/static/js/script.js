@@ -113,3 +113,18 @@ function moveToLeft() {
     
 // FALTA FUNCION PARA MANIPULAR LAS STARS DE LAS CARDS
 
+function buscarPropiedades() {
+    // Obtener valores de los filtros
+    var tipo = document.getElementById("tipo").value;
+    var ubicacion = document.getElementById("ubicacion").value;
+    var precioDia = document.getElementById("precioDia").value;
+
+    // Obtener valores de los servicios seleccionados
+    var wifi = document.querySelector('input[name="wifi"]').checked;
+    var pileta = document.querySelector('input[name="pileta"]').checked;
+    var parrilla = document.querySelector('input[name="parrilla"]').checked;
+
+ var resultadosDiv = document.getElementById("resultados");
+    resultadosDiv.innerHTML = "<p>Resultados de búsqueda:</p>";
+    resultadosDiv.innerHTML += "<p>Propiedad encontrada...</p>";
+    resultadosDiv.innerHTML += "<p>Otra propiedad encontrada...</p>";
