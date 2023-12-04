@@ -45,6 +45,10 @@
                         <input id="tamanio" name="tamanio" type="number">
                     </div>
                     <div class="input-group">
+                        <label for="precioDia">Precio por día: </label>
+                        <input id="precioDia" name="precioDia" type="number">
+                    </div>
+                    <div class="input-group">
                         <label for="imagenes">Agregar fotos (máximo 3 archivos, solo JPG):</label>
                         <input type="text" id="nombresArchivos" disabled>
                         <input id="imagenes" name="imagenes" type="file" multiple onchange="manejarSeleccionArchivos(this)">
@@ -76,10 +80,6 @@
                             <input id="aire-acondicionado" name="aire" type="checkbox">
                         </div>
                         
-                    </div>
-                    <div class="input-group">
-                        <label for="precioDia">Precio por día:</label>
-                        <input id="precioDia" name="precioDia" type="number">
                     </div>
                     <button class="sign save">Guardar</button>
                 </form>

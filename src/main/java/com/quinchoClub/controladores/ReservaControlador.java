@@ -39,8 +39,8 @@ public class ReservaControlador {
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
-        Propiedad propiedad= propiedadServicio.obtenerPropiedadPorId(id);
-        Usuario vendedor= usuarioServicio.buscarPorPropiedad(id);
+        Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
+        Usuario vendedor = usuarioServicio.buscarPorPropiedad(id);
         modelo.put("propiedad", propiedad);
         modelo.put("vendedor", vendedor);
         return "registrarReserva.html";
@@ -50,14 +50,14 @@ public class ReservaControlador {
     @PreAuthorize("hasRole('ROLE_CLIENTE')")
     public String registrarReserva(@PathVariable String id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
-            @RequestParam Double precioDia, ModelMap modelo,HttpSession session) {
+            @RequestParam Double precioDia, ModelMap modelo, HttpSession session) {
         try {
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             //Usuario cliente = usuarioServicio.getOne(usuario.getId());
-        if (usuario != null) {
-            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
-        }
-        Propiedad propiedad= propiedadServicio.obtenerPropiedadPorId(id);
+            if (usuario != null) {
+                modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+            }
+            Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
             rs.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
             return "redirect:/";
         } catch (MiException ex) {
@@ -70,7 +70,7 @@ public class ReservaControlador {
 
     @PostMapping("/eliminar/")
     @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_PROPIETARIO')")
-    public String eliminarReserva(@PathVariable Long id) {
+    public String eliminarReserva(@PathVariable String id) {
         try {
             rs.borrarReserva(id);
             System.out.println("Reserva eliminada con Exito");
@@ -79,5 +79,17 @@ public class ReservaControlador {
             System.out.println(ex.getMessage());
             return "redirect://";
         }
+    }
+
+    @GetMapping("/listaReserva")
+    @PreAuthorize("has('ROLE_PROPIETARIO')")
+    public String verReservas(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        //Usuario cliente = usuarioServicio.getOne(usuario.getId());
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        
+        return null;
     }
 }

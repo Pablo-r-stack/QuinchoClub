@@ -5,8 +5,11 @@
  */
 package com.quinchoClub.entidades;
 
+import com.quinchoClub.enumeraciones.Estado;
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,6 +43,8 @@ public class Reserva{
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private Double precioTotal;
+     @Enumerated(EnumType.STRING)
+    private Estado estado;
     
     
 }

@@ -77,7 +77,7 @@ public class PropiedadControlador {
         }
         //graba la fecha de hoy, debe **pendiente** cambiar atributo a LocalDate
         propiedad.setDisponibilidad(new Date());
-        propiedad.setPrecioDia(tamanio);
+        propiedad.setPrecioDia(precioDia);
         propiedad.setWifi(wifi);
         propiedad.setPileta(pileta);
         propiedad.setParrilla(parrilla);
