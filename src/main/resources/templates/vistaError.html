@@ -1,0 +1,19 @@
+<html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+    <head>
+        <title>Error</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/styles.css">
+   </head>
+        <body>
+            <header class="nav-bar">
+            <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="logotipo de la app" class="logo"></a>
+            </header>
+            <main>
+                <div class="container-body">
+                <h1>Vaya, parece que algo salio mal...</h1>
+                <p>mientras trabajamos en ello vuelve al <a th:href="@{/}" class="link-error">inicio</a></p>
+                </div>
+            </main>
+        </body>
+</html>

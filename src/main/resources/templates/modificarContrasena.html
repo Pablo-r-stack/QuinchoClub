@@ -6,48 +6,47 @@ and open the template in the editor.
 -->
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
-    <title>QuinchoCLubApp</title>
-    <meta name="description" content="App de alquileres de verano">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+        <title>QuinchoCLubApp</title>
+        <meta name="description" content="App de alquileres de verano">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
 
-<body>
-    <header th:replace="/fragments/header :: header"></header>
+    <body>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:replace="/fragments/mensajes :: mensajes"></div>
+        <main class="principal">
+            <div class="form-container">
+                <h2 class="title-login">Cambiar Contraseña</h2>
+                <form th:action="@{/usuario/cambiarContrasena/{id}(id=${usuario.id})}" method="post">
+                    <div class="input-group">
+                        <label for="contrasenaActual">Contraseña actual:</label>
+                        <input type="password" name="contrasenaActual" required><br>
+                    </div>
+                    <div class="input-group">
+                        <label for="nuevaContrasena">Nueva contraseña:</label>
+                        <input type="password" name="nuevaContrasena" required><br>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmarNuevaContrasena">Confirmar nueva contraseña:</label>
+                        <input type="password" name="confirmarNuevaContrasena" required><br>
+                    </div>
 
+                    <button class="sign save" type="submit" value="Cambiar Contraseña">Modificar</button>
+                </form>
+            </div>
+        </main>
 
-    <main class="principal">
-        <div class="form-container">
-            <h2 class="title-login">Cambiar Contraseña</h2>
-            <form th:action="@{/usuario/cambiarContrasena/{id}(id=${usuario.id})}" method="post">
-                <div class="input-group">
-                    <label for="contrasenaActual">Contraseña actual:</label>
-                    <input type="password" name="contrasenaActual" required><br>
-                </div>
-                <div class="input-group">
-                    <label for="nuevaContrasena">Nueva contraseña:</label>
-                    <input type="password" name="nuevaContrasena" required><br>
-                </div>
-                <div class="input-group">
-                    <label for="confirmarNuevaContrasena">Confirmar nueva contraseña:</label>
-                    <input type="password" name="confirmarNuevaContrasena" required><br>
-                </div>
+        <footer th:replace="/fragments/footer :: footer"></footer>
+        <script src="/js/script.js"></script>
+        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
 
-                <button class="sign save" type="submit" value="Cambiar Contraseña">Modificar</button>
-            </form>
-        </div>
-    </main>
-
-    <footer th:replace="/fragments/footer :: footer"></footer>
-    <script src="/js/script.js"></script>
-    <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
-    
-</body>
+    </body>
 
 
 </html>

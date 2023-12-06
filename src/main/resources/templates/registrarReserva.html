@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 <html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
-    <title>QuinchoCLubApp</title>
-    <meta name="description" content="App de alquileres de verano">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+        <title>QuinchoCLubApp</title>
+        <meta name="description" content="App de alquileres de verano">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
 
-<body>
+    <body>
 
-    <header th:replace="/fragments/header :: header"></header>
-
-    <main class="principal">
-        <div class="form-container">
-            <div class="input-group">
-                <ul>
-                    <li th:text="'Vendedor: '+ ${vendedor.nombre} + ${vendedor.apellido}"></li>
-                    <li th:text="'Tipo de propiedad: '+ ${propiedad.tipo}"></li>
-                    <li th:text="'Precio por día: ' + ${propiedad.precioDia}"></li>
-                    <button class="btn-more"><a th:href="@{/}">Ver perfil del vendedor</a></button>
-                </ul>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:replace="/fragments/mensajes :: mensajes"></div>
+        <main class="principal">
+            <div class="form-container">
+                <div class="input-group">
+                    <ul>
+                        <li th:text="'Vendedor: '+ ${vendedor.nombre} + ${vendedor.apellido}"></li>
+                        <li th:text="'Tipo de propiedad: '+ ${propiedad.tipo}"></li>
+                        <li th:text="'Precio por día: ' + ${propiedad.precioDia}"></li>
+                        <button class="btn-more"><a th:href="@{/}">Ver perfil del vendedor</a></button>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="form-container">
-            <p class="title-login">Reservar propiedad</p>
+            <div class="form-container">
+                <p class="title-login">Reservar propiedad</p>
 
-            <form th:action="@{/reserva/registrar/{id}(id=${propiedad.id})}" method="POST" class="form">
+                <form th:action="@{/reserva/registrar/{id}(id=${propiedad.id})}" method="POST" class="form">
 
-                <div class="input-group">
-                    <label for="fechaInicio">Desde: </label>
-                    <input name="fechaInicio" id="fechaInicio" type="date">
-                </div>
-                <div class="input-group">
-                    <label for="fechaFin">Hasta: </label>
-                    <input name="fechaFin" id="fechaFin" type="date" onchange="calcularTotal()">
-                </div>
-                <div class="input-group">
-                    <label>Total: </label>
-                    <input name="precioDia" id="precioDia" type="number" th:value="${propiedad.precioDia}" readonly>
-                    <input type="number" id="total" style="color: blue;" disabled>
-                </div>
-
+                    <div class="input-group">
+                        <label for="fechaInicio">Desde: </label>
+                        <input name="fechaInicio" id="fechaInicio" type="date">
+                    </div>
+                    <div class="input-group">
+                        <label for="fechaFin">Hasta: </label>
+                        <input name="fechaFin" id="fechaFin" type="date" onchange="calcularTotal()">
+                    </div>
+                    <div class="input-group">
+                        <label>Total: </label>
+                        <input name="precioDia" id="precioDia" type="number" th:value="${propiedad.precioDia}" readonly>
+                        <input type="number" id="total" style="color: blue;" disabled>
+                    </div>
 
 
 
 
-                <button class="sign save" type="submit">Guardar</button>
-            </form>
-            <!-- <p class="signup">¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión</a></p> -->
-        </div>
-    </main>
 
-    <footer th:replace="/fragments/footer :: footer"></footer>
+                    <button class="sign save" type="submit">Guardar</button>
+                </form>
+                <!-- <p class="signup">¿Ya tienes una cuenta? <a th:href="@{/usuario/login}">Inicia sesión</a></p> -->
+            </div>
+        </main>
 
-    <script>
-        const fechaInicio = document.getElementById("fechaInicio");
-        const fechaFin = document.getElementById("fechaFin");
-        const total = document.getElementById("total");
-        const precioDia = document.getElementById("precioDia");
-        fechaInicio.min = new Date().toISOString().split('T')[0];
-        fechaFin.min = new Date().toISOString().split('T')[0];
+        <footer th:replace="/fragments/footer :: footer"></footer>
 
-        calcularTotal(){
-            // Calcular la diferencia en días
-            const diffTiempo = fechaFinValue - fechaInicioValue;
-            const diffDias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24));
+        <script>
+            const fechaInicio = document.getElementById("fechaInicio");
+            const fechaFin = document.getElementById("fechaFin");
+            const total = document.getElementById("total");
+            const precioDia = document.getElementById("precioDia");
+            fechaInicio.min = new Date().toISOString().split('T')[0];
+            fechaFin.min = new Date().toISOString().split('T')[0];
 
-            // Calcular el total
-            const calculo = diffDias * precioDia.value;
-            total.disabled= false;
-            // Actualizar el campo total
-            total.value = calculo;
+            calcularTotal(){
+                // Calcular la diferencia en días
+                const diffTiempo = fechaFinValue - fechaInicioValue;
+                const diffDias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24));
 
-            // Deshabilitar el campo total
-            total.disabled = true;
-        }
-    </script>
-    <script src="/js/script.js"></script>
-    <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
-</body>
+                // Calcular el total
+                const calculo = diffDias * precioDia.value;
+                total.disabled = false;
+                // Actualizar el campo total
+                total.value = calculo;
+
+                // Deshabilitar el campo total
+                total.disabled = true;
+            }
+        </script>
+        <script src="/js/script.js"></script>
+        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
+    </body>
 
 </html>

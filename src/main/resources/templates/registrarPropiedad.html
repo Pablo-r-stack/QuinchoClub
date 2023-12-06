@@ -15,7 +15,7 @@
     <body>
 
         <header th:replace="/fragments/header :: header"></header>
-
+        <div th:replace="/fragments/mensajes :: mensajes"></div>
         <main class="principal">
             <div class="form-container">
                 <p class="title-login">Datos de tu propiedad</p>
@@ -79,7 +79,7 @@
                             <label for="aire-acondicionado">Aire acondicionado</label>
                             <input id="aire-acondicionado" name="aire" type="checkbox">
                         </div>
-                        
+
                     </div>
                     <button class="sign save">Guardar</button>
                 </form>
@@ -88,7 +88,7 @@
         </main>
 
         <footer th:replace="/fragments/footer :: footer"></footer>
-        
+
         <!--Manejo de eventos de subida de fotos desde JS -->
         <script>
             function manejarSeleccionArchivos(inputFile) {
