@@ -65,18 +65,18 @@
 
             <!-- prox disp, calendario, direccion, descripcion -->
             <div class="column">
-                <div>
+                <div class="column2-div">
                     <h1>Publicación de </h1>
                     <h2 th:text="${vendedor.nombre} + ' ' + ${vendedor.apellido}"></h2>
                 </div>
-                <div id="adress">
-                    <h3 th:value="${propiedad.ubicacion}"></h3>
+                <div class="column2-div">
+                    <h3 th:text="${propiedad.ubicacion}"></h3>
                 </div>
-                <div th:if="${session.usuariosession != null}">
-                    <button class="btn-alq"> <a
-                            th:href="@{/reserva/registrar/{id} (id=${propiedad.id})}">RESERVAR</a></button>
+                <div th:if="${session.usuariosession != null}" class="column2-div">
+                    <a
+                    th:href="@{/reserva/registrar/{id} (id=${propiedad.id})}"><button class="btn-alq">RESERVAR</button></a>
                 </div>
-                <div>
+                <div class="column2-div">
                     <h2>Descripción</h2>
                     <p class="desc-right" th:text="${propiedad.detalles}">
                 </div>
@@ -87,7 +87,7 @@
         <h2>Opiniones: </h2>
 
     </div>
-    <div class="Opiniones" th:each="opinion : ${opiniones}">
+    <div class="opiniones" th:each="opinion : ${opiniones}">
         <div class="opinion-container">
             <div class="user-frame"></div>
             <div class="opinion"></div>
