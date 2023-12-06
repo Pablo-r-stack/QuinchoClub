@@ -1,0 +1,9 @@
+<div th:fragment="mensajes">
+    <div th:if="${mensaje}" class="alert alert-success text-center">
+        <p th:text="${mensaje}" class="alert-success">Mensaje de éxito personalizado</p>
+    </div>
+    <div th:if="${error}" class="alert alert-danger text-center">
+        <p th:text="${error}" class="alert-danger">Mensaje de error personalizado</p>
+    </div>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</div>

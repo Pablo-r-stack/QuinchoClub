@@ -19,12 +19,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -47,21 +47,22 @@ public class UsuarioControlador {
     @PostMapping("/registrar")
     public String registrarUsuario(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2, @RequestParam Integer dni, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento,
-            @RequestParam Integer telefono, @RequestParam(required = false) boolean propietario, ModelMap modelo) {
+            @RequestParam Integer telefono, @RequestParam(required = false) boolean propietario, ModelMap modelo, RedirectAttributes redirectAttributes) {
         try {
             usuarioServicio.crearUsuario(nombre, apellido, email, password, password2, dni, fechaDeNacimiento, telefono, propietario);
-            return "index.html";
+            redirectAttributes.addFlashAttribute("mensaje", "Registo completado con Exito");
+            return "redirect:/";
         } catch (MiException ex) {
             System.out.println(ex.getMessage());
-            modelo.put("error", ex.getMessage());
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("email", email);
-            return "register.html";
+            return "redirect:/usuario/registrar";
         }
     }
 
     @GetMapping("/login")
-    public String loginUsuario(@RequestParam(required = false) String error, HttpSession session, ModelMap modelo) {
+    public String loginUsuario(@RequestParam(required = false) String error, HttpSession session, ModelMap modelo, RedirectAttributes redirectAttributes) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
@@ -193,15 +194,14 @@ public class UsuarioControlador {
     public String mostrarExitoCambioContrasena() {
         return "exito";
     }
-    
-    
+
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEdicion(@PathVariable String id, HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
-        
+
         return "editarPerfil.html";
     }
 
@@ -210,7 +210,7 @@ public class UsuarioControlador {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaDeNacimiento, @RequestParam Integer telefono) {
         // Update profile info and change password
         usuarioServicio.actualizarPerfil(id, nombre, apellido, email, dni, fechaDeNacimiento, telefono);
-    
+
         return "redirect:/"; // Redirect with a success message
-}
+    }
 }
