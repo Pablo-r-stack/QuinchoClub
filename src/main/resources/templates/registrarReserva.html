@@ -43,7 +43,7 @@
                     <div class="input-group">
                         <label>Total: </label>
                         <input name="precioDia" id="precioDia" type="number" th:value="${propiedad.precioDia}" readonly>
-                        <input type="number" id="total" style="color: blue;" disabled>
+                        <input type="number" id="total" style="color: blue;" disabled="true" value="0">
                     </div>
 
 
@@ -66,21 +66,24 @@
             fechaInicio.min = new Date().toISOString().split('T')[0];
             fechaFin.min = new Date().toISOString().split('T')[0];
 
-            calcularTotal(){
+            function calcularTotal() {
+                // Obtener valores de las fechas y el precio por día
+                const fechaInicioValue = new Date(fechaInicio.value);
+                const fechaFinValue = new Date(fechaFin.value);
+                const precioDiaValue = parseFloat(precioDia.value);
+
                 // Calcular la diferencia en días
                 const diffTiempo = fechaFinValue - fechaInicioValue;
                 const diffDias = Math.ceil(diffTiempo / (1000 * 60 * 60 * 24));
 
                 // Calcular el total
-                const calculo = diffDias * precioDia.value;
-                total.disabled = false;
-                // Actualizar el campo total
-                total.value = calculo;
+                const calculo = diffDias * precioDiaValue;
 
-                // Deshabilitar el campo total
-                total.disabled = true;
+                // Actualizar el campo total
+                total.value = calculo.toFixed(2); // Redondear a dos decimales
             }
         </script>
+
         <script src="/js/script.js"></script>
         <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
     </body>
