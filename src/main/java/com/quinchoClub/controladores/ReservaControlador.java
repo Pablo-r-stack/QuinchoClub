@@ -1,13 +1,14 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Propiedad;
+import com.quinchoClub.entidades.Reserva;
 import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.PropiedadServicio;
 import com.quinchoClub.servicios.ReservaServicio;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,8 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReservaControlador {
 
     @Autowired
-    private ReservaServicio rs;
-
+    private ReservaServicio reservaServicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
     @Autowired
@@ -58,7 +58,11 @@ public class ReservaControlador {
                 modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
             }
             Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
+<<<<<<< HEAD
             rs.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
+=======
+            reservaServicio.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
+>>>>>>> desarrollotin
             return "redirect:/";
         } catch (MiException ex) {
             System.out.println(ex.getMessage());
@@ -68,11 +72,34 @@ public class ReservaControlador {
 
     }
 
-    @PostMapping("/eliminar/")
+    @GetMapping("/lista")
+    @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
+    public String observarReserva(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        modelo.addAllAttributes(reservaServicio.listaReserva(usuario));
+        return "registrarReserva.html";
+    }
+
+    @PostMapping("/lista/confirmar")
+    @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
+    public String confirmarReserva(HttpSession session, ModelMap modelo,@RequestParam String idReserva) throws MiException {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        
+        reservaServicio.confirmarReserva(idReserva);
+        return "registrarReserva.html";
+    }
+
+    @PostMapping("lista/eliminar")
     @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_PROPIETARIO')")
     public String eliminarReserva(@PathVariable String id) {
         try {
-            rs.borrarReserva(id);
+            reservaServicio.borrarReserva(id);
             System.out.println("Reserva eliminada con Exito");
             return "redirect:/usuario/lista";
         } catch (Exception ex) {
