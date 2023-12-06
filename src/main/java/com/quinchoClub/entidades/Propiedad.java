@@ -49,9 +49,9 @@ public class Propiedad {
     private boolean accesorios;
     private boolean cama;
     private boolean aire;
-    
 
     @OneToMany
     private List<Imagen> imagenes;
-
+    
+ 
 }

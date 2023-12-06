@@ -3,10 +3,12 @@ package com.quinchoClub.servicios;
 import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.entidades.Reserva;
 import com.quinchoClub.entidades.Usuario;
+import com.quinchoClub.enumeraciones.Estado;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.repositorios.ReservaRepositorio;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class ReservaServicio {
         reserva.setFechaInicio(fechaInicio);
         reserva.setFechaFin(fechaFin);
         reserva.setPrecioTotal(precioFinal);
+        reserva.setEstado(Estado.PENDIENTE);
         //reserva.toString();
         rr.save(reserva);
     }
@@ -53,7 +56,7 @@ public class ReservaServicio {
         }
     }
 
-    public void borrarReserva(Long id) throws MiException {
+    public void borrarReserva(String id) throws MiException {
         if (id == null || id.equals("")) {
             throw new MiException("El id proporcionado es nulo");
         } else {
@@ -65,11 +68,50 @@ public class ReservaServicio {
         }
     }
 
+    public void confirmarReserva(String id) throws MiException {
+   
+        if (id == null || id.equals("")) {
+            throw new MiException("El id proporcionado es nulo");
+        } else {
+            rr.buscarporReserva(id);
+            Optional<Reserva> respuesta = rr.findById(id);
+            if (respuesta.isPresent()) {
+                Reserva reserva = respuesta.get();
+                reserva.setEstado(Estado.CONFIRMADA);
+                rr.save(reserva);
+            }
+        }
+    }
+    public List<Reserva> listaReserva(Usuario propietario){
+       List<Propiedad> propiedades = propietario.getPropiedades();
+       List<Reserva> reserva = null;
+        for (Propiedad propiedad : propiedades) {
+            reserva.add((Reserva) rr.buscarPorPropiedad(propiedad.getId()));
+        }
+
+        return reserva;
+    }
+    
+    private void reservaCompletada(LocalDate fechaFin,String id) throws MiException{
+         if (id == null || id.equals("")) {
+            throw new MiException("El id proporcionado es nulo");
+        } else {
+            rr.buscarporReserva(id);
+            Optional<Reserva> respuesta = rr.findById(id);
+            if (respuesta.isPresent()&& fechaFin==LocalDate.now()) {
+                Reserva reserva = respuesta.get();
+                reserva.setEstado(Estado.COMPLETADA);
+                rr.save(reserva);
+            }
+         }
+    }
+    
+
     private Double calcularPrecio(LocalDate fechaInicio, LocalDate fechaFin, Double precioDia) {
         double precioFinal;
         Period period = Period.between(fechaInicio, fechaFin);
         double diasDeDiferencia = period.getDays();
-        precioFinal=precioDia*diasDeDiferencia;
+        precioFinal = precioDia * diasDeDiferencia;
         return precioFinal;
     }
 }

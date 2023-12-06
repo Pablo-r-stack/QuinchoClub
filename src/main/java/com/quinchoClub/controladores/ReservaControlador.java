@@ -1,13 +1,14 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Propiedad;
+import com.quinchoClub.entidades.Reserva;
 import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.PropiedadServicio;
 import com.quinchoClub.servicios.ReservaServicio;
 import com.quinchoClub.servicios.UsuarioServicio;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,8 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ReservaControlador {
 
     @Autowired
-    private ReservaServicio rs;
-
+    private ReservaServicio reservaServicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
     @Autowired
@@ -39,8 +39,8 @@ public class ReservaControlador {
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
-        Propiedad propiedad= propiedadServicio.obtenerPropiedadPorId(id);
-        Usuario vendedor= usuarioServicio.buscarPorPropiedad(id);
+        Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
+        Usuario vendedor = usuarioServicio.buscarPorPropiedad(id);
         modelo.put("propiedad", propiedad);
         modelo.put("vendedor", vendedor);
         return "registrarReserva.html";
@@ -50,15 +50,15 @@ public class ReservaControlador {
     @PreAuthorize("hasRole('ROLE_CLIENTE')")
     public String registrarReserva(@PathVariable String id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
-            @RequestParam Double precioDia, ModelMap modelo,HttpSession session) {
+            @RequestParam Double precioDia, ModelMap modelo, HttpSession session) {
         try {
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             //Usuario cliente = usuarioServicio.getOne(usuario.getId());
-        if (usuario != null) {
-            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
-        }
-        Propiedad propiedad= propiedadServicio.obtenerPropiedadPorId(id);
-            rs.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
+            if (usuario != null) {
+                modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+            }
+            Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
+            reservaServicio.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
             return "redirect:/";
         } catch (MiException ex) {
             System.out.println(ex.getMessage());
@@ -68,11 +68,34 @@ public class ReservaControlador {
 
     }
 
-    @PostMapping("/eliminar/")
+    @GetMapping("/lista")
+    @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
+    public String observarReserva(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        modelo.addAllAttributes(reservaServicio.listaReserva(usuario));
+        return "registrarReserva.html";
+    }
+
+    @PostMapping("/lista/confirmar")
+    @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
+    public String confirmarReserva(HttpSession session, ModelMap modelo,@RequestParam String idReserva) throws MiException {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        
+        reservaServicio.confirmarReserva(idReserva);
+        return "registrarReserva.html";
+    }
+
+    @PostMapping("lista/eliminar")
     @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_PROPIETARIO')")
-    public String eliminarReserva(@PathVariable Long id) {
+    public String eliminarReserva(@PathVariable String id) {
         try {
-            rs.borrarReserva(id);
+            reservaServicio.borrarReserva(id);
             System.out.println("Reserva eliminada con Exito");
             return "redirect:/usuario/lista";
         } catch (Exception ex) {
