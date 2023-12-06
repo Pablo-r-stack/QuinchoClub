@@ -1,8 +1,7 @@
 package com.quinchoClub.entidades;
 
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,31 +12,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ResenaPropiedad extends Resena{
-    @ManyToMany
-    private List<Resena> propiedad;
+public class ResenaPropiedad extends Resena {
+
+    @OneToOne
+    private Propiedad propiedad;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

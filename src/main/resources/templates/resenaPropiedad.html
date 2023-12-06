@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+        <title>QuinchoCLubApp</title>
+        <meta name="description" content="App de alquileres de verano">
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+
+
+    <body>
+        <header th:replace="/fragments/header :: header"></header>
+
+        <main class="principal">
+            <div class="form-container">
+                <h2 class="title-login">Reseña Propiedad</h2>
+                <form th:action="@{/resena/cargarResenaPropiedad/{id}}" method="POST" class="form">
+                    <div class="input-group" hidden>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" name="Iduser" id="nombre">
+                    </div>
+                    <div class="input-group">
+                        <label for="comntario">Comentario</label>
+                        <textarea name="comentario" id="comentario"> </textarea>>
+                    </div>
+                    <div>
+                        <label for="calificacion">Calificacion</label>
+                        <div class="rating">
+                            <input value="5" name="rate" id="star5" type="radio">
+                            <label title="text" for="star5"></label>
+                            <input value="4" name="rate" id="star4" type="radio">
+                            <label title="text" for="star4"></label>
+                            <input value="3" name="rate" id="star3" type="radio" checked="">
+                            <label title="text" for="star3"></label>
+                            <input value="2" name="rate" id="star2" type="radio">
+                            <label title="text" for="star2"></label>
+                            <input value="1" name="rate" id="star1" type="radio">
+                            <label title="text" for="star1"></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="sign register">Calificar</button>
+                </form>
+                <div class="social-message">
+                    <div class="line-login"></div>
+                    <p class="message">Regístrate con tus redes sociales</p>
+                    <div class="line-login"></div>
+                </div>
+                <div class="social-icons">
+                    <a th:href="@{#}" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                     height="1.25em"
+                                                                                     viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+
+                        <path
+                            d="M386.061 228.496c1.834 9.692 3.143 19.384 3.143 31.956C389.204 370.205 315.599 448 204.8 448c-106.084 0-192-85.915-192-192s85.916-192 192-192c51.864 0 95.083 18.859 128.611 50.292l-52.126 50.03c-14.145-13.621-39.028-29.599-76.485-29.599-65.484 0-118.92 54.221-118.92 121.277 0 67.056 53.436 121.277 118.92 121.277 75.961 0 104.513-54.745 108.965-82.773H204.8v-66.009h181.261zm185.406 6.437V179.2h-56.001v55.733h-55.733v56.001h55.733v55.733h56.001v-55.733H627.2v-56.001h-55.733z" />
+                        </svg></a>
+                    <a th:href="@{#}" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                     height="1.25em"
+                                                                                     viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+
+                        <path
+                            d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" />
+                        </svg></a>
+                    <a th:href="@{#}" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                     height="1.25em"
+                                                                                     viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+
+                        <path
+                            d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                        </svg></a>
+                    <a th:href="@{#}" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                     height="1.25em"
+                                                                                     viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+
+                        <path
+                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                        </svg></a>
+                </div>
+                <p class="signup">¿Ya tenés una cuenta?
+                    <a th:href="@{/usuario/login}">Inicia sesión</a>
+                </p>
+            </div>
+        </main>
+
+        <footer th:replace="/fragments/footer :: footer"></footer>
+
+        <script src="/js/script.js"></script>
+        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
+    </body>
+</html>
