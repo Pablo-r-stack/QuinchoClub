@@ -1,6 +1,9 @@
 <header th:fragment="header">
-    <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="logotipo de la app" class="logo"></a>
-    <div class="search-container">
+    <div class="logos-container">
+        <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="logotipo de la app" class="logo"></a>
+        <img th:src="@{/img/QClogotipo.png}" alt="Quinchoclub" class="logotipo">
+    </div>
+        <div class="search-container">
         <!-- COLOCAR RUTA DEL BUSCADOR -->
         <form th:action="@{/}" method="get" class="search-bar">
             <input type="text" placeholder=" Encontrá tu lugar ideal..." name="buscador">
