@@ -43,7 +43,7 @@ public class Reserva{
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private Double precioTotal;
-     @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Estado estado;
     
     
