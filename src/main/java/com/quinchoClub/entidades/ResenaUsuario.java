@@ -1,7 +1,7 @@
 package com.quinchoClub.entidades;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +13,5 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ResenaUsuario extends Resena {
-
-    @ManyToOne
-    private Usuario usuario;
-    
+    private String nombre;
 }

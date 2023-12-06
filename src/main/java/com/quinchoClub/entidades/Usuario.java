@@ -55,4 +55,10 @@ public class Usuario {
     
     @OneToOne
     Imagen imagen;
+    
+    @OneToMany
+    private List<ResenaUsuario>resenas;
+    
+    
+            
 }

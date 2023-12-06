@@ -4,7 +4,10 @@
  */
 package com.quinchoClub.servicios;
 
+import com.quinchoClub.entidades.ResenaPropiedad;
+import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.repositorios.ResenaRepositorio;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,14 @@ import org.springframework.stereotype.Service;
 public class ResenaServicio {
 
     @Autowired
-    private ResenaRepositorio  rr;
+    private ResenaRepositorio rr;
+
     //CRUD DE RESENAS.
+    public void crearResenaPropiedad(String id, Usuario usuario, String comentario, Integer calificacion, LocalDate fechaComentario) {
+        ResenaPropiedad resena = new ResenaPropiedad();
+        resena.setUsuario(usuario);
+        resena.setComentario(comentario);
+        resena.setCalificacion(calificacion);
+        resena.setFechaComentario(fechaComentario);
+    }
 }

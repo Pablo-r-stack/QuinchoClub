@@ -142,7 +142,7 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiException("La fecha de nacimiento no puede ser nulo");
         }
 
-        if (telefono == null || telefono.equals("")) {
+        if (telefono == null) {
             throw new MiException("El telefono no puede ser nulo");
         }
     }

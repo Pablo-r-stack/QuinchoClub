@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Positive;
@@ -49,9 +50,9 @@ public class Propiedad {
     private boolean accesorios;
     private boolean cama;
     private boolean aire;
-    
-
     @OneToMany
     private List<Imagen> imagenes;
-
+    @OneToMany
+    private List<ResenaPropiedad>resenas;
+    
 }
