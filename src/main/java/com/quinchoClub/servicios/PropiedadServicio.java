@@ -75,7 +75,7 @@ public class PropiedadServicio implements IPropiedadServicio {
                 .filter(propiedad ->
                         (tipo == null || tipo.equals(propiedad.getTipo())) &&
                         (ubicacion == null || ubicacion.equals(propiedad.getUbicacion())) &&
-                        (precioDia == null || precioDia <= propiedad.getPrecioDia()) &&
+                        (precioDia == null ||precioDia <= propiedad.getPrecioDia()) &&
                         (!wifi || wifi == propiedad.isWifi()) &&
                         (!pileta || pileta == propiedad.isPileta()) &&
                         (!parrilla || parrilla == propiedad.isParrilla()))

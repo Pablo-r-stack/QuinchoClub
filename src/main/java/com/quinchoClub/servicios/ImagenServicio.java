@@ -89,6 +89,7 @@ public class ImagenServicio implements IImagenServicio {
         if (archivos != null && !archivos.isEmpty()) {
             try {
                 for (MultipartFile archivo : archivos) {
+                    if(!archivo.getContentType().contentEquals("application/octet-stream")){
                     Imagen imagen = new Imagen();
                     imagen.setMime(archivo.getContentType());
                     String nombreUnico = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename();
@@ -96,6 +97,7 @@ public class ImagenServicio implements IImagenServicio {
                     imagen.setContenido(archivo.getBytes());
                     imagenRepositorio.save(imagen);
                     imagenes.add(imagen);
+                    }
                 }
             } catch (IOException e) {
                 // Manejar la excepción de lectura de bytes
