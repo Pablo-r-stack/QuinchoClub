@@ -90,12 +90,21 @@ function moveToLeft() {
 }
 
 //funcion que manipula el cambio de rango de precio en searchbar
-// Llamada inicial para mostrar el valor inicial del rango
-
-const rangoPrecio = document.getElementById("rangoPrecio");
-const inputPrecio = document.getElementById("precioDia");
-
 function cambiarPrecio() {
+    const rangoPrecio = document.getElementById("rangoPrecio");
+    const inputPrecio = document.getElementById("precioDia");
     rangoPrecio.textContent = inputPrecio.value + "$";
 }
-cambiarPrecio();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const inputPrecio = document.getElementById("precioDia");
+
+    // Establecer el contenido inicial como vacío
+    const rangoPrecio = document.getElementById("rangoPrecio");
+    rangoPrecio.textContent = "";
+
+    inputPrecio.addEventListener('input', cambiarPrecio);
+
+    // Llamada inicial para mostrar el valor inicial del rango
+    cambiarPrecio();
+});
