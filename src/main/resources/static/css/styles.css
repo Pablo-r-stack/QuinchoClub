@@ -291,6 +291,90 @@ header {
     border-width: 0 0.15em 0.15em 0;
     transform: rotate(45deg);
 }
+
+/*OTRO CUSTOM-CHECKBOX*/
+/* Customize the label (the ch-btn) */
+.ch-btn {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .ch-btn input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .ch-btn label {
+    cursor: pointer;
+    font-size: 14px;
+  }
+  /* Create a custom checkbox */
+  .chmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border: 2.5px solid #ffffff;
+    transition: .2s linear;
+  }
+  .ch-btn input:checked ~ .chmark {
+    background-color: transparent;
+  }
+  
+  /* Create the chmark/indicator (hidden when not checked) */
+  .chmark:after {
+    content: "";
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    left: 50%;
+    top: 40%;
+    width: 10px;
+    height: 14px;
+    border: 2px solid #0ea021;
+    filter: drop-shadow(0px 0px 10px #0ea021);
+    border-width: 0 2.5px 2.5px 0;
+    transition: .2s linear;
+    transform: translate(-50%, -50%) rotate(-90deg) scale(0.2);
+  }
+  
+  /* Show the chmark when checked */
+  .ch-btn input:checked ~ .chmark:after {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    animation: pulse 1s ease-in;
+  }
+  
+  .ch-btn input:checked ~ .chmark {
+    transform: rotate(45deg);
+    border: none;
+  }
+  
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1.6);
+    }
+  }
+  
+  
+
 /*range searchbar*/
 .PB-range-slider {
     -webkit-appearance: none;
@@ -459,6 +543,10 @@ main {
     overflow: hidden;
 }
 
+.post-carousel{
+    width: 300%;
+}
+
 .carruseles {
     width: 300%;
     height: 100%;
@@ -472,8 +560,8 @@ main {
 }
 
 .slider-section img {
-    width: 100%;
-    height: auto;
+    width: 40em;
+    height: 40em;
     /*object-fit: cover;*/
     border-radius: 10px;
     display: block;
@@ -565,8 +653,7 @@ main {
     background-color: var(--colorCinco);
 }
 
-.desc,
-.desc-right {
+.desc{
     color: var(--colorUno);
     padding: 7px;
     font-size: 1rem;
@@ -856,12 +943,11 @@ main {
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    align-items: center;
 }
+
 .column {
     padding: 10px;
-    border: 1px solid #ddd;
-    width: 60%;
+    width: 100%;
 }
 
 .column2-div{
@@ -876,18 +962,32 @@ main {
     display: flex;
     flex-direction: column;
     gap: 1em;
+    width: 70em;
     max-height: 300px; /* Ajusta según sea necesario */
-    max-width: 450px;
+    max-width: 55em;
     overflow-y: auto;
+}
+
+.opiniones h2{
+    padding-top: 1em;
+    padding-left: 2em;
+    padding: 0.5em;
+    border-radius: 30px;
+    background-color: var(--colorTres);
 }
 
 .opinion-container {
     background-color: rgba(243, 244, 246, 1);
     padding: 2rem;
-    max-width: 420px;
+    width: 100%;
+    max-width: 50em;
     border-radius: 10px;
     box-shadow: 0 20px 30px -20px rgba(5, 5, 5, 0.24);
+    align-self: center;
+}
 
+.opinion-container li{
+    text-align: center;
 }
 
 .datas{
@@ -1023,7 +1123,7 @@ main {
 }
 
 .seccion-perfil-usuario .perfil-usuario-body {
-    width: 90%;
+    width: 100%;
     position: relative;
     max-width: 750px;
 }
@@ -1049,6 +1149,13 @@ main {
     background-color: #fff;
     border-radius: 15px;
     width: 100%;
+}
+
+.perfil-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .lista-datos {

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+    <title>QuinchoCLubApp</title>
+    <meta name="description" content="App de alquileres de verano">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header th:replace="/fragments/header :: header"></header>
+
+    <main class="principal">
+
+        <!-- <main class="principal">  es opcional darle uso a la clase .principal, lo que haria seria centrar el contenido me parece que se ve mejor asi que lo dejo a criterio de quien lo vaya a manejar -->
+        <section class="seccion-perfil-usuario">
+            <div class="perfil-usuario-header">
+                <div class="perfil-usuario-portada">
+                    <div class="perfil-usuario-avatar">
+                        <img th:if="${user.imagen}" th:src="@{/imagen/vista/{id} (id=${user.imagen.id})}" alt="">
+                        <img th:unless="${user.imagen}" src="/img/pfp.jpg" alt="img-avatar">
+                    </div>
+
+                </div>
+            </div>
+            <div class="perfil-usuario-body">
+                <div class="perfil-usuario-bio">
+                    <h3 class="title" th:text="${user.nombre} + ' ' + ${user.apellido}"></h3>
+                </div>
+
+                <div class="perfil-usuario-footer">
+                    <ul class="lista-datos">
+                        <li><i class="icono fas fa-map-signs"><p th:text="${user.email}"></p></i>
+                            
+                        </li>
+                        <li><i class="icono fas fa-phone-alt"><p th:text="${user.telefono}"></p></i>
+                            
+                        </li>
+                    </ul>
+                    <ul class="lista-datos">
+                        </li>
+                        <li><i class="icono fas fa-map-marker-alt"><p>UBICACION(pendiente)</p></i></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="opiniones">
+            <div th:if="${#lists.size(resenas) == 0}" class="opinion-container">
+                <li>Aún no hay reseñas.</li>
+            </div>
+            <div th:unless="${#lists.size(resenas) == 0}" class="opinion-container" th:each="resena : ${resenas}">
+                <div class="rating">
+                    <!-- Lógica para mostrar estrellas según la calificación -->
+                    <span th:each="i : ${#numbers.sequence(1, resena.calificacion)}"
+                        class="star-comments">&#9733;</span>
+                </div>
+                <div class="datas">
+                    <div class="name">
+                        <h4 th:text="${resena.usuario.nombre} +' ' + ${resena.usuario.apellido}"></h4>
+                    </div>
+                </div>
+                <div class="opinion">
+                    <h4 th:text="${resena.fechaComentario}"></h4>
+                    <p th:text="${resena.comentario}"></p>
+                </div>
+            </div>
+        </div>
+        <!-- </main> -->
+
+    </main>
+
+    <footer th:replace="/fragments/footer :: footer"></footer>
+
+    <script src="/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
+    
+</body>
+
+</html>

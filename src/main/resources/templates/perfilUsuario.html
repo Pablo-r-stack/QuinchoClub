@@ -45,7 +45,7 @@
             <div class="perfil-usuario-body">
                 <div class="perfil-usuario-bio">
                     <h3 class="title" th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></h3>
-                    <div>
+                    <div class="perfil-btn">
                         <a th:href="@{/usuario/cambiarContrasenaForm}"><button class="btn-more">Cambiar contraseña</button></a>
                         <a th:href="@{/usuario/editar/{id}(id=${usuario.id})}"><button class="btn-more">Modificar perfil</button></a>
                     </div>
