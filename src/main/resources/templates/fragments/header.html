@@ -1,11 +1,49 @@
 <header th:fragment="header">
-    <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="logotipo de la app" class="logo"></a>
-    <div class="search-container">
+    <div class="logos-container">
+        <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="logotipo de la app" class="logo"></a>
+        <img th:src="@{/img/QClogotipo.png}" alt="Quinchoclub" class="logotipo">
+    </div>
+        <div class="search-container">
         <!-- COLOCAR RUTA DEL BUSCADOR -->
-        <form th:action="@{/}" method="get" class="search-bar">
-            <input type="text" placeholder=" Encontrá tu lugar ideal..." name="buscador">
-                <button type="submit"> <img th:src="@{/img/lupa.png}" alt="buscador"></button>
-        </form>
+             <form class="search-bar" th:action="@{/propiedad/buscarPropiedades}" method="POST" id="searchForm">
+                <label for="tipo">Tipo</label>
+                <select id="tipo" name="tipo">
+                    <option value="casa">Casa</option>
+                    <option value="quincho">Quincho</option>
+                    <option value="lote">Lote</option>
+                </select>
+
+                <!-- <div class="search-container">
+                     <input type="text" id="searchInput" placeholder="buscar país" />
+                     <ul id="resultsList" class="results-list"></ul>
+                     <p id="noResults" class="no-results">No se encontraron resultados.</p>
+                 </div> -->
+
+                <label for="ubicacion">Ubicación:</label>
+                <select id="ubicacion" name="ubicacion" >
+                    <option value="argentina">Argentina</option>
+                    <option value="chile">Chile</option>
+                    <option value="brasil">Brasil</option>
+                </select>
+
+                <label for="precioDia">Precio:</label>
+                <input class="precio" type="range" id="precioDia" name="precioDia" min="0" max="500" step="10">
+                <span id="rangoPrecio">0 - 500</span> USD
+
+                <label>
+                    <input type="checkbox" name="wifi"> Wifi
+                </label>
+                <label>
+                    <input type="checkbox" name="pileta"> Pileta
+                </label>
+                <label>
+                    <input type="checkbox" name="parrilla"> Parrilla
+                </label>
+
+                <!-- Agrega más filtros según sea necesario -->
+
+              <button type="submit"> <img th:src="@{/img/lupa.png}" alt="buscador"></button>
+            </form>
     </div>
 
     <nav class="nav-bar menu-container">
@@ -20,9 +58,8 @@
             <li><a th:if="${session.usuariosession == null}" th:href="@{/usuario/registrar}">Registro</a></li>
             <li><a th:if="${session.usuariosession == null}" th:href="@{/usuario/login}">LogIn</a></li>
             <li><a th:if="${session.usuariosession != null}" th:text="${usuario.nombre}"></a></li>
-            <li><a th:if="${session.usuariosession != null}" th:href="@{/usuario/perfil/{id}(id=${usuario.id}}">Ver
-                    Perfil</a></li>
-            <li><a sec:authorize="hasRole('PROPIETARIO')" th:href="@{/usuario/propiedades}">ver propiedades:</a></li>
+            <li><a th:if="${session.usuariosession != null}" th:href="@{/usuario/perfil/{id}(id=${usuario.id}}">Ver Perfil</a></li>
+            <li><a th:if="${session.usuariosession != null}" sec:authorize="hasRole('PROPIETARIO')" th:href="@{/usuario/propiedades}">Ver Propiedades:</a></li>
             <!--Ver perfil -->
             <li><a th:if="${session.usuariosession != null}" th:href="@{/logout}">Cerrar Sesion</a></li>
             <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/usuario/lista}">Ver Lista Usuarios</a></li>

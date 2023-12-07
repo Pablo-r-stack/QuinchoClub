@@ -39,15 +39,12 @@
                             <input type="hidden" name="_method" value="POST">
                         </form>
                     </div>
-                    <!-- <button type="button" class="boton-portada">
-                            <i class="far fa-image"></i> Cambiar fondo  BTN PARA AGREGAR IMAGEN (FALTA DARLE FUNCIONALIDAD)
-                        </button> -->
+
                 </div>
             </div>
             <div class="perfil-usuario-body">
                 <div class="perfil-usuario-bio">
                     <h3 class="title" th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></h3>
-                    <p class="desc"> años.</p>
                     <div>
                         <a th:href="@{/usuario/cambiarContrasenaForm}"><button class="btn-more">Cambiar contraseña</button></a>
                         <a th:href="@{/usuario/editar/{id}(id=${usuario.id})}"><button class="btn-more">Modificar perfil</button></a>
@@ -56,24 +53,24 @@
 
                 <div class="perfil-usuario-footer">
                     <ul class="lista-datos">
-                        <li><i class="icono fas fa-map-signs"></i>
-                            <p th:text="${usuario.email}"></p>
+                        <li><i class="icono fas fa-map-signs"><p th:text="${usuario.email}"></p></i>
+                            
                         </li>
-                        <li><i class="icono fas fa-phone-alt"></i>
-                            <p th:text="${usuario.telefono}"></p>
+                        <li><i class="icono fas fa-phone-alt"><p th:text="${usuario.telefono}"></p></i>
+                            
                         </li>
-                        <li><i class="icono fas fa-briefcase"></i>
-                            <p th:text="'Perfil: '+ ${usuario.rol}"> </p>
+                        <li><i class="icono fas fa-briefcase"><p th:text="'Perfil: '+ ${usuario.rol}"> </p></i>
+                            
                         </li>
                     </ul>
                     <ul class="lista-datos">
-                        <li><i class="icono fas fa-calendar-alt"></i>
-                            <p th:text="${usuario.fechaDeNacimiento}"></p>
+                        <li><i class="icono fas fa-calendar-alt"><p th:text="${usuario.fechaDeNacimiento}"></p></i>
+                            
                         </li>
-                        <li><i class="icono fas fa-user-check"></i>
-                            <p th:text="${usuario.dni}"></p>
+                        <li><i class="icono fas fa-user-check"><p th:text="${usuario.dni}"></p></i>
+                            
                         </li>
-                        <li><i class="icono fas fa-map-marker-alt"></i>UBICACION(pendiente)</li>
+                        <li><i class="icono fas fa-map-marker-alt"><p>UBICACION(pendiente)</p></i></li>
                     </ul>
                 </div>
                 <div class="input-group">

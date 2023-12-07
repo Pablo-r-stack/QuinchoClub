@@ -108,4 +108,3 @@ function mostrarMensaje(tipo, mensaje) {
         mostrarMensaje("error", mensajeError.textContent);
     }
 // FALTA FUNCION PARA MANIPULAR LAS STARS DE LAS CARDS
-
