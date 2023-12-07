@@ -8,6 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <head>
         <title>Mis propiedades</title>
         <meta charset="UTF-8">
+        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/styles.css">
     </head>
@@ -15,31 +16,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         <header th:replace="/fragments/header :: header"></header>
         <main class="principal">
-            <div class="input-group">
-                <h1 class="tittle">Mis Propiedades:</h1>
-                <button><a class="btn-more" th:href="@{/propiedad/registrar}">Registrar otra Propiedad</a></button>
+            <div class="properties">
+                <div class="properties-head">
+                    <h2>Mis Propiedades:</h2>
+                    <button><a class="btn-more" th:href="@{/propiedad/registrar}">Registrar otra Propiedad</a></button>
+                </div>
+                <div class="properties-body">
+                    <ul>
+                        <li th:each="propiedad : ${propiedades}">
+                            <div class="card">
+                                <p th:text="${propiedad.detalles}"></p>
+                                <div class="input-group">
+                                    <button><a class="btn-more" th:href="@{/propiedad/publicacion/{id}(id=${propiedad.id})}">Ver
+                                            Publicación</a></button>
+                                    <button><a class="btn-more"
+                                               th:href="@{/propiedad/modificar/{id}(id=${propiedad.id})}">Modificar</a></button>
+                                    <form th:action="@{'/propiedad/eliminar/' + ${propiedad.id} + '/' + ${usuario.id}}" method="POST">
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" class="btn-more">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!--<div th:if="${propiedades.size == 0}">
                     <p>Aun no hay propiedades cargadas</p>
                     <button><a th:href="@{/propiedad/registrar}">Cargar</a></button>
                 </div>-->
-            <ul class="properties">
-                <li th:each="propiedad : ${propiedades}">
-                    <div class="card">
-                        <p th:text="${propiedad.detalles}"></p>
-                        <div class="input-group">
-                            <button><a class="btn-more" th:href="@{/propiedad/publicacion/{id}(id=${propiedad.id})}">Ver
-                                    Publicación</a></button>
-                            <button><a class="btn-more"
-                                    th:href="@{/propiedad/modificar/{id}(id=${propiedad.id})}">Modificar</a></button>
-                            <form th:action="@{'/propiedad/eliminar/' + ${propiedad.id} + '/' + ${usuario.id}}" method="POST">
-                                <input type="hidden" name="_method" value="DELETE" />
-                                <button type="submit" class="btn-more">Eliminar</button>
-                            </form>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </main>
 
         <script src="/js/script.js"></script>

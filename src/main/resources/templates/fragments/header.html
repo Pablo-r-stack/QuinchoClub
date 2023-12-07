@@ -3,54 +3,50 @@
         <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt="logotipo de la app" class="logo"></a>
         <img th:src="@{/img/QClogotipo.png}" alt="Quinchoclub" class="logotipo">
     </div>
-        <div class="search-container">
+    <div class="search-container">
         <!-- COLOCAR RUTA DEL BUSCADOR -->
-             <form class="search-bar" th:action="@{/propiedad/buscarPropiedades}" method="POST" id="searchForm">
-                <label for="tipo">Tipo</label>
-                <select id="tipo" name="tipo">
-                    <option value="casa">Casa</option>
-                    <option value="quincho">Quincho</option>
-                    <option value="lote">Lote</option>
-                </select>
-
-                <!-- <div class="search-container">
-                     <input type="text" id="searchInput" placeholder="buscar país" />
-                     <ul id="resultsList" class="results-list"></ul>
-                     <p id="noResults" class="no-results">No se encontraron resultados.</p>
-                 </div> -->
-
-                <label for="ubicacion">Ubicación:</label>
-                <select id="ubicacion" name="ubicacion" >
-                    <option value="argentina">Argentina</option>
-                    <option value="chile">Chile</option>
-                    <option value="brasil">Brasil</option>
-                </select>
-
+        <form class="search-bar" th:action="@{/propiedad/buscarPropiedades}" method="POST" id="searchForm">
+            <select class="selectSearch" id="tipo" name="tipo">
+                <option value="" disabled selected>Tipo</option>
+                <option value="casa">Casa</option>
+                <option value="quinta">Quinta</option>
+                <option value="salon-de-eventos">Salon de eventos</option>
+            </select>
+            <select class="selectSearch" id="ubicacion" name="ubicacion">
+                <option value="" disabled selected>Ubicacion</option>
+                <option value="argentina">Argentina</option>
+                <option value="chile">Chile</option>
+                <option value="brasil">Brasil</option>
+            </select>
+            <div class="PB-range-slider-div">
                 <label for="precioDia">Precio:</label>
-                <input class="precio" type="range" id="precioDia" name="precioDia" min="0" max="500" step="10">
-                <span id="rangoPrecio">0 - 500</span> USD
+                <input class="PB-range-slider" type="range" id="precioDia" name="precioDia" min="0" max="10000" step="100" oninput="cambiarPrecio()">
+                <p id="rangoPrecio" class="PB-range-slidervalue">50$</p>
+            </div>
+            <label class="contB"> 
+                <input type="checkbox" name="wifi">Wifi
+                <div class="checkmark"></div>
+            </label>
+            <label class="contB">
+                <input type="checkbox" name="pileta"> Pileta
+                <div class="checkmark"></div>
+            </label>
+            <label class="contB">
+                <input type="checkbox" name="parrilla"> Parrilla
+                <div class="checkmark"></div>
+            </label>
 
-                <label>
-                    <input type="checkbox" name="wifi"> Wifi
-                </label>
-                <label>
-                    <input type="checkbox" name="pileta"> Pileta
-                </label>
-                <label>
-                    <input type="checkbox" name="parrilla"> Parrilla
-                </label>
+            <!-- Agrega más filtros según sea necesario -->
 
-                <!-- Agrega más filtros según sea necesario -->
-
-              <button type="submit"> <img th:src="@{/img/lupa.png}" alt="buscador"></button>
-            </form>
+            <button type="submit"> <img th:src="@{/img/lupa.png}" alt="buscador"></button>
+        </form>
     </div>
 
     <nav class="nav-bar menu-container">
         <button class="btn-icon1" id="menuButton1"><svg xmlns="http://www.w3.org/2000/svg" height="1.25em"
                                                         viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com/ License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                <path
-                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+            <path
+                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
             </svg></button>
         <div class="line"></div>
 
@@ -69,9 +65,6 @@
         </ul>
 
     </nav>
-
-
     <!--Links-->
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </header>
-

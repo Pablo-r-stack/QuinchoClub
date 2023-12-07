@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
         <title>Ver Propiedad</title>
         <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -18,22 +19,16 @@
                 <div class="container-carousel">
                     <div class="carruseles" id="slider">
                         <div class="slider-section">
-                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
-                                 th:src="${propiedad.imagenes[0]}">
-                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
-                                 th:src="@{/img/1.jpg}">
+                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >0}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[0].id})}" alt="Imagen 1">
+                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() > 0}" src="/img/1.jpg" alt="Foto predefinida1">
                         </div>
                         <div class="slider-section">
-                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
-                                 th:src="${propiedad.imagenes[1]}">
-                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
-                                 th:src="@{/img/2.jpg}">
+                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 2}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[1].id})}" alt="Imagen 2">
+                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 2}" src="/img/2.jpg" alt="Foto predefinida2">
                         </div>
                         <div class="slider-section">
-                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
-                                 th:src="${propiedad.imagenes[2]}">
-                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}"
-                                 th:src="@{/img/3.jpg}">
+                            <img th:if="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" th:src="@{/imagen/vista/{id}(id=${propiedad.imagenes[2].id})}" alt="Imagen 3">
+                            <img th:unless="${propiedad.imagenes != null and propiedad.imagenes.size() >= 3}" src="/img/3.jpg" alt="Foto predefinida3">
                         </div>
                         <div class="btn-left"><i class='bx bx-chevron-left'></i></div>
                         <div class="btn-right"><i class='bx bx-chevron-right'></i></div>
@@ -41,8 +36,8 @@
                 </div>
 
                 <div>
-                    <p>Servicios:</p>
-                    <div>
+                    <h3 class="title">Servicios:</h3>
+                    <div class="service-container">
                         <span th:if="${propiedad.cama}" class="material-symbols-outlined" title="cama">
                             bed
                         </span>
@@ -68,13 +63,15 @@
                 <div class="column2-div">
                     <h1>Publicación de </h1>
                     <h2 th:text="${vendedor.nombre} + ' ' + ${vendedor.apellido}"></h2>
+                    <a
+                        th:href="@{/usuario/registrar/{id} (id=${vendedor.id})}"><button class="btn-alq">Ver Perfil</button></a>
                 </div>
                 <div class="column2-div">
                     <h3 th:text="${propiedad.ubicacion}"></h3>
                 </div>
-                <div th:if="${session.usuariosession != null}" class="column2-div">
+                <div sec:authorize="hasRole('CLIENTE')" class="column2-div">
                     <a
-                    th:href="@{/reserva/registrar/{id} (id=${propiedad.id})}"><button class="btn-alq">RESERVAR</button></a>
+                        th:href="@{/reserva/registrar/{id} (id=${propiedad.id})}"><button class="btn-alq">RESERVAR</button></a>
                 </div>
                 <div class="column2-div">
                     <h2>Descripción</h2>
@@ -84,15 +81,25 @@
         </div>
 
         <!-- Input name opinion, boton submit, th:each para objeto reseña(modelar) -->
-        <h2>Opiniones: </h2>
 
     </div>
-    <div class="opiniones" th:each="opinion : ${opiniones}">
-        <div class="opinion-container">
-            <div class="user-frame"></div>
-            <div class="opinion"></div>
+    <div class="opiniones">
+        <h2>Opiniones: </h2>
+        <div class="opinion-container"  th:each="resena : ${resenas}">
+            <div class="rating">
+                <!-- Lógica para mostrar estrellas según la calificación -->
+                <span th:each="i : ${#numbers.sequence(1, resena.calificacion)}" class="star-comments">&#9733;</span>
+            </div>
+            <div class="datas">
+                <div class="name"><h4 th:text="${resena.usuario.nombre} +' ' + ${resena.usuario.apellido}"></h4></div>
+            </div>
+            <div class="opinion">
+                <h4 th:text="${resena.fechaComentario}"></h4>
+                <p th:text="${resena.comentario}"></p>
+            </div>
         </div>
     </div>
+
 
 
     <footer th:replace="/fragments/footer :: footer"></footer>
