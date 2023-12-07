@@ -1,65 +1,93 @@
 <!DOCTYPE html>
 <html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
-        <title>QuinchoCLubApp</title>
-        <meta name="description" content="App de alquileres de verano">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+    <title>QuinchoCLubApp</title>
+    <meta name="description" content="App de alquileres de verano">
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="/css/styles.css">
-    </head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-    <body>
+<body>
 
-        <header th:replace="/fragments/header :: header"></header>
+    <header th:replace="/fragments/header :: header"></header>
 
-        <main class="principal">
-           <div class="property-list-container">
-                <h2>Lista de reservas:</h2>
-                <table class="property-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Usuario</th>
-                            <th>Propiedad</th>
-                            <th>fechaInicio</th>
-                            <th>fechaFin</th>
-                            <th>precioTotal</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="reserva : ${listaReserva}">
-                            <td th:text="${reserva.id}"></td>
-                            <td th:text="${reserva.usuario.nombre}+' '+ ${reserva.usuario.apellido}"></td>
-                            <td><a th:href="@{/propiedad/publicacion/{id}(id=${reserva.propiedad.id})}">ver propiedad</a></td>
-                            <td th:text="${reserva.fechaInicio}"></td>
-                            <td th:text="${reserva.fechaFin}"></td>
-                            <td th:text="${reserva.precioTotal}"></td>
-                            <td th:text="${reserva.estado}"></td>
-                            
-                            <td class="td-special">
-                                <form th:action="@{/reserva/lista/eliminar/{idReserva}(idReserva=${reserva.id})}" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE" />
-                                    <button type="submit" class="btn-more">Eliminar</button>
+    <main class="principal">
+        <div class="property-list-container">
+            <h2>Lista de reservas:</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Usuario</th>
+                        <th>Propiedad</th>
+                        <th>fechaInicio</th>
+                        <th>fechaFin</th>
+                        <th>precioTotal</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reserva : ${listaReserva}">
+                        <td th:text="${reserva.id}"></td>
+                        <td th:text="${reserva.usuario.nombre}+' '+ ${reserva.usuario.apellido}"></td>
+                        <td><a th:href="@{/propiedad/publicacion/{id}(id=${reserva.propiedad.id})}">ver propiedad</a>
+                        </td>
+                        <td th:text="${reserva.fechaInicio}"></td>
+                        <td th:text="${reserva.fechaFin}"></td>
+                        <td th:text="${reserva.precioTotal}"></td>
+
+                        <td>
+                            <div sec:authorize="hasRole('CLIENTE')">
+                                <span th:text="${reserva.estado}"></span>
+                            </div>
+                                <form th:action="@{/reserva/lista/confirmar/{idReserva}(idReserva=${reserva.id})}"
+                                    method="POST">
+                                    <!-- Añadir etiqueta CSRF si es necesario -->
+                                    <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+                                    <div sec:authorize="hasRole('PROPIETARIO')">
+                                        <select class="btn-more" name="estado" id="estado">
+                                            <option value="PENDIENTE" th:selected="${reserva.estado.toString() == 'PENDIENTE'}">
+                                                Pendiente</option>
+                                            <option value="CONFIRMADA" th:selected="${reserva.estado.toString() == 'CONFIRMADA'}">
+                                                Confirmada</option>
+                                            <option value="COMPLETADA" th:selected="${reserva.estado.toString() == 'COMPLETADA'}">
+                                                Completada</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn-more" sec:authorize="hasRole('PROPIETARIO')">Cambiar
+                                        Estado</button>
                                 </form>
-                                <button type="submit" class="btn-more" sec:authorize="hasRole('PROPIETARIO')">
-                                    <a th:href="@{/lista/confirmar}">Confirmar</a>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
+                            
 
-        <footer th:replace="/fragments/footer :: footer"></footer>
+                        </td>
 
-        <script src="/js/script.js"></script>
-        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
-    </body>
+                        <td class="td-special">
+                            <form th:action="@{/reserva/lista/eliminar/{idReserva}(idReserva=${reserva.id})}"
+                                method="POST">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="btn-more">Eliminar</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer th:replace="/fragments/footer :: footer"></footer>
+
+    <script src="/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
+
+
+
+</body>
+
 </html>

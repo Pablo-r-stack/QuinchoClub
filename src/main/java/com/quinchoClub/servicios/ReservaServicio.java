@@ -86,11 +86,11 @@ public class ReservaServicio {
     }
 
     @Transactional
-    public void cambiarEstado(String id, String estado) throws MiException {
-        if (id == null || id.equals("")) {
+    public void cambiarEstado(String idReserva, String estado) throws MiException {
+        if (idReserva == null || idReserva.equals("")) {
             throw new MiException("El id proporcionado es nulo");
         } else {
-            Reserva reserva = bucarReservaId(id);
+            Reserva reserva = bucarReservaId(idReserva);
             if (estado.equals("CONFIRMADA")) {
                 reserva.setEstado(Estado.CONFIRMADA);
                 rr.save(reserva);
