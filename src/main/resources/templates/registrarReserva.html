@@ -23,7 +23,7 @@
                         <li th:text="'Vendedor: '+ ${vendedor.nombre} + ${vendedor.apellido}"></li>
                         <li th:text="'Tipo de propiedad: '+ ${propiedad.tipo}"></li>
                         <li th:text="'Precio por día: ' + ${propiedad.precioDia}"></li>
-                        <button class="btn-more"><a th:href="@{/}">Ver perfil del vendedor</a></button>
+                        <button class="btn-more"><a th:href="@{/usuario/verPerfil/{id} (id=${vendedor.id})}">Ver perfil del vendedor</a></button>
                     </ul>
                 </div>
             </div>

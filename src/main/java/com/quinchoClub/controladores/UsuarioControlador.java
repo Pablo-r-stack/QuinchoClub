@@ -5,6 +5,7 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Propiedad;
+import com.quinchoClub.entidades.ResenaUsuario;
 import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.servicios.ImagenServicio;
@@ -142,6 +143,19 @@ public class UsuarioControlador {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
         return "perfilUsuario.html";
+    }
+    
+    @GetMapping("/verPerfil/{id}")
+    public String verPerfil(@PathVariable String id, HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        Usuario user = usuarioServicio.getOne(id);
+        modelo.put("user", user);
+        List<ResenaUsuario> resenas= user.getResenaDeUsario();
+        modelo.put("resenas", resenas);
+        return "vistaPerfil.html";
     }
 
     @PostMapping("/foto/{id}")
