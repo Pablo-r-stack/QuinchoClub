@@ -6,8 +6,8 @@
         <div class="search-container">
         <!-- COLOCAR RUTA DEL BUSCADOR -->
              <form class="search-bar" th:action="@{/propiedad/buscarPropiedades}" method="POST" id="searchForm">
-                <label for="tipo">Tipo</label>
-                <select id="tipo" name="tipo">
+                <select class="selectSearch" id="tipo" name="tipo">
+                    <option value="" disabled selected>Tipo</option>
                     <option value="casa">Casa</option>
                     <option value="quincho">Quincho</option>
                     <option value="lote">Lote</option>
@@ -18,26 +18,28 @@
                      <ul id="resultsList" class="results-list"></ul>
                      <p id="noResults" class="no-results">No se encontraron resultados.</p>
                  </div> -->
-
-                <label for="ubicacion">Ubicación:</label>
-                <select id="ubicacion" name="ubicacion" >
+                <select class="selectSearch" id="ubicacion" name="ubicacion">
+                    <option value="" disabled selected>Ubicacion</option>
                     <option value="argentina">Argentina</option>
                     <option value="chile">Chile</option>
                     <option value="brasil">Brasil</option>
                 </select>
-
+                <div class="PB-range-slider-div">
                 <label for="precioDia">Precio:</label>
-                <input class="precio" type="range" id="precioDia" name="precioDia" min="0" max="500" step="10">
-                <span id="rangoPrecio">0 - 500</span> USD
-
-                <label>
-                    <input type="checkbox" name="wifi"> Wifi
+                <input class="PB-range-slider" type="range" id="precioDia" name="precioDia" min="0" max="500" step="10">
+                <p id="precio" class="PB-range-slidervalue">50$</p>
+                </div>
+                <label class="contB"> 
+                    <input type="checkbox" name="wifi">Wifi
+                    <div class="checkmark"></div>
                 </label>
-                <label>
+                <label class="contB">
                     <input type="checkbox" name="pileta"> Pileta
+                    <div class="checkmark"></div>
                 </label>
-                <label>
+                <label class="contB">
                     <input type="checkbox" name="parrilla"> Parrilla
+                    <div class="checkmark"></div>
                 </label>
 
                 <!-- Agrega más filtros según sea necesario -->
@@ -67,9 +69,6 @@
         </ul>
 
     </nav>
-
-
     <!--Links-->
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </header>
-

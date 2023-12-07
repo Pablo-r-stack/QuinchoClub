@@ -169,7 +169,8 @@ header {
     border-radius: 60px;
     padding: 10px 20px;
     border: 1px solid var(--colorCinco);
-    backdrop-filter: blur(4px) saturate(180%);   
+    backdrop-filter: blur(4px) saturate(180%);
+    gap: 10px;
 }
 .precio {
     max-width: 100px;
@@ -234,6 +235,117 @@ header {
     margin-left: -30px;
 }
 
+/* botones searchbar */
+.contB input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.contB {
+    display: inline-flex;
+    position: relative;
+    cursor: pointer;
+    font-size: 0.7rem;
+    user-select: none;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    background-color: #ccc;
+    border-radius: 100%;
+    background: #e8e8e8;
+    box-shadow: 3px 3px 5px #c5c5c5,
+        -3px -3px 5px #ffffff;
+    transition-duration: 0.5s;
+}
+
+.contB input:checked ~ .checkmark {
+    box-shadow: inset 3px 3px 5px #c5c5c5,
+        inset -3px -3px 5px #ffffff;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    opacity: 0;
+}
+
+.contB input:checked ~ .checkmark:after {
+    opacity: 1;
+}
+
+.contB .checkmark:after {
+    left: 0.45em;
+    top: 0.25em;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid darkgray;
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
+}
+/*range searchbar*/
+.PB-range-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 5px;
+    background: #D5DBE1;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.PB-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #000000;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.PB-range-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.16);
+    transition: 0.3s ease-in-out;
+}
+
+.PB-range-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #000000;
+    cursor: pointer;
+}
+
+.PB-range-slider-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px 0px #1F1E241F;
+}
+
+.PB-range-slidervalue {
+    font-weight: 600;
+}
+/*selects searchbar*/
+.selectSearch{
+    display: flex;
+    border-radius: 10px;
+}
 nav .line {
     width: 5px;
     height: 32px;
@@ -746,11 +858,8 @@ main {
     justify-content: space-between;
     align-items: center;
 }
-
-
 .column {
-    
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #ddd;
     width: 60%;
 }
@@ -760,10 +869,73 @@ main {
     margin-block: 2em;
 }
 
-.opiniones{
+.opiniones {
+    font-family: var(--fuente);
+    font-size: 15px;
     margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    max-height: 300px; /* Ajusta según sea necesario */
+    max-width: 450px;
+    overflow-y: auto;
 }
 
+.opinion-container {
+    background-color: rgba(243, 244, 246, 1);
+    padding: 2rem;
+    max-width: 420px;
+    border-radius: 10px;
+    box-shadow: 0 20px 30px -20px rgba(5, 5, 5, 0.24);
+
+}
+
+.datas{
+    display: flex;
+    align-items: center;
+    grid-gap: 1rem;
+    gap: 1rem;
+}
+
+.name {
+    margin-top: 0.25rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgba(55, 65, 81, 1);
+}
+
+
+.opinion{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    margin-top: 1rem;
+    color: rgba(107, 114, 128, 1);
+}
+.service-container{
+    background-color: rgba(243, 244, 246, 1);
+    border-radius: 10px;
+    max-width: 250px;
+}
+
+
+/*Estilo icons post html*/
+.material-symbols-outlined {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+/*estrellas de opiniones*/
+.star-comments {
+    color: #ffa723; /* Color de las estrellas llenas */
+    font-size: 1rem; /* Ajusta el tamaño de la fuente según tus preferencias */
+    text-shadow: 1px 1px 1px #000; /* Agrega un contorno negro alrededor del texto */
+}
 /**PERFIL USUARIO**/
 .seccion-perfil-usuario .perfil-usuario-body,
 .seccion-perfil-usuario {
@@ -988,19 +1160,19 @@ main {
 /*estrellas valoracion reseña
 */
 .rating:not(:checked) > input {
-  position: absolute;
-  appearance: none;
+    position: absolute;
+    appearance: none;
 }
 
 .rating:not(:checked) > label {
-  float: right;
-  cursor: pointer;
-  font-size: 30px;
-  color: #666;
+    float: right;
+    cursor: pointer;
+    font-size: 30px;
+    color: #666;
 }
 
 .rating:not(:checked) > label:before {
-  content: '★';
+    content: '★';
 }
 
 .rating > input:checked + label:hover,
@@ -1008,18 +1180,17 @@ main {
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,
 .rating > label:hover ~ input:checked ~ label {
-  color: #e58e09;
+    color: #e58e09;
 }
 
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label {
-  color: #ff9e0b;
+    color: #ff9e0b;
 }
 
 .rating > input:checked ~ label {
-  color: #ffa723;
+    color: #ffa723;
 }
-
 /*mensajes de error exito*/
 /* Estilos para alertas de éxito */
 .alert-success {
@@ -1058,7 +1229,24 @@ main {
     padding: 2rem;
     color: var(--colorBlanco);
 }
-
+.properties-head{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+}
+.properties-head h2{
+    font-size: 1.5rem;
+}
+.properties-body{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    max-height: 520px;
+    overflow-y: auto;
+}
 /*vista pesonalizada de Error*/
 .container-body {
     color: var(--colorSeis);
@@ -1073,12 +1261,4 @@ main {
     font-style: italic
 }
 
-/*Estilo icons post html*/
-.material-symbols-outlined {
-    cursor: pointer;
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
-  }
+

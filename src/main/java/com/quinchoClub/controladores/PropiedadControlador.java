@@ -5,6 +5,7 @@
 package com.quinchoClub.controladores;
 
 import com.quinchoClub.entidades.Propiedad;
+import com.quinchoClub.entidades.ResenaPropiedad;
 import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.servicios.ImagenServicio;
 import com.quinchoClub.servicios.PropiedadServicio;
@@ -170,7 +171,9 @@ public class PropiedadControlador {
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
+        List<ResenaPropiedad> resenas = propiedadServicio.obtenerPropiedadPorId(id).getResenas();
         modelo.put("propiedad", propiedadServicio.obtenerPropiedadPorId(id));
+        modelo.addAttribute("resenas", resenas);
         modelo.addAttribute("vendedor", vendedor);
         return "post.html";
     }
