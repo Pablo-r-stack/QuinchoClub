@@ -50,17 +50,14 @@ public class Propiedad {
     private boolean accesorios;
     private boolean cama;
     private boolean aire;
-<<<<<<< HEAD
+
     @OneToMany
     private List<Imagen> imagenes;
     @OneToMany
     private List<ResenaPropiedad>resenas;
     
-=======
-
-    @OneToMany
-    private List<Imagen> imagenes;
+   
     
  
->>>>>>> desarrollotin
+
 }

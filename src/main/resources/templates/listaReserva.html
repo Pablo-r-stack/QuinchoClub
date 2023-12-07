@@ -17,45 +17,7 @@
         <header th:replace="/fragments/header :: header"></header>
 
         <main class="principal">
-            <div class="property-list-container">
-                <h2>Lista de usuarios:</h2>
-                <table class="property-table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Email</th>
-                            <th>Dni</th>
-                            <th>Rol</th>
-                            <th>Fecha de Nacimiento</th>
-                            <th>Teléfono</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="usuario : ${listaUsuarios}">
-                            <td th:text="${usuario.id}"></td>
-                            <td th:text="${usuario.nombre}"></td>
-                            <td th:text="${usuario.apellido}"></td>
-                            <td th:text="${usuario.email}"></td>
-                            <td th:text="${usuario.dni}"></td>
-                            <td th:text="${usuario.rol}"></td>
-                            <td th:text="${usuario.fechaDeNacimiento}"></td>
-                            <td th:text="${usuario.telefono}"></td>
-                            <td class="td-special">
-                                <form th:action="@{/usuario/eliminar/{id}(id=${usuario.id})}" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE" />
-                                    <button type="submit" class="btn-more">Eliminar</button>
-                                </form>
-                                <button type="submit" class="btn-more">
-                                    <a th:href="@{/usuario/modificar/{id}(id=${usuario.id})}">Modificar</a>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+           
         </main>
 
         <footer th:replace="/fragments/footer :: footer"></footer>

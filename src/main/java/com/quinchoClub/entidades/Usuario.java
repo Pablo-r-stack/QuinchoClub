@@ -57,7 +57,7 @@ public class Usuario {
     Imagen imagen;
     
     @OneToMany
-    private List<ResenaUsuario>resenas;
+    private List<Reserva> reservas;
     
     
             

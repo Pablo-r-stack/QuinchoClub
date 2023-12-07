@@ -46,6 +46,7 @@ public class ReservaControlador {
         return "registrarReserva.html";
     }
 
+  
     @PostMapping("/registrar/{id}")
     @PreAuthorize("hasRole('ROLE_CLIENTE')")
     public String registrarReserva(@PathVariable String id,
@@ -58,23 +59,32 @@ public class ReservaControlador {
                 modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
             }
             Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
-<<<<<<< HEAD
-            rs.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
-=======
+
             reservaServicio.crearReserva(usuario, propiedad, fechaInicio, fechaFin, precioDia);
->>>>>>> desarrollotin
             return "redirect:/";
         } catch (MiException ex) {
             System.out.println(ex.getMessage());
             modelo.put("Error", "Hubo al registrar la reserva");
-            return "redirect:/";
+            return "redirect:/reserva/registrar/" + id;
         }
-
     }
 
+   
+    @GetMapping("/listaU")
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    public String observarReservaUsuario(HttpSession session, ModelMap modelo) throws MiException {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        modelo.addAllAttributes(reservaServicio.listaReserva(usuario));
+        return "listaReserva.html";
+    }
+
+  
     @GetMapping("/lista")
     @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
-    public String observarReserva(HttpSession session, ModelMap modelo) {
+    public String observarReserva(HttpSession session, ModelMap modelo) throws MiException {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
@@ -83,23 +93,30 @@ public class ReservaControlador {
         return "registrarReserva.html";
     }
 
-    @PostMapping("/lista/confirmar")
+   
+    @PostMapping("/lista")
     @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
-    public String confirmarReserva(HttpSession session, ModelMap modelo,@RequestParam String idReserva) throws MiException {
+    public String confirmarReserva(HttpSession session, ModelMap modelo, @RequestParam String idReserva,
+            @RequestParam String estado) throws MiException {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
-        
-        reservaServicio.confirmarReserva(idReserva);
+
+        reservaServicio.cambiarEstado(idReserva,estado);
         return "registrarReserva.html";
     }
 
+    
     @PostMapping("lista/eliminar")
     @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_PROPIETARIO')")
-    public String eliminarReserva(@PathVariable String id) {
+    public String eliminarReserva(@PathVariable String id, HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
         try {
-            reservaServicio.borrarReserva(id);
+            reservaServicio.borrarReserva(id, usuario);
             System.out.println("Reserva eliminada con Exito");
             return "redirect:/usuario/lista";
         } catch (Exception ex) {
@@ -108,15 +125,4 @@ public class ReservaControlador {
         }
     }
 
-    @GetMapping("/listaReserva")
-    @PreAuthorize("has('ROLE_PROPIETARIO')")
-    public String verReservas(HttpSession session, ModelMap modelo) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        //Usuario cliente = usuarioServicio.getOne(usuario.getId());
-        if (usuario != null) {
-            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
-        }
-        
-        return null;
-    }
 }
