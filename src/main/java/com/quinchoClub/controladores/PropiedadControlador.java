@@ -175,26 +175,25 @@ public class PropiedadControlador {
         return "post.html";
     }
 
-//    public List<String> obtenerRutas(List<MultipartFile> imagenes){
-//        List<String> rutasObtenidas = new ArrayList();
-//        if (!imagenes.isEmpty()) {
-//            for (MultipartFile imagen : imagenes) {
-//                String rutaImagen = "";
-//                String nombreArchivo = UUID.randomUUID().toString()+ "_" + imagen.getOriginalFilename() + ".jpg";
-//                rutaImagen = "/img/prop/" + nombreArchivo;
-//                File directorioDestino = new File("src/main/resources/static/img/prop");
-//                if(!directorioDestino.exists()){
-//                    directorioDestino.mkdirs();
-//                }
-//                Path rutaDestino = Paths.get("src/main/resources/static/img/prop", nombreArchivo);
-//                try {
-//                    Files.write(rutaDestino, imagen.getBytes(), StandardOpenOption.CREATE);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(PropiedadControlador.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                rutasObtenidas.add(rutaImagen);
-//            }
-//        }
-//        return rutasObtenidas;
-//    }
+
+    @PostMapping("/buscarPropiedades")
+    public String buscarPropiedades(
+            @RequestParam(required = false) String tipo,
+            @RequestParam(required = false) String ubicacion,
+            @RequestParam(required = false) Double precioDia,
+            @RequestParam(defaultValue = "false") boolean wifi,
+            @RequestParam(defaultValue = "false") boolean pileta,
+            @RequestParam(defaultValue = "false") boolean parrilla, ModelMap modelo, HttpSession session
+    ) {
+        // Llamar al servicio para obtener las propiedades filtradas
+        
+       
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+         if(usuario != null){
+             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+         }
+         List<Propiedad> propiedades = propiedadServicio.buscarPropiedades(tipo, ubicacion, precioDia, wifi, pileta, parrilla);
+         modelo.addAttribute("propiedades",propiedades);
+         return "resultadosP.html";
+    }
 }

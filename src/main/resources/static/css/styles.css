@@ -161,6 +161,7 @@ header {
 .search-bar {
     width: 100%;
     max-width: 350px;
+    max-width: 700px;
     height: 35px;
     background-color: var(--colorDos);
     display: flex;
@@ -168,7 +169,10 @@ header {
     border-radius: 60px;
     padding: 10px 20px;
     border: 1px solid var(--colorCinco);
-    backdrop-filter: blur(4px) saturate(180%);
+    backdrop-filter: blur(4px) saturate(180%);   
+}
+.precio {
+    max-width: 100px;
 }
 
 .search-bar input {
@@ -197,6 +201,7 @@ header {
     height: 30px;
     background: var(--colorSeis);
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .menu-container {
@@ -1075,6 +1080,7 @@ main {
     'GRAD' 0,
     'opsz' 24
   }
+<<<<<<< HEAD
 =======
         'FILL' 0,
         'wght' 400,
@@ -1082,3 +1088,6 @@ main {
         'opsz' 24
 }
 >>>>>>> desarrolloR
+=======
+
+>>>>>>> f007bf6b6a7d29a815698ee282e6ea830bfa237b

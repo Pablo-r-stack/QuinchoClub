@@ -9,6 +9,7 @@ import com.quinchoClub.repositorios.PropiedadRepositorio;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -63,6 +64,24 @@ public class PropiedadServicio implements IPropiedadServicio {
     public List<Propiedad> buscarPropiedadesPorTamanio(Double tamanio) {
          return pr.findByTamanio(tamanio);
     }
+    
+      public List<Propiedad> buscarPropiedades(String tipo, String ubicacion, Double precioDia, boolean wifi, boolean pileta, boolean parrilla) {
+
+        // Obtenemos todas las propiedades
+        List<Propiedad> todasLasPropiedades = pr.findAll();
+
+        // Aplicamos los filtros utilizando Stream y expresiones lambda
+        return todasLasPropiedades.stream()
+                .filter(propiedad ->
+                        (tipo == null || tipo.equals(propiedad.getTipo())) &&
+                        (ubicacion == null || ubicacion.equals(propiedad.getUbicacion())) &&
+                        (precioDia == null || precioDia <= propiedad.getPrecioDia()) &&
+                        (!wifi || wifi == propiedad.isWifi()) &&
+                        (!pileta || pileta == propiedad.isPileta()) &&
+                        (!parrilla || parrilla == propiedad.isParrilla()))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public List<Propiedad> filtrarPropiedadesPorServicios(boolean wifi, boolean pileta, boolean parrilla, boolean accesorios, boolean cama, boolean aire) {
