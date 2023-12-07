@@ -56,7 +56,8 @@ public class Propiedad {
     @OneToMany
     private List<ResenaPropiedad>resenas;
     
-   
+    @OneToMany
+    private List<Reserva>reservaPropiedad;
     
  
 

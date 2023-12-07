@@ -17,7 +17,44 @@
         <header th:replace="/fragments/header :: header"></header>
 
         <main class="principal">
-           
+           <div class="property-list-container">
+                <h2>Lista de reservas:</h2>
+                <table class="property-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Usuario</th>
+                            <th>Propiedad</th>
+                            <th>fechaInicio</th>
+                            <th>fechaFin</th>
+                            <th>precioTotal</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reserva : ${listaReserva}">
+                            <td th:text="${reserva.id}"></td>
+                            <td th:text="${reserva.usuario.nombre}+' '+ ${reserva.usuario.apellido}"></td>
+                            <td><a th:href="@{/propiedad/publicacion/{id}(id=${reserva.propiedad.id})}">ver propiedad</a></td>
+                            <td th:text="${reserva.fechaInicio}"></td>
+                            <td th:text="${reserva.fechaFin}"></td>
+                            <td th:text="${reserva.precioTotal}"></td>
+                            <td th:text="${reserva.estado}"></td>
+                            
+                            <td class="td-special">
+                                <form th:action="@{/reserva/lista/eliminar/{idReserva}(idReserva=${reserva.id})}" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="btn-more">Eliminar</button>
+                                </form>
+                                <button type="submit" class="btn-more" sec:authorize="hasRole('PROPIETARIO')">
+                                    <a th:href="@{/lista/confirmar}">Confirmar</a>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </main>
 
         <footer th:replace="/fragments/footer :: footer"></footer>

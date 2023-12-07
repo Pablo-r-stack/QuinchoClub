@@ -9,6 +9,7 @@ import com.quinchoClub.excepciones.MiException;
 import com.quinchoClub.repositorios.ReservaRepositorio;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -24,22 +25,19 @@ public class ReservaServicio {
     @Transactional
     public void crearReserva(Usuario cliente, Propiedad propiedad, LocalDate fechaInicio, LocalDate fechaFin, Double precioDia) throws MiException {
         validar(cliente, propiedad, fechaInicio, fechaFin, precioDia);
-//        if (rr.buscarporReserva(cliente)!= null) {
-//            throw new MiException("Cliente no encontrado");
-//        }
         double precioFinal = calcularPrecio(fechaInicio, fechaFin, precioDia);
         Reserva reserva = new Reserva();
-        reserva.setCliente(cliente);
+        reserva.setUsuario(cliente);
         reserva.setPropiedad(propiedad);
         reserva.setFechaInicio(fechaInicio);
         reserva.setFechaFin(fechaFin);
         reserva.setPrecioTotal(precioFinal);
         reserva.setEstado(Estado.PENDIENTE);
 
-        //reserva.toString();
         rr.save(reserva);
     }
 
+    @Transactional
     public Reserva bucarReservaId(String id) throws MiException {
         rr.buscarporReserva(id);
         Optional<Reserva> respuesta = rr.findById(id);
@@ -51,27 +49,34 @@ public class ReservaServicio {
         }
     }
 
+    @Transactional
     public List<Reserva> listaReserva(Usuario usuario) throws MiException {
-        if (usuario.getRol().equals(Rol.CLIENTE)) {
-            List<Reserva> reservaU = rr.buscarPorUsuario(usuario.getId());
-            return reservaU;
-        } else if (usuario.getRol().equals(Rol.PROPIETARIO)) {
-            List<Propiedad> propiedades = usuario.getPropiedades();
-            List<Reserva> listaReserva = null;
-            for (Propiedad propiedad : propiedades) {
-                listaReserva.add((Reserva) rr.buscarPorPropiedad(propiedad.getId()));
-            }
-            return listaReserva;
-        } else {
-            throw new MiException("El id proporcionado es nulo");
+
+        switch (usuario.getRol()) {
+            case CLIENTE:
+                return rr.buscarPorUsuario(usuario.getId());
+            case PROPIETARIO:
+                
+                List<Propiedad> propiedades = usuario.getPropiedades();
+                List<Reserva> listaReserva = new ArrayList<>(propiedades.size());
+
+                for (Propiedad propiedad : propiedades) {
+                    listaReserva.addAll(rr.buscarPorPropiedad(propiedad.getId()));
+                }
+                listaReserva.toString();
+                return listaReserva;
+            default:
+                throw new MiException("El id proporcionado es nulo");
         }
+
     }
 
-    public void borrarReserva(String id, Usuario usuario) throws MiException {
-        if (id == null || id.equals("")) {
+    @Transactional
+    public void borrarReserva(String idReserva, Usuario usuario) throws MiException {
+        if (idReserva == null || idReserva.equals("")) {
             throw new MiException("El id proporcionado es nulo");
         } else {
-            Reserva reserva = bucarReservaId(id);
+            Reserva reserva = bucarReservaId(idReserva);
             if (usuario.getRol().equals(Rol.CLIENTE) && reserva.getEstado().equals(Estado.PENDIENTE)) {
                 rr.delete(reserva);
             } else if (usuario.getRol().equals(Rol.PROPIETARIO) || usuario.getRol().equals(Rol.ADMIN)) {
@@ -80,6 +85,7 @@ public class ReservaServicio {
         }
     }
 
+    @Transactional
     public void cambiarEstado(String id, String estado) throws MiException {
         if (id == null || id.equals("")) {
             throw new MiException("El id proporcionado es nulo");
@@ -96,19 +102,18 @@ public class ReservaServicio {
         }
 
     }
-
-    private void reservaCompletada(LocalDate fechaFin, String id) throws MiException {
-        if (id == null || id.equals("")) {
-            throw new MiException("El id proporcionado es nulo");
-        } else {
-            Reserva reserva = bucarReservaId(id);
-            if (fechaFin == LocalDate.now()) {
-
-                reserva.setEstado(Estado.COMPLETADA);
-                rr.save(reserva);
-            }
-        }
-    }
+    //    private void reservaCompletada(LocalDate fechaFin, String id) throws MiException {
+    //        if (id == null || id.equals("")) {
+    //            throw new MiException("El id proporcionado es nulo");
+    //        } else {
+    //            Reserva reserva = bucarReservaId(id);
+    //            if (fechaFin == LocalDate.now()) {
+    //
+    //                reserva.setEstado(Estado.COMPLETADA);
+    //                rr.save(reserva);
+    //            }
+    //        }
+    //    }
 
     private Double calcularPrecio(LocalDate fechaInicio, LocalDate fechaFin, Double precioDia) {
         double precioFinal;

@@ -54,7 +54,7 @@ public class ReservaControlador {
             @RequestParam Double precioDia, ModelMap modelo, HttpSession session) {
         try {
             Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-            //Usuario cliente = usuarioServicio.getOne(usuario.getId());
+            Usuario cliente = usuarioServicio.getOne(usuario.getId());
             if (usuario != null) {
                 modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
             }
@@ -70,31 +70,31 @@ public class ReservaControlador {
     }
 
    
-    @GetMapping("/listaU")
+    @GetMapping("/lista_cliente")
     @PreAuthorize("hasRole('ROLE_CLIENTE')")
     public String observarReservaUsuario(HttpSession session, ModelMap modelo) throws MiException {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
-        modelo.addAllAttributes(reservaServicio.listaReserva(usuario));
+        modelo.addAttribute("listaReserva",reservaServicio.listaReserva(usuario));
         return "listaReserva.html";
     }
 
   
-    @GetMapping("/lista")
+    @GetMapping("/lista_propietario")
     @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
     public String observarReserva(HttpSession session, ModelMap modelo) throws MiException {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
-        modelo.addAllAttributes(reservaServicio.listaReserva(usuario));
-        return "registrarReserva.html";
+        modelo.addAttribute("listaReserva",reservaServicio.listaReserva(usuarioServicio.getOne(usuario.getId())));
+        return "listaReserva.html";
     }
 
    
-    @PostMapping("/lista")
+    @PostMapping("/lista/confirmar")
     @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
     public String confirmarReserva(HttpSession session, ModelMap modelo, @RequestParam String idReserva,
             @RequestParam String estado) throws MiException {
@@ -108,17 +108,19 @@ public class ReservaControlador {
     }
 
     
-    @PostMapping("lista/eliminar")
+    @PostMapping("/lista/eliminar/{idReserva}")
     @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_PROPIETARIO')")
-    public String eliminarReserva(@PathVariable String id, HttpSession session, ModelMap modelo) {
+    public String eliminarReserva(@PathVariable String idReserva, HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
             modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
         }
         try {
-            reservaServicio.borrarReserva(id, usuario);
+            reservaServicio.borrarReserva(idReserva, usuario);
             System.out.println("Reserva eliminada con Exito");
-            return "redirect:/usuario/lista";
+            modelo.put("mensaje", "reserva eliminada con exito");
+            return "redirect:/reserva/lista_cliente";
+            
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return "redirect://";
