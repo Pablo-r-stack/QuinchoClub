@@ -89,22 +89,13 @@ function moveToLeft() {
     slider.style.transition = "all ease .7s"
 }
 
-//funcion para carteles de error y exitoooooo
-function mostrarMensaje(tipo, mensaje) {
-        if (tipo === "exito") {
-            alert("¡Éxito! " + mensaje);
-        } else if (tipo === "error") {
-            alert("Error: " + mensaje);
-        }
-    }
+//funcion que manipula el cambio de rango de precio en searchbar
+// Llamada inicial para mostrar el valor inicial del rango
 
-    // Verificar mensajes directamente
-    var mensajeExito = document.getElementById("mExito");
-    var mensajeError = document.getElementById("mError");
+const rangoPrecio = document.getElementById("rangoPrecio");
+const inputPrecio = document.getElementById("precioDia");
 
-    if (mensajeExito && mensajeExito.textContent.trim() !== "") {
-        mostrarMensaje("exito", mensajeExito.textContent);
-    } else if (mensajeError && mensajeError.textContent.trim() !== "") {
-        mostrarMensaje("error", mensajeError.textContent);
-    }
-// FALTA FUNCION PARA MANIPULAR LAS STARS DE LAS CARDS
+function cambiarPrecio() {
+    rangoPrecio.textContent = inputPrecio.value + "$";
+}
+cambiarPrecio();

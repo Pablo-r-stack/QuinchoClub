@@ -63,6 +63,8 @@
                 <div class="column2-div">
                     <h1>Publicación de </h1>
                     <h2 th:text="${vendedor.nombre} + ' ' + ${vendedor.apellido}"></h2>
+                    <a
+                        th:href="@{/usuario/registrar/{id} (id=${vendedor.id})}"><button class="btn-alq">Ver Perfil</button></a>
                 </div>
                 <div class="column2-div">
                     <h3 th:text="${propiedad.ubicacion}"></h3>
