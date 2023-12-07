@@ -112,7 +112,7 @@
                 </div>
                 <div class="datas">
                     <div class="name">
-                        <h4 th:text="${resena.usuario.nombre} +' ' + ${resena.usuario.apellido}"></h4>
+                        <h4><a th:href="@{/usuario/verPerfil/{id} (id=${resena.usuario.id})}" th:text="${resena.usuario.nombre} +' ' + ${resena.usuario.apellido}"></a></h4>
                     </div>
                 </div>
                 <div class="opinion">

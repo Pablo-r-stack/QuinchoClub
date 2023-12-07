@@ -73,7 +73,8 @@
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <button type="submit" class="btn-more">Eliminar</button>
                             </form>
-
+                            <button th:if="${reserva.estado.toString() == 'COMPLETADA'}" sec:authorize="hasRole('CLIENTE')"  class="btn-more"><a th:href="@{/resena/cargarResenaPropiedad/{id}(id=${reserva.propiedad.id})}">Valorar Propiedad</a></button>
+                            <button th:if="${reserva.estado.toString() == 'COMPLETADA'}" sec:authorize="hasRole('PROPIETARIO')" class="btn-more"><a th:href="@{/resena/cargarResenaUsuario/{id}(id=${reserva.usuario.id})}">Valorar Cliente</a></button>
                         </td>
                     </tr>
                 </tbody>

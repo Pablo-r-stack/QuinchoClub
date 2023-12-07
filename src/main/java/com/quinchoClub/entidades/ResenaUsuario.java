@@ -8,10 +8,5 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 public class ResenaUsuario extends Resena {
-    private String nombre;
 }

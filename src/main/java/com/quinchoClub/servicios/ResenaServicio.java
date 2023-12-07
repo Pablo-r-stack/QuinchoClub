@@ -6,6 +6,7 @@ package com.quinchoClub.servicios;
 
 import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.entidades.ResenaPropiedad;
+import com.quinchoClub.entidades.ResenaUsuario;
 import com.quinchoClub.entidades.Usuario;
 import com.quinchoClub.repositorios.ResenaRepositorio;
 import java.time.LocalDate;
@@ -24,6 +25,8 @@ public class ResenaServicio {
     private ResenaRepositorio rr;
     @Autowired
     private PropiedadServicio ps;
+    @Autowired
+    private UsuarioServicio us;
     //CRUD DE RESENAS.
     public void crearResenaPropiedad(Usuario usuario, String comentario, Integer calificacion, Propiedad propiedad) {
         ResenaPropiedad resena = new ResenaPropiedad();
@@ -36,5 +39,17 @@ public class ResenaServicio {
         resenas.add(resena);
         propiedad.setResenas(resenas);
         ps.actualizarPropiedad(propiedad);
+    }
+    public void crearResenaUsuario(Usuario usuario, String comentario, Integer calificacion, Usuario cliente){
+        ResenaUsuario resena = new ResenaUsuario();
+        resena.setUsuario(usuario);
+        resena.setComentario(comentario);
+        resena.setCalificacion(calificacion);
+        resena.setFechaComentario(LocalDate.now());
+        rr.save(resena);
+        List<ResenaUsuario> resenas = cliente.getResenaDeUsario();
+        resenas.add(resena);
+        cliente.setResenaDeUsario(resenas);
+        us.guardarUsuarioCompleto(usuario);
     }
 }

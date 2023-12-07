@@ -1,17 +1,57 @@
 <!DOCTYPE html>
-
-<html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
     <head>
-        <title>Reseña Usuario</title>
         <meta charset="UTF-8">
-        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" th:href="@{/img/icon.png}" type="image/png">
+        <title>QuinchoCLubApp</title>
+        <meta name="description" content="App de alquileres de verano">
+        <!-- CSS -->
+        <link rel="stylesheet" href="/css/styles.css">
     </head>
+
+
     <body>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:replace="/fragments/mensajes :: mensajes"></div>
+        <main class="principal">
+            <div class="form-container">
+                <h2 class="title-login">Reseña Cliente</h2>
+                <form th:action="@{/resena/cargarResenaUsuario/{id}(id=${cliente.id})}" method="POST" class="form">
+                    <div class="input-group" hidden>
+                        <input type="text" name="idUsuario" id="usuario" th:value="${usuario.id}">
+                    </div>
+                    <div class="input-group">
+                        <label for="comntario">Comentario</label>
+                        <textarea name="comentario" id="comentario" class="textarea"> </textarea>
+                    </div>
+                    <div>
+                        <label for="calificacion">Calificacion</label>
+                        <div class="rating">
+                            <input value="5" name="calificacion" id="star5" type="radio">
+                            <label title="text" for="star5"></label>
+                            <input value="4" name="calificacion" id="star4" type="radio">
+                            <label title="text" for="star4"></label>
+                            <input value="3" name="calificacion" id="star3" type="radio" checked="">
+                            <label title="text" for="star3"></label>
+                            <input value="2" name="calificacion" id="star2" type="radio">
+                            <label title="text" for="star2"></label>
+                            <input value="1" name="calificacion" id="star1" type="radio">
+                            <label title="text" for="star1"></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="sign register">Calificar</button>
+                </form>
+        </main>
 
-        <h2>Escriba su reseña</h2>
-        
+        <footer th:replace="/fragments/footer :: footer"></footer>
 
-
+        <script src="/js/script.js"></script>
+        <script src="https://kit.fontawesome.com/44131d1b22.js" crossorigin="anonymous"></script>
     </body>
 </html>

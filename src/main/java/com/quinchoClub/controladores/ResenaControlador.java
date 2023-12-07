@@ -1,4 +1,5 @@
 package com.quinchoClub.controladores;
+
 import com.quinchoClub.entidades.Propiedad;
 import com.quinchoClub.entidades.ResenaPropiedad;
 import com.quinchoClub.entidades.Reserva;
@@ -29,8 +30,9 @@ public class ResenaControlador {
     private UsuarioServicio usuarioServicio;
     @Autowired
     private PropiedadServicio propiedadServicio;
+
     @GetMapping("/cargarResenaPropiedad/{id}")
-    public String cargarResenaPropiedad(@PathVariable String id,HttpSession session, ModelMap modelo){
+    public String cargarResenaPropiedad(@PathVariable String id, HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
         if (usuario != null) {
@@ -39,23 +41,47 @@ public class ResenaControlador {
         modelo.put("propiedad", propiedad);
         return "resenaPropiedad.html";
     }
+
     @PostMapping("/cargarResenaPropiedad/{id}")
     @PreAuthorize("hasRole('ROLE_CLIENTE')")
-    public String cargarResenaPropiedad(@PathVariable String id, ModelMap modelo,@RequestParam String idUsuario,@RequestParam String comentario,@RequestParam Integer calificacion, RedirectAttributes redirectAttributes) {
-        try{
+    public String cargarResenaPropiedad(@PathVariable String id, ModelMap modelo, @RequestParam String idUsuario, @RequestParam String comentario, @RequestParam Integer calificacion, RedirectAttributes redirectAttributes) {
+        try {
             Propiedad propiedad = propiedadServicio.obtenerPropiedadPorId(id);
             Usuario usuario = usuarioServicio.getOne(idUsuario);
             resenaServicio.crearResenaPropiedad(usuario, comentario, calificacion, propiedad);
             redirectAttributes.addFlashAttribute("mensaje", "Registo completado con Exito");
             return "redirect:/";
-        }catch (Exception e){
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "algo salio mal, intenta nuevamente");
             return "redirect:/resena/cargarResenapropiedad/" + id;
-        }            
+        }
     }
+
     @GetMapping("/cargarResenaUsuario/{id}")
-    public String cargarResenaUsuario(){
-        return "resenasUsuario.html";
+    @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
+    public String cargarResenaUsuario(@PathVariable String id, HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        if (usuario != null) {
+            modelo.put("usuario", usuarioServicio.getOne(usuario.getId()));
+        }
+        Usuario cliente = usuarioServicio.getOne(id);
+        modelo.put("cliente", cliente);
+        return "resenaUsuario.html";
+    }
+
+    @PostMapping("/cargarResenaUsuario/{id}")
+    @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
+    public String valorarUsuario(@PathVariable String id, @RequestParam String idUsuario, @RequestParam String comentario, @RequestParam Integer calificacion, RedirectAttributes redirectAttributes) {
+        try {
+            Usuario cliente = usuarioServicio.getOne(id);
+            Usuario usuario = usuarioServicio.getOne(idUsuario);
+            resenaServicio.crearResenaUsuario(usuario, comentario, calificacion, cliente);
+            redirectAttributes.addFlashAttribute("mensaje", "Registro completado con Exito");
+            return "redirect:/";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "algo salio mal, intenta nuevamente");
+            return "redirect:/resena/cargarResenaUsuario/" + id;
+        }
     }
 //    @PostMapping("/cargarResenaUsuario/{id}")
 //    @PreAuthorize("hasRole('ROLE_CLIENTE')")
@@ -67,5 +93,5 @@ public class ResenaControlador {
 //        resena.setFechaComentario(fechaComentario);
 //        return "resenaUsuario.html";
 //    }
-    
+
 }

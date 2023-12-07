@@ -49,7 +49,7 @@
                 </div>
             </div>
         </section>
-        <div class="opiniones">
+        <div class="opiniones" th:if="${user.rol.toString() == 'CLIENTE'}">
             <div th:if="${#lists.size(resenas) == 0}" class="opinion-container">
                 <li>Aún no hay reseñas.</li>
             </div>
