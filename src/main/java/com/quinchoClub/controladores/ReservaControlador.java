@@ -94,9 +94,9 @@ public class ReservaControlador {
     }
 
    
-    @PostMapping("/lista/confirmar")
+    @PostMapping("/lista/confirmar/{idReserva}")
     @PreAuthorize("hasRole('ROLE_PROPIETARIO')")
-    public String confirmarReserva(HttpSession session, ModelMap modelo, @RequestParam String idReserva,
+    public String confirmarReserva(HttpSession session, ModelMap modelo, @PathVariable  String idReserva,
             @RequestParam String estado) throws MiException {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         if (usuario != null) {
@@ -104,7 +104,7 @@ public class ReservaControlador {
         }
 
         reservaServicio.cambiarEstado(idReserva,estado);
-        return "registrarReserva.html";
+        return "redirect:/";
     }
 
     
