@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
@@ -32,17 +33,22 @@ import lombok.ToString;
 @ToString
 public class Reserva{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Usuario cliente;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
     @ManyToOne
     @JoinColumn(name = "propiedad_id")
     private Propiedad propiedad;
+    
     private LocalDate fechaInicio;
+   
     private LocalDate fechaFin;
+    
     private Double precioTotal;
+    
     @Enumerated(EnumType.STRING)
     private Estado estado;
     
