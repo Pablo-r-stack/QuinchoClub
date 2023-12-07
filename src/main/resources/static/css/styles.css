@@ -336,7 +336,8 @@ main {
 
 .container-carousel {
     position: relative;
-    width: 100%;
+    width: 40em;
+    height: 40em;
     height: auto;
     overflow: hidden;
 }
@@ -348,15 +349,17 @@ main {
 }
 
 .slider-section {
-    width: calc(100% / 3);
-    height: 100%;
+    width: 40em;
+    height: 40em;
+    overflow: hidden;
 }
 
 .slider-section img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    /*object-fit: cover;*/
     border-radius: 10px;
+    display: block;
 }
 
 .btn-left,
@@ -1069,16 +1072,8 @@ main {
 .material-symbols-outlined {
     cursor: pointer;
     font-variation-settings:
-<<<<<<< HEAD
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
     'opsz' 24
   }
-=======
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24
-}
->>>>>>> desarrolloR
