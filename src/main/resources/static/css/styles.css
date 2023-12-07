@@ -2,17 +2,24 @@
 
 :root {
     --fuente: "Nunito", sans-serif;
+<<<<<<< HEAD
+=======
+
+>>>>>>> desarrolloLautaro
     --colorUno: rgba(0, 0, 0, 1); /*color fuente*/
     --colorDos: rgba(255, 255, 255, 1); /*color blanco*/
     --colorTres: rgba(121, 164, 140, 0.897); /*color hover*/
     --colorCuatro: rgba(180, 123, 52, 1); /*color bordes*/
     --colorCinco: rgba(217, 217, 217, 1); /*gris claro*/
     --colorSeis: rgba(33, 33, 39, 1); /*gris oscuro*/
+<<<<<<< HEAD
     --colorError: #fe6960; /*rojo pastel*/
     --colorExito: #affbff; /*verde pastel*/
     --colorVerde: #056F2D;
     --colorBlanco:#7E7979;
     --colorLink: #0064FF;
+=======
+>>>>>>> desarrolloLautaro
 }
 
 * {
@@ -52,6 +59,7 @@ p {
 }
 a {
     text-decoration: none;
+<<<<<<< HEAD
     color: var(--colorLink);
     font-family: var(--fuente);
     font-weight: bold;
@@ -59,6 +67,12 @@ a {
 a:hover {
     color: var(--colorVerde);
     text-decoration: underline;
+=======
+    color: var(--colorBlanco);
+}
+a:hover {
+    color: var(--colorVerde);
+>>>>>>> desarrolloLautaro
 }
 button {
     color: var(--colorDos);
@@ -91,7 +105,12 @@ header {
     width: 80px;
     margin: 10px 20px;
     cursor: pointer;
+<<<<<<< HEAD
     border-radius: 50px;
+=======
+    border-radius: 10px;
+    border: 2px solid var(--colorCinco);
+>>>>>>> desarrolloLautaro
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
 .logo:hover {
@@ -122,7 +141,11 @@ header {
 /*Motor-busqueda + btn navbar*/
 .search-bar {
     width: 100%;
+<<<<<<< HEAD
     max-width: 350px;
+=======
+    max-width: 700px;
+>>>>>>> desarrolloLautaro
     height: 35px;
     background-color: var(--colorDos);
     display: flex;
@@ -131,6 +154,13 @@ header {
     padding: 10px 20px;
     border: 1px solid var(--colorCinco);
     backdrop-filter: blur(4px) saturate(180%);
+<<<<<<< HEAD
+=======
+    
+}
+.precio {
+    max-width: 100px;
+>>>>>>> desarrolloLautaro
 }
 .search-bar input {
     background: transparent;
@@ -155,6 +185,10 @@ header {
     height: 30px;
     background: var(--colorSeis);
     cursor: pointer;
+<<<<<<< HEAD
+=======
+    margin-left: 10px;
+>>>>>>> desarrolloLautaro
 }
 .menu-container {
     background-color: var(--colorSeis);
@@ -578,7 +612,11 @@ main {
 
 @media (max-width: 600px) {
     main {
+<<<<<<< HEAD
         justify-content: center;
+=======
+        justify-content: center; 
+>>>>>>> desarrolloLautaro
     }
 
     .form-container {
@@ -594,7 +632,10 @@ main {
 }
 .textarea{
     width: 100%;
+<<<<<<< HEAD
     height: 10rem;
+=======
+>>>>>>> desarrolloLautaro
 }
 
 /**LISTAS**/
@@ -612,12 +653,21 @@ main {
     width: 100%;
 }
 .property-table th, .property-table td {
+<<<<<<< HEAD
     border: 1px solid var(--colorCinco);
     padding: 5px;
     text-align: center;
 }
 .property-table th {
     background-color: var(--colorDos);
+=======
+    border: 1px solid var(--colorCinco); 
+    padding: 5px; 
+    text-align: center; 
+}
+.property-table th {
+    background-color: var(--colorDos); 
+>>>>>>> desarrolloLautaro
 }
 .td-special{
     display: flex;
@@ -851,6 +901,25 @@ main {
         align-items: center;
         justify-content: center
     }
+<<<<<<< HEAD
+=======
+    
+   .mi-boton {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Cambia el color de fondo al pasar el ratón por encima del botón con la clase "mi-boton" */
+    .mi-boton:hover {
+        background-color: #45a049;
+    }
+>>>>>>> desarrolloLautaro
 
 
     /* 
